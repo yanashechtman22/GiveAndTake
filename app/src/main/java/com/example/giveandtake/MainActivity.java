@@ -4,17 +4,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.giveandtake.auth.LoginFragment;
+import com.example.giveandtake.auth.RegisterFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.giveandtake.databinding.ActivityMainBinding;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +55,34 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        ViewPager viewPager = findViewById(R.id.viewPager);
+
+        AuthenticationPagerAdapter pagerAdapter = new AuthenticationPagerAdapter(getSupportFragmentManager());
+        pagerAdapter.addFragmet(new LoginFragment());
+        pagerAdapter.addFragmet(new RegisterFragment());
+        viewPager.setAdapter(pagerAdapter);
+    }
+
+    static class AuthenticationPagerAdapter extends FragmentPagerAdapter {
+        private ArrayList<Fragment> fragmentList = new ArrayList<>();
+
+        public AuthenticationPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            return fragmentList.get(i);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        void addFragmet(Fragment fragment) {
+            fragmentList.add(fragment);
+        }
     }
 
     @Override
@@ -63,3 +99,4 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 }
+
