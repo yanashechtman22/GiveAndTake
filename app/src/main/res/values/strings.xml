@@ -24,5 +24,6 @@
     <string name="to_register">Click here to register</string>
     <string name="no_account">Doesn\'t have an account?</string>
     <string name="register_tag">Let\'s join us and \nBuild your relationship with others</string>
+    <string name="min_password_length">6</string>
 
 </resources>
