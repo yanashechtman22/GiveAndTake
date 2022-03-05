@@ -4,11 +4,6 @@ package com.example.giveandtake.auth;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +12,16 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.example.giveandtake.R;
 import com.example.giveandtake.model.AuthenticationModel;
+import com.example.giveandtake.utils.EmailValidator;
 import com.example.giveandtake.utils.InputValidator;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.regex.Pattern;
 
 public class RegisterFragment extends Fragment {
     EditText displayName;
@@ -34,7 +32,8 @@ public class RegisterFragment extends Fragment {
     ProgressBar progressBar;
     View view;
 
-    private final int MIN_PASS_LENGTH = R.string.min_password_length;
+    //TODO: extract number to constants
+    private final int MIN_PASS_LENGTH = 6;
     boolean nameNotEmpty = false;
     boolean emailValid = false;
     boolean passwordValid = false;
@@ -81,10 +80,6 @@ public class RegisterFragment extends Fragment {
             }
         });
 
-        String displayNameText = displayName.getText().toString();
-        String emailText = email.getText().toString();
-        String passwordText = password.getText().toString();
-
         registerBtn.setOnClickListener(view1 -> {
             handleRegisterNewUser();
         });
@@ -92,11 +87,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private boolean validateEmail(String emailAddress) {
-        String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
-                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-        return Pattern.compile(regexPattern)
-                .matcher(emailAddress)
-                .matches();
+        return EmailValidator.validateEmail(emailAddress);
     }
 
     private void checkInputValidation() {
@@ -108,11 +99,11 @@ public class RegisterFragment extends Fragment {
         String displayNameText = displayName.getText().toString();
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
-        RegisterListener registerListener = new RegisterListener();
+        RegisterAuthListener registerListener = new RegisterAuthListener();
         AuthenticationModel.instance.registerNewUser(displayNameText,emailText,passwordText,registerListener);
     }
 
-    public class RegisterListener implements AuthenticationModel.RegisterListener{
+    public class RegisterAuthListener implements AuthenticationModel.AuthListener {
 
         @Override
         public void onComplete(FirebaseUser user) {

@@ -17,21 +17,16 @@ public class AuthenticationModel {
 
     FirebaseAuthenticationModel firebaseAuthenticationModel = new FirebaseAuthenticationModel();
 
-    public interface RegisterListener{
+    public interface AuthListener {
         void onComplete(FirebaseUser user);
         void onFailure(String message);
     }
 
-    public interface LoginListener{
-        void onComplete(FirebaseUser user);
-        void onFailure(String message);
-    }
-
-    public void registerNewUser(String displayName, String email, String password, RegisterListener listener) {
+    public void registerNewUser(String displayName, String email, String password, AuthListener listener) {
         firebaseAuthenticationModel.registerNewUser(displayName, email, password, listener);
     }
 
-    public void loginUser(String email, String password, LoginListener listener) {
+    public void loginUser(String email, String password, AuthListener listener) {
         firebaseAuthenticationModel.loginUser(email,password, listener);
     }
 
