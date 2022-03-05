@@ -1,5 +1,6 @@
 package com.example.giveandtake.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -9,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.giveandtake.MainActivity;
 import com.example.giveandtake.R;
 import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.utils.EmailValidator;
@@ -26,6 +29,7 @@ public class LoginFragment extends Fragment {
     Button registerBtn;
     Button loginBtn;
     View view;
+    ProgressBar progressBar;
     boolean emailValid = false;
     boolean passwordValid = false;
 
@@ -37,6 +41,7 @@ public class LoginFragment extends Fragment {
         password = view.findViewById(R.id.et_password_login);
         registerBtn = view.findViewById(R.id.btn_to_register);
         loginBtn = view.findViewById(R.id.btn_login);
+        progressBar = view.findViewById(R.id.loginProgressBar);
 
         loginBtn.setOnClickListener(v-> {
             handleLogin();
@@ -72,10 +77,17 @@ public class LoginFragment extends Fragment {
     }
 
     private void handleLogin() {
+        progressBar.setVisibility(View.VISIBLE);
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
         LoginAuthListener loginAuthListener = new LoginAuthListener();
         AuthenticationModel.instance.loginUser(emailText,passwordText, loginAuthListener);
+    }
+
+    private void toFeedActivity() {
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     public class LoginAuthListener implements AuthenticationModel.AuthListener{
@@ -84,6 +96,7 @@ public class LoginFragment extends Fragment {
         public void onComplete(FirebaseUser user) {
             Snackbar.make(view, user.getDisplayName(), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
+            toFeedActivity();
         }
 
         @Override
