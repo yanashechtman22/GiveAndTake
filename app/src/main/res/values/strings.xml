@@ -10,4 +10,20 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="swipe_left_for_register">Swipe Left for Register</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="e_mail">Email</string>
+    <string name="tag">Good to have you back! \nLogin to start Give&amp;Take</string>
+    <string name="swipe_right_for_login">Swipe Right for Login</string>
+    <string name="register">Register</string>
+    <string name="re_type_password">Re-type Password</string>
+    <string name="your_name">Full Name</string>
+    <string name="to_register">Click here to register</string>
+    <string name="no_account">Doesn\'t have an account?</string>
+    <string name="register_tag">Let\'s join us and \nBuild your relationship with others</string>
+    <integer name="min_password_length">6</integer>
+
 </resources>
