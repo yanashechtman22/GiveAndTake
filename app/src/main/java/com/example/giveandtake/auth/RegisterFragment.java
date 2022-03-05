@@ -86,7 +86,7 @@ public class RegisterFragment extends Fragment {
         String passwordText = password.getText().toString();
 
         registerBtn.setOnClickListener(view1 -> {
-            handleRegisterNewUser(displayNameText,emailText,passwordText);
+            handleRegisterNewUser();
         });
         return view;
     }
@@ -103,8 +103,11 @@ public class RegisterFragment extends Fragment {
         registerBtn.setEnabled(passwordValid && nameNotEmpty && emailValid);
     }
 
-    private void handleRegisterNewUser(String displayNameText, String emailText, String passwordText) {
+    private void handleRegisterNewUser() {
         progressBar.setVisibility(View.VISIBLE);
+        String displayNameText = displayName.getText().toString();
+        String emailText = email.getText().toString();
+        String passwordText = password.getText().toString();
         RegisterListener registerListener = new RegisterListener();
         AuthenticationModel.instance.registerNewUser(displayNameText,emailText,passwordText,registerListener);
     }

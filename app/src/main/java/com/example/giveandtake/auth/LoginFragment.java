@@ -27,15 +27,15 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_login, container, false);
-        email = view.findViewById(R.id.et_email);
-        password = view.findViewById(R.id.et_password);
+        email = view.findViewById(R.id.et_email_login);
+        password = view.findViewById(R.id.et_password_login);
         registerBtn = view.findViewById(R.id.btn_to_register);
         loginBtn = view.findViewById(R.id.btn_login);
 
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
         loginBtn.setOnClickListener(v-> {
-            handleLogin(emailText,passwordText);
+            handleLogin();
         });
 
         registerBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(LoginFragmentDirections
@@ -43,7 +43,9 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    private void handleLogin(String emailText, String passwordText) {
+    private void handleLogin() {
+        String emailText = email.getText().toString();
+        String passwordText = password.getText().toString();
         LoginListener loginListener = new LoginListener();
         AuthenticationModel.instance.loginUser(emailText,passwordText, loginListener);
     }
