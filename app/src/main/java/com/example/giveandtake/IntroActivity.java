@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.giveandtake.auth.LoginActivity;
+import com.example.giveandtake.model.AppModel;
+import com.example.giveandtake.model.AuthenticationModel;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -14,25 +16,22 @@ public class IntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
-        /*Model.instance.executor.execute(() -> {
+        AppModel.instance.executor.execute(() -> {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (Model.instance.isSignedIn()){
-                Model.instance.mainThread.post(() -> {
+            if (AuthenticationModel.instance.isSignedIn()){
+                AppModel.instance.mainThread.post(() -> {
                     toFeedActivity();
                 });
             }else{
-                Model.instance.mainThread.post(() -> {
-                    toFeedActivity();
+                AppModel.instance.mainThread.post(() -> {
+                    toLoginActivity();
                 });
             }
-        });*/
-
-        toLoginActivity();
-
+        });
     }
 
     private void toLoginActivity() {
@@ -41,9 +40,9 @@ public class IntroActivity extends AppCompatActivity {
         finish();
     }
 
-    /*private void toFeedActivity() {
-        Intent intent = new Intent(this, DrawerActivity.class);
+    private void toFeedActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
-    }*/
+    }
 }

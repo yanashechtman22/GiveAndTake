@@ -37,13 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -55,34 +48,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        ViewPager viewPager = findViewById(R.id.viewPager);
 
-        AuthenticationPagerAdapter pagerAdapter = new AuthenticationPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragmet(new LoginFragment());
-        pagerAdapter.addFragmet(new RegisterFragment());
-        viewPager.setAdapter(pagerAdapter);
-    }
-
-    static class AuthenticationPagerAdapter extends FragmentPagerAdapter {
-        private ArrayList<Fragment> fragmentList = new ArrayList<>();
-
-        public AuthenticationPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int i) {
-            return fragmentList.get(i);
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-        void addFragmet(Fragment fragment) {
-            fragmentList.add(fragment);
-        }
     }
 
     @Override

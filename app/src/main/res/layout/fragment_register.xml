@@ -140,8 +140,6 @@
 
     </RelativeLayout>
 </LinearLayout>
-
-    <!--TODO:make progessBarAboveScreen -->
     <ProgressBar
         android:id="@+id/simpleProgressBar"
         android:layout_width="100dp"
@@ -151,6 +149,4 @@
         android:indeterminateTint="@color/colorPrimary"
         android:layout_centerInParent="true"
         />
-
-
 </RelativeLayout>
