@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.profile.CreatePostFragment" >
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/createPost_locationInput"
+        android:layout_width="262dp"
+        android:layout_height="43dp"
+        android:hint="Name of city"
+        app:layout_constraintStart_toEndOf="@+id/createPost_locationText"
+        tools:layout_editor_absoluteY="429dp" />
+
+    <TextView
+        android:id="@+id/createPost_title"
+        android:layout_width="108dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="16dp"
+        android:text="Create post"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/createPost_imageText"
+        android:layout_width="374dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Item Image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createPost_descriptionInput"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/createPost_descriptionInput"
+        android:layout_width="368dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="42dp"
+        android:hint="Describe your item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createPost_title" />
+
+    <ImageView
+        android:id="@+id/creatPost_image"
+        android:layout_width="196dp"
+        android:layout_height="162dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_menu_gallery"
+        app:layout_constraintTop_toBottomOf="@+id/createPost_imageText"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/createPost_locationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="441dp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/location2"
+        app:layout_constraintEnd_toStartOf="@+id/createPost_locationText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="437dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="142dp"
+        android:layout_height="49dp"
+        android:text="Upload"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="563dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
