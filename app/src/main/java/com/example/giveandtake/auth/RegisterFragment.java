@@ -67,11 +67,12 @@ public class RegisterFragment extends Fragment {
 
         password.addTextChangedListener(new InputValidator(password) {
             @SuppressLint("ResourceType")
-            @Override public void validate(TextView textView, String text) {
-                if(text.length() >= MIN_PASS_LENGTH){
+            @Override
+            public void validate(TextView textView, String text) {
+                if (text.length() >= MIN_PASS_LENGTH) {
                     validationCard.setCardBackgroundColor(Color.parseColor(getString(R.color.colorAccent)));
                     passwordValid = true;
-                }else{
+                } else {
                     //TODO: move string to strings file
                     validationCard.setCardBackgroundColor(Color.parseColor("#dcdcdc"));
                     passwordValid = false;
@@ -100,20 +101,21 @@ public class RegisterFragment extends Fragment {
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
         RegisterAuthListener registerListener = new RegisterAuthListener();
-        AuthenticationModel.instance.registerNewUser(displayNameText,emailText,passwordText,registerListener);
+        AuthenticationModel.instance.registerNewUser(displayNameText, emailText, passwordText, registerListener);
     }
 
     public class RegisterAuthListener implements AuthenticationModel.AuthListener {
 
         @Override
         public void onComplete(FirebaseUser user) {
-            String successMessage = String.format("User %s added successfully",user.getDisplayName());
+            String successMessage = String.format("User %s added successfully", user.getDisplayName());
             Snackbar.make(view, successMessage, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
             Navigation.findNavController(view).navigate(
                     RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
             );
         }
+
         @Override
         public void onFailure(String message) {
             String failedMessage = "Failed to add user" + message;

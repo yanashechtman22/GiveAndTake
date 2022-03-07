@@ -2,11 +2,11 @@ package com.example.giveandtake.model;
 
 import java.io.Serializable;
 
-public class Ad implements Serializable {
+public class Post implements Serializable {
     private String text;
     private int image;
 
-    public Ad(String text, int image) {
+    public Post(String text, int image) {
         this.text = text;
         this.image = image;
     }
