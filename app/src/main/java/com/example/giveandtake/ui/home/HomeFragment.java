@@ -52,23 +52,8 @@ public class HomeFragment extends Fragment {
         postsList.setAdapter(adapter);
 
         Button profile = view.findViewById(R.id.home_to_profile_button);
-//        profile.setOnClickListener(v ->
-////                        handleMoveToProfile()
-//
-//                Navigation.findNavController(view).navigate
-//                        (R.id.action_homeFragment_to_userProfileFragment());
+        profile.setOnClickListener(handleMoveToProfile());
 
-        profile.setOnClickListener(
-                Navigation.createNavigateOnClickListener(
-                        R.id.action_nav_home_to_userProfileFragment2));
-
-
-//        profile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                handleMoveToProfile();
-//            }
-//        });
         return view;
     }
 
@@ -125,11 +110,11 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void handleMoveToProfile() {
+    private View.OnClickListener handleMoveToProfile() {
 //        Bundle bundle = new Bundle();
 //        bundle.putString("email", "amount");
-        //Navigation.findNavController(view).navigate(R.id.confirmationAction, bundle);
-
+        return Navigation.createNavigateOnClickListener(
+                R.id.action_nav_home_to_userProfileFragment2);
 
     }
 

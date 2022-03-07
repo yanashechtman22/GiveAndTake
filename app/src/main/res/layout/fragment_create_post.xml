@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.CreatePostFragment" >
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.post.CreatePostFragment">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/createPost_locationInput"
@@ -12,6 +13,7 @@
         android:layout_height="43dp"
         android:hint="Name of city"
         app:layout_constraintStart_toEndOf="@+id/createPost_locationText"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="429dp" />
 
     <TextView
@@ -54,10 +56,11 @@
         android:id="@+id/creatPost_image"
         android:layout_width="196dp"
         android:layout_height="162dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/ic_menu_gallery"
         app:layout_constraintTop_toBottomOf="@+id/createPost_imageText"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="115dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/createPost_locationText"
@@ -65,7 +68,8 @@
         android:layout_height="wrap_content"
         android:text="Location"
         tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="441dp" />
+        tools:layout_editor_absoluteY="441dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -77,13 +81,15 @@
         app:layout_constraintEnd_toStartOf="@+id/createPost_locationText"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="437dp" />
+        tools:layout_editor_absoluteY="437dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="142dp"
         android:layout_height="49dp"
         android:text="Upload"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="134dp"
         tools:layout_editor_absoluteY="563dp" />
 
