@@ -10,7 +10,7 @@
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.128125" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.128125" />
-        <entry key="app/src/main/res/layout/fragment_create_post.xml" value="0.128125" />
+        <entry key="app/src/main/res/layout/fragment_create_post.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.128125" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.23244929797191888" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.128125" />

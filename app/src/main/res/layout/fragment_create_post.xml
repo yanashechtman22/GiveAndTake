@@ -71,18 +71,18 @@
         tools:layout_editor_absoluteY="441dp"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="0dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/location2"
-        app:layout_constraintEnd_toStartOf="@+id/createPost_locationText"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="437dp"
-        tools:ignore="MissingConstraints" />
+<!--    <ImageView-->
+    <!--        android:id="@+id/imageView4"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="23dp"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:src="@drawable/location2"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/createPost_locationText"-->
+    <!--        app:layout_constraintHorizontal_bias="1.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        tools:layout_editor_absoluteY="437dp"-->
+    <!--        tools:ignore="MissingConstraints" />-->
 
     <Button
         android:id="@+id/button"

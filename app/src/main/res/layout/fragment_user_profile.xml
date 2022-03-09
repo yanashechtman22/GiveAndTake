@@ -9,7 +9,7 @@
     <!--    tools:showIn="@layout/app_bar_main">-->
 
     <TextView
-        android:id="@+id/user_profile_phone"
+        android:id="@+id/user_profile_phone_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="user phone"
@@ -18,7 +18,7 @@
         tools:layout_editor_absoluteY="119dp" />
 
     <TextView
-        android:id="@+id/user_profile_email"
+        android:id="@+id/user_profile_email_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="user email"
@@ -27,11 +27,42 @@
         tools:layout_editor_absoluteY="84dp" />
 
     <TextView
-        android:id="@+id/user_profile_name"
+        android:id="@+id/user_profile_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="user name"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="303dp"
         tools:layout_editor_absoluteY="158dp" />
+
+    <EditText
+        android:id="@+id/user_profile_email_input"
+        android:layout_width="129dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        tools:layout_editor_absoluteX="169dp"
+        tools:layout_editor_absoluteY="69dp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/user_profile_phone_input"
+        android:layout_width="130dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:inputType="phone"
+        tools:layout_editor_absoluteX="169dp"
+        tools:layout_editor_absoluteY="102dp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/user_profile_name_input"
+        android:layout_width="130dp"
+        android:layout_height="39dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="168dp"
+        tools:layout_editor_absoluteY="140dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

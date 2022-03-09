@@ -1,12 +1,9 @@
 package com.example.giveandtake.ui.profile;
 
-import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,20 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.giveandtake.R;
-import com.example.giveandtake.auth.RegisterFragmentDirections;
-import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.model.FireBaseUserModel;
 import com.example.giveandtake.model.User;
-import com.example.giveandtake.utils.EmailValidator;
-import com.example.giveandtake.utils.InputValidator;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseUser;
-
-import org.w3c.dom.Text;
 
 public class UserProfileFragment extends Fragment {
 
-    TextView phone;
+    EditText phone;
     TextView email;
     TextView name;
     Button registerBtn;
@@ -64,10 +53,9 @@ public class UserProfileFragment extends Fragment {
     }
 
     private void initializeUserData(User user) {
-        email = view.findViewById(R.id.user_profile_email);
-        name = view.findViewById(R.id.user_profile_name);
-        phone = view.findViewById(R.id.user_profile_phone);
-
+        email = view.findViewById(R.id.user_profile_email_input);
+        name = view.findViewById(R.id.user_profile_name_input);
+        phone = view.findViewById(R.id.user_profile_phone_input);
 
         name.setText(user.getDisplayName());
         email.setText(user.getEmail());
