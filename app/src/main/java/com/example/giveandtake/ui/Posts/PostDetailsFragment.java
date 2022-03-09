@@ -14,18 +14,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.giveandtake.R;
-import com.example.giveandtake.model.Ad;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
+import com.example.giveandtake.model.Post;
 import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
 
 
-public class NoteDetailsFragment extends Fragment {
+public class PostDetailsFragment extends Fragment {
     TextView titleTv;
     TextView idTv;
     TextView contentTv;
-    Ad ad;
+    Post post;
     Button editBtn;
     Button deleteBtn;
     ImageView imageView;
@@ -37,14 +37,14 @@ public class NoteDetailsFragment extends Fragment {
 
         UserInfo userInfo = AuthenticationModel.instance.getUserInfo();
 
-        String noteId = NoteDetailsFragmentArgs.fromBundle(getArguments()).getNoteId();
+        String noteId = PostDetailsFragmentArgs.fromBundle(getArguments()).getNoteId();
         editBtn = view.findViewById(R.id.details_edit_btn);
         deleteBtn = view.findViewById(R.id.details_delete_btn);
 
         editBtn.setVisibility(View.INVISIBLE);
         deleteBtn.setVisibility(View.INVISIBLE);
 
-        AppModel.instance.getNoteById(noteId, new AppModel.GetNoteById() {
+       /* AppModel.instance.getNoteById(noteId, new AppModel.GetNoteById() {
             @Override
             public void onComplete(Note note) {
                 titleTv.setText(note.getTitle());
@@ -59,7 +59,7 @@ public class NoteDetailsFragment extends Fragment {
                     Picasso.get().load(note.getImageUrl()).into(imageView);
                 }
             }
-        });
+        });*/
 
         titleTv = view.findViewById(R.id.details_title_tv);
         idTv = view.findViewById(R.id.details_id_tv);
@@ -68,28 +68,8 @@ public class NoteDetailsFragment extends Fragment {
 
 
         editBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(NoteDetailsFragmentDirections
-                    .actionNoteDetailsFragmentToFragmentEditNote(noteId));
-        });
-
-        deleteBtn.setOnClickListener((v) -> {
-            progressBar.setVisibility(View.VISIBLE);
-            Model.instance.getNoteById(noteId, new Model.GetNoteById() {
-                @Override
-                public void onComplete(Note noteFromDb) {
-                    note = new Note(noteFromDb.getId(), noteFromDb.getTitle(), noteFromDb.getContent(),
-                            new LatLng(noteFromDb.getLatitude(), noteFromDb.getLongitude()),
-                            noteFromDb.getUserId(),
-                            noteFromDb.getImageUrl(),
-                            true);
-
-                    Model.instance.editNote(note, () -> {
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Navigation.findNavController(view).navigate(NoteDetailsFragmentDirections
-                                .actionNoteDetailsFragmentToMap());
-                    });
-                }
-            });
+            Navigation.findNavController(v).navigate(PostDetailsFragmentDirections
+                    .actionNoteDetailsFragmentToHome(noteId));
         });
         return view;
     }

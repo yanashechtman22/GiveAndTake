@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.giveandtake.MyApplication;
 import com.example.giveandtake.R;
-import com.example.giveandtake.model.Ad;
+import com.example.giveandtake.model.Post;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
 import com.google.android.material.snackbar.Snackbar;
@@ -30,7 +30,7 @@ import com.google.firebase.auth.UserInfo;
 import java.io.IOException;
 import java.util.UUID;
 
-public class AddAdFragment extends Fragment {
+public class AddPostFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;
     private static final int REQUEST_GALLERY = 100;
     EditText nameEt;
@@ -48,7 +48,7 @@ public class AddAdFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_add_ad,container, false);
+        view = inflater.inflate(R.layout.fragment_add_post,container, false);
         nameEt = view.findViewById(R.id.title_et);
         idEt = view.findViewById(R.id.content_et);
         saveBtn = view.findViewById(R.id.main_save_btn);
@@ -120,19 +120,19 @@ public class AddAdFragment extends Fragment {
         String userId = userInfo.getUid();
 
         //TODO: this is mock! this line shouldn't be here
-        Ad ad = new Ad(content,0, "beer sheva");
+        Post post = new Post(content,0, "beer sheva");
 
         if (imageBitmap == null){
-            AppModel.instance.addAd(ad,()->{
-                Snackbar.make(view, "without image, "+ ad.getContent(), Snackbar.LENGTH_LONG)
+            AppModel.instance.addPost(post,()->{
+                Snackbar.make(view, "without image, "+ post.getContent(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             });
         } else {
             String adImageId = UUID.randomUUID().toString();
             AppModel.instance.saveImage(imageBitmap, adImageId + ".jpg", url -> {
-                ad.setImageUrl(url);
-                AppModel.instance.addAd(ad,()->{
-                    Snackbar.make(view, "with image, " + ad.getContent(), Snackbar.LENGTH_LONG)
+                post.setImageUrl(url);
+                AppModel.instance.addPost(post,()->{
+                    Snackbar.make(view, "with image, " + post.getContent(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 });
             });
