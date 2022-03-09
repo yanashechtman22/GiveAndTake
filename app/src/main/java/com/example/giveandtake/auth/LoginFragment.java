@@ -65,6 +65,7 @@ public class LoginFragment extends Fragment {
 
         registerBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(LoginFragmentDirections
                 .actionLoginFragmentToRegisterFragment()));
+
         return view;
     }
 

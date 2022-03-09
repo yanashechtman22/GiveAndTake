@@ -6,14 +6,14 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Ad implements Serializable {
-    private String Id;
+public class Post implements Serializable {
+    private String id;
     private String content;
     private int image;
     private Uri imageUrl;
     private String location;
 
-    public Ad(String content, int image, String location) {
+    public Post(String content, String text, int image) {
         this.content = content;
         this.image = image;
         this.location = location;

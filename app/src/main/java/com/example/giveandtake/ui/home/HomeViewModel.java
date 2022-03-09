@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.giveandtake.R;
-import com.example.giveandtake.model.Ad;
+import com.example.giveandtake.model.Post;
 
 import java.util.ArrayList;
 
 public class HomeViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
-    private ArrayList<Ad> posts = new ArrayList<>();
+    private ArrayList<Post> posts = new ArrayList<>();
 
     public HomeViewModel() {
         posts.add(new Ad("This is first ad", R.drawable.image1, "bla"));
@@ -24,5 +24,5 @@ public class HomeViewModel extends ViewModel {
     public LiveData<String> getText() {
         return mText;
     }
-    public ArrayList<Ad> getPosts(){ return posts;}
+    public ArrayList<Post> getPosts(){ return posts;}
 }

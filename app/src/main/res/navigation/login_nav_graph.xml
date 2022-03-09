@@ -8,8 +8,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.giveandtake.auth.LoginFragment"
-        android:label="Login"
-        tools:layout="@layout/fragment_login" >
+        android:label="Login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
