@@ -9,6 +9,7 @@
 
     <string name="menu_home">Give&amp;Take</string>
     <string name="menu_profile">Profile</string>
+    <string name="add_new_ad">Create Ad</string>
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

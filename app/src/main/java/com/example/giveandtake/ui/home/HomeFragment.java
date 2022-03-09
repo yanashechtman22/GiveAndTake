@@ -1,6 +1,7 @@
 package com.example.giveandtake.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,8 +21,6 @@ import com.example.giveandtake.databinding.FragmentHomeBinding;
 import com.example.giveandtake.model.Ad;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class HomeFragment extends Fragment {
 
@@ -42,6 +42,16 @@ public class HomeFragment extends Fragment {
         postsList.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ItemAdapter(homeViewModel.getPosts());
         postsList.setAdapter(adapter);
+
+        //clicking on an add to go to ads details
+        .setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                String noteId = viewModel.getData().getValue().get(position).getId();
+                Navigation.findNavController(v).navigate(MyNotesFragmentDirections.actionNavMyNotesToNoteDetailsFragment(noteId));
+            }
+        });
+
         return view;
     }
 
@@ -58,11 +68,6 @@ public class HomeFragment extends Fragment {
             super(itemView);
             textView = itemView.findViewById(R.id.item_title);
             imageView = itemView.findViewById(R.id.item_image);
-        }
-
-        void bind(Ad ad) {
-            textView.setText(ad.getText());
-            imageView.setImageResource(ad.getImage());
         }
     }
 
@@ -83,7 +88,13 @@ public class HomeFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
             Ad ad = homeViewModel.getPosts().get(position);
-            holder.bind(ad);
+            holder.textView.setText(ad.getContent());
+            holder.imageView.setImageResource(ad.getImage());
+
+            holder.itemView.setOnClickListener(v -> {
+                String id = ad.getId();
+                Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeToAdDetailsFragment(id));
+            });
         }
 
         @Override

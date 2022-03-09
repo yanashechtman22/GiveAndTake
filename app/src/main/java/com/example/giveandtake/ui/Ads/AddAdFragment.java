@@ -1,4 +1,4 @@
-package com.example.giveandtake.ui.addAd;
+package com.example.giveandtake.ui.Ads;
 
 import android.app.Activity;
 import android.content.Intent;

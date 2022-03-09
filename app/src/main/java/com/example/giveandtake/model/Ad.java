@@ -1,27 +1,71 @@
 package com.example.giveandtake.model;
 
+import android.net.Uri;
+
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Ad implements Serializable {
-    private String text;
+    private String Id;
+    private String content;
     private int image;
+    private Uri imageUrl;
+    private String location;
 
-    public Ad(String text, int image) {
-        this.text = text;
+    public Ad(String content, int image, String location) {
+        this.content = content;
         this.image = image;
+        this.location = location;
     }
 
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public int getImage() { return image; }
+    public int getImage() {
+        return image;
+    }
 
     public void setImage(int image) {
         this.image = image;
     }
+
+    public Uri getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(Uri imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Map<String, Object> toJson(){
+        Map<String,Object> outputJson = new HashMap<>();
+        outputJson.put("title", content);
+        outputJson.put("imageUrl", imageUrl.toString());
+        outputJson.put("location", location);
+        return outputJson;
+    }
+
+
 }

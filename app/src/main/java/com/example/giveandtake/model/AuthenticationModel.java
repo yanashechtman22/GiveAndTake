@@ -1,6 +1,7 @@
 package com.example.giveandtake.model;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 public class AuthenticationModel {
     public static final AuthenticationModel instance = new AuthenticationModel();
@@ -10,6 +11,10 @@ public class AuthenticationModel {
     public interface AuthListener {
         void onComplete(FirebaseUser user);
         void onFailure(String message);
+    }
+
+    public UserInfo getUserInfo() {
+        return firebaseAuthenticationModel.getUserInfo();
     }
 
     public void registerNewUser(String displayName, String email, String password, AuthListener listener) {
@@ -23,4 +28,6 @@ public class AuthenticationModel {
     public boolean isSignedIn() {
         return firebaseAuthenticationModel.isSignedIn();
     }
+
+
 }

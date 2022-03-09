@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class FirebaseAuthenticationModel {
@@ -18,6 +19,11 @@ public class FirebaseAuthenticationModel {
     public boolean isSignedIn(){
         FirebaseUser currentUser = mAuth.getCurrentUser();
         return currentUser != null;
+    }
+
+    public UserInfo getUserInfo() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        return user;
     }
 
     public void registerNewUser(String displayName, String email, String password, AuthenticationModel.AuthListener listener){
