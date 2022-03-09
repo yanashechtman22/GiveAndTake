@@ -1,4 +1,4 @@
-package com.example.giveandtake.ui.addAd;
+package com.example.giveandtake.ui;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.example.giveandtake.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_add_ad#newInstance} factory method to
+ * Use the {@link AdDetails#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_add_ad extends Fragment {
+public class AdDetails extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class fragment_add_ad extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_add_ad() {
+    public AdDetails() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class fragment_add_ad extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_add_ad.
+     * @return A new instance of fragment AdDetails.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_add_ad newInstance(String param1, String param2) {
-        fragment_add_ad fragment = new fragment_add_ad();
+    public static AdDetails newInstance(String param1, String param2) {
+        AdDetails fragment = new AdDetails();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class fragment_add_ad extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_ad, container, false);
+        return inflater.inflate(R.layout.fragment_ad_details, container, false);
     }
 }
