@@ -1,4 +1,4 @@
-package com.example.giveandtake.ui.Ads;
+package com.example.giveandtake.ui.Posts;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -33,8 +33,7 @@ import java.util.UUID;
 public class AddPostFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;
     private static final int REQUEST_GALLERY = 100;
-    EditText nameEt;
-    EditText idEt;
+    EditText contentEt;
     CheckBox cb;
     Button saveBtn;
     Button cancelBtn;
@@ -49,8 +48,7 @@ public class AddPostFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_post,container, false);
-        nameEt = view.findViewById(R.id.title_et);
-        idEt = view.findViewById(R.id.content_et);
+        contentEt = view.findViewById(R.id.content_et);
         saveBtn = view.findViewById(R.id.main_save_btn);
         cancelBtn = view.findViewById(R.id.main_cancel_btn);
         avatarImv = view.findViewById(R.id.baseImage_iv);
@@ -95,10 +93,10 @@ public class AddPostFragment extends Fragment {
             imageBitmap = (Bitmap) extras.get("data");
             avatarImv.setImageBitmap(imageBitmap);
         } else if(requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK) {
-            Uri imageUri = data.getData();
+            Uri imageUrl = data.getData();
             try {
                 imageBitmap = MediaStore.Images.Media.getBitmap(MyApplication.getContext()
-                        .getContentResolver(), imageUri);
+                        .getContentResolver(), imageUrl);
                 avatarImv.setImageBitmap(imageBitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -114,8 +112,7 @@ public class AddPostFragment extends Fragment {
         camBtn.setEnabled(false);
         galleryBtn.setEnabled(false);
 
-        String title = nameEt.getText().toString();
-        String content = idEt.getText().toString();
+        String content = contentEt.getText().toString();
         Long lud = new Long(0);
         String userId = userInfo.getUid();
 

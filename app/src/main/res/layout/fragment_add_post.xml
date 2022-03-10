@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="#80FFFFFF"
     android:backgroundTintMode="src_over"
-    tools:context=".ui.Ads.AddAdFragment">
+    tools:context=".ui.Posts.AddPostFragment">
 
     <ImageView
         android:id="@+id/baseImage_iv"
@@ -80,7 +80,7 @@
         android:layout_marginTop="103dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="105dp"
-        android:text="Cancel:"
+        android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/main_save_btn"
         app:layout_constraintHorizontal_bias="0.5"
@@ -93,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="8dp"
-        android:text="Save:"
+        android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/main_cancel_btn"

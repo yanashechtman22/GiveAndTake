@@ -3,33 +3,51 @@ package com.example.giveandtake.model;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
-import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class FirebaseAppModel {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    final private static String ADS_COLLECTION_NAME = "Ads";
+    final private static String POSTS_COLLECTION_NAME = "Posts";
 
-    public void addNewAd(Ad newAd, AppModel.AddAdListener listener) {
-        String id = db.collection(ADS_COLLECTION_NAME).document().getId();
-        newAd.setId(id);
-        Map<String, Object> json = newAd.toJson();
-        db.collection(ADS_COLLECTION_NAME)
-                .document(newAd.getId())
+    public void getAllPosts(Long lastUpdateDate, AppModel.GetPostsListener listener) {
+        db.collection(POSTS_COLLECTION_NAME)
+                .get()
+                .addOnCompleteListener(task -> {
+                     List<Post> list = new LinkedList<>();
+                    if (task.isSuccessful()){
+                        for (QueryDocumentSnapshot doc : task.getResult()){
+                            Map<String, Object> postData = doc.getData();
+                            postData.put("id", doc.getId());
+                            Post post = Post.fromJson(postData);
+                            if (post != null){
+                                list.add(post);
+                            }
+                        }
+                    }
+                    listener.onComplete(list);
+                });
+    }
+
+    public void addNewPost(Post newPost, AppModel.AddAdListener listener) {
+        String id = db.collection(POSTS_COLLECTION_NAME).document().getId();
+        newPost.setId(id);
+        Map<String, Object> json = newPost.toJson();
+        db.collection(POSTS_COLLECTION_NAME)
+                .document(newPost.getId())
                 .set(json)
                 .addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
@@ -37,7 +55,7 @@ public class FirebaseAppModel {
 
     public void saveImage(Bitmap imageBitmap, String imageId, AppModel.SaveImageListener listener) {
         StorageReference storageRef = storage.getReference();
-        StorageReference adsImgRef = storageRef.child("ads_images/" + imageId);
+        StorageReference adsImgRef = storageRef.child("posts_images/" + imageId);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -49,17 +67,14 @@ public class FirebaseAppModel {
                 throw task.getException();
             }
             return adsImgRef.getDownloadUrl();
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if(task.isSuccessful()){
-                    Uri downloadUri = task.getResult();
-                    listener.onComplete(downloadUri);
-                }else{
-                    listener.onComplete(null);
-                }
-
+        }).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                Uri downloadUri = task.getResult();
+                listener.onComplete(downloadUri.toString());
+            }else{
+                listener.onComplete(null);
             }
+
         });
     }
 }

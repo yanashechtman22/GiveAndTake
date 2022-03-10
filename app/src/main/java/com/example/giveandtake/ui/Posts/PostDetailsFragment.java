@@ -1,4 +1,4 @@
-package com.example.giveandtake.ui.Ads;
+package com.example.giveandtake.ui.Posts;
 
 import android.os.Bundle;
 
@@ -10,20 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.giveandtake.R;
-import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.model.Post;
 import com.google.firebase.auth.UserInfo;
-import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Picasso;
 
 
 public class PostDetailsFragment extends Fragment {
-    TextView titleTv;
-    TextView idTv;
     TextView contentTv;
     Post post;
     Button editBtn;
@@ -33,22 +29,25 @@ public class PostDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ad_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_post_details, container, false);
 
         UserInfo userInfo = AuthenticationModel.instance.getUserInfo();
 
-        String noteId = PostDetailsFragmentArgs.fromBundle(getArguments()).getNoteId();
+        String postId = PostDetailsFragmentArgs.fromBundle(getArguments()).getPostId();
         editBtn = view.findViewById(R.id.details_edit_btn);
         deleteBtn = view.findViewById(R.id.details_delete_btn);
 
         editBtn.setVisibility(View.INVISIBLE);
         deleteBtn.setVisibility(View.INVISIBLE);
 
-       /* AppModel.instance.getNoteById(noteId, new AppModel.GetNoteById() {
+        contentTv = view.findViewById(R.id.details_content_tv);
+        imageView = view.findViewById(R.id.details_image);
+
+        contentTv.setText(postId);
+
+         /* AppModel.instance.getNoteById(postId, new AppModel.GetNoteById() {
             @Override
             public void onComplete(Note note) {
-                titleTv.setText(note.getTitle());
-                idTv.setText(note.getId());
                 contentTv.setText(note.getContent());
                 editBtn.setVisibility(note.getUserId().equals(userInfo.getUid())?
                         View.VISIBLE : View.INVISIBLE);
@@ -61,15 +60,10 @@ public class PostDetailsFragment extends Fragment {
             }
         });*/
 
-        titleTv = view.findViewById(R.id.details_title_tv);
-        idTv = view.findViewById(R.id.details_id_tv);
-        contentTv = view.findViewById(R.id.details_content_tv);
-        imageView = view.findViewById(R.id.details_image);
-
 
         editBtn.setOnClickListener((v)->{
             Navigation.findNavController(v).navigate(PostDetailsFragmentDirections
-                    .actionNoteDetailsFragmentToHome(noteId));
+                    .actionNoteDetailsFragmentToHome());
         });
         return view;
     }
