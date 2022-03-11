@@ -37,7 +37,11 @@
         android:id="@+id/nav_adAdd"
         android:name="com.example.giveandtake.ui.Posts.AddPostFragment"
         android:label="@string/add_new_ad"
-        tools:layout="@layout/fragment_add_post" />
+        tools:layout="@layout/fragment_add_post" >
+        <action
+            android:id="@+id/action_nav_adAdd_to_nav_home2"
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:padding="50dp"
-        android:src="@drawable/image1" />
+        android:src="@drawable/image2" />
 
     <TextView
         android:id="@+id/idTVContent"
