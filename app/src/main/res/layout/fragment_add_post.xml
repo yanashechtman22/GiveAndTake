@@ -2,116 +2,138 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_add_ad"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#80FFFFFF"
-    android:backgroundTintMode="src_over"
     tools:context=".ui.Posts.AddPostFragment">
-
-    <ImageView
-        android:id="@+id/baseImage_iv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintDimensionRatio="16:9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content_et"
-        app:srcCompat="@drawable/login_background" />
-
-    <TextView
-        android:id="@+id/title_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="47dp"
-        android:text="Title:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/content_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
-        android:text="Content:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_tv" />
-
-    <EditText
-        android:id="@+id/title_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/title_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/title_tv" />
-
-    <EditText
-        android:id="@+id/content_et"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:lines="4"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/content_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/content_tv" />
 
     <Button
         android:id="@+id/main_cancel_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="103dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="105dp"
+        android:layout_width="135dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="110dp"
+        android:fontFamily="@font/roboto_regular"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/main_save_btn"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/baseImage_iv" />
+        app:layout_constraintTop_toBottomOf="@+id/createPost_locationInput" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/createPost_locationInput"
+        android:layout_width="262dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/roboto_regular"
+        android:hint="Name of city"
+        app:layout_constraintStart_toEndOf="@+id/createPost_locationText"
+        app:layout_constraintTop_toBottomOf="@+id/creatPost_image" />
+
+    <TextView
+        android:id="@+id/createPost_title"
+        android:layout_width="118dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/indigo_daisy"
+        android:text="Create post"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/createPost_imageText"
+        android:layout_width="374dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Item Image"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createPost_descriptionInput"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/createPost_descriptionInput"
+        android:layout_width="368dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_regular"
+        android:hint="Describe your item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createPost_title" />
+
+    <ImageView
+        android:id="@+id/creatPost_image"
+        android:layout_width="471dp"
+        android:layout_height="195dp"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/ic_menu_gallery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createPost_imageText" />
+
+    <TextView
+        android:id="@+id/createPost_locationText"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="77dp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Location"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/creatPost_image" />
 
     <Button
         android:id="@+id/main_save_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="140dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="110dp"
+        android:fontFamily="@font/roboto_regular"
         android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/main_cancel_btn"
-        app:layout_constraintTop_toTopOf="@+id/main_cancel_btn" />
+        app:layout_constraintHorizontal_bias="0.812"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createPost_locationInput" />
 
     <ImageButton
         android:id="@+id/main_cam_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintBottom_toBottomOf="@+id/baseImage_iv"
-        app:layout_constraintEnd_toEndOf="@+id/baseImage_iv" />
+        android:layout_height="51dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/ic_menu_camera"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/main_gallery_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_gallery"
-        app:layout_constraintBottom_toBottomOf="@+id/baseImage_iv"
-        app:layout_constraintStart_toStartOf="@+id/baseImage_iv" />
+        android:layout_width="52dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.392"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

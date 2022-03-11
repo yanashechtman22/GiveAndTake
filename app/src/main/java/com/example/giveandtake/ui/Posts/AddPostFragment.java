@@ -48,10 +48,10 @@ public class AddPostFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_post,container, false);
-        contentEt = view.findViewById(R.id.content_et);
+        contentEt = view.findViewById(R.id.createPost_descriptionInput);
         saveBtn = view.findViewById(R.id.main_save_btn);
         cancelBtn = view.findViewById(R.id.main_cancel_btn);
-        avatarImv = view.findViewById(R.id.baseImage_iv);
+        avatarImv = view.findViewById(R.id.creatPost_image);
         userInfo = AuthenticationModel.instance.getUserInfo();
 
         saveBtn.setOnClickListener(new View.OnClickListener() {

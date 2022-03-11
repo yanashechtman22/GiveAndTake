@@ -85,7 +85,7 @@
     <!--        tools:ignore="MissingConstraints" />-->
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/main_save_btn"
         android:layout_width="142dp"
         android:layout_height="49dp"
         android:text="Upload"
