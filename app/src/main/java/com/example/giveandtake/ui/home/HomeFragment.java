@@ -51,11 +51,12 @@ public class HomeFragment extends Fragment {
 
         RecyclerView postsList = view.findViewById(R.id.posts_rv);
         postsList.setHasFixedSize(true);
+        postsList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        postsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ItemAdapter(homeViewModel.getPosts().getValue());
-        //adapter = new ItemAdapter();
+        //adapter = new ItemAdapter(homeViewModel.getPosts().getValue());
+        adapter = new ItemAdapter();
         postsList.setAdapter(adapter);
+        setHasOptionsMenu(true);
 
         Button profile = view.findViewById(R.id.home_to_profile_button);
         profile.setOnClickListener(handleMoveToProfile());
@@ -73,15 +74,16 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-
+/*
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
+    }*/
 
     private void refresh() {
         adapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -96,11 +98,6 @@ public class HomeFragment extends Fragment {
     }
 
     class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
-        private List<Post> posts;
-
-        public ItemAdapter(List<Post> posts) {
-            this.posts = posts;
-        }
 
         @NonNull
         @Override
@@ -115,7 +112,6 @@ public class HomeFragment extends Fragment {
             Post post = homeViewModel.getPosts().getValue().get(position);
             holder.postContent.setText(post.getContent());
             holder.postImage.setImageResource(R.drawable.login_background);
-            holder.postImage.setImageResource(post.getImage());
             String postImageUrl = post.getImageUrl();
             if (postImageUrl != null) {
                 Picasso.get()
@@ -131,10 +127,10 @@ public class HomeFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(posts == null){
+            if(homeViewModel.getPosts().getValue() == null){
                 return 0;
             }
-            return posts.size();
+            return homeViewModel.getPosts().getValue().size() ;
         }
     }
 

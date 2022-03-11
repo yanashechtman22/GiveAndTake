@@ -40,6 +40,10 @@ public class AppModel {
         void onComplete(List<Post> posts);
     }
 
+    public interface GetPostByIdListener {
+        void onComplete(Post post);
+    }
+
     public LiveData<PostsListLoadingState> getStudentListLoadingState() {
         return postsListLoadingState;
     }
@@ -91,6 +95,11 @@ public class AppModel {
 
     public void saveImage(Bitmap imageBitmap, String imageId, SaveImageListener listener) {
         firebaseAppModel.saveImage(imageBitmap,imageId,listener);
+    }
+
+    public Post getPostById(String noteId, GetPostByIdListener listener) {
+        firebaseAppModel.getNoteById(noteId,listener);
+        return null;
     }
 
 

@@ -19,15 +19,15 @@ public class Post implements Serializable {
     @NonNull
     private String id = "1234";
     private String content = "";
-    private int image = 0;
     private String imageUrl = "";
     private String location = "";
+    private String userId = "";
     private Long updateDate = new Long(0);
 
-    public Post(String content,  int image, String location) {
+    public Post(String content, String location, String userId) {
         this.content = content;
-        this.image = image;
         this.location = location;
+        this.userId = userId;
     }
 
     public String getContent() {
@@ -36,14 +36,6 @@ public class Post implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
     }
 
     public String getImageUrl() {
@@ -77,6 +69,13 @@ public class Post implements Serializable {
     public void setUpdateDate(Long updateDate) {
         this.updateDate = updateDate;
     }
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public Map<String, Object> toJson(){
         Map<String,Object> outputJson = new HashMap<>();
@@ -84,6 +83,7 @@ public class Post implements Serializable {
         outputJson.put("content", content);
         outputJson.put("imageUrl", imageUrl);
         outputJson.put("location", location);
+        outputJson.put("userId", userId);
         outputJson.put("updateDate", FieldValue.serverTimestamp());
         return outputJson;
     }
@@ -94,15 +94,17 @@ public class Post implements Serializable {
         String location = (String) postData.get("location");
         String imageUrl = (String)postData.get("imageUrl");
         Timestamp ts = (Timestamp)postData.get("updateDate");
+        String userId = (String) postData.get("userId");
         Long updateDate = ts.getSeconds();
 
-        Post post = new Post(content,0,location);
+        Post post = new Post(content,location,userId);
         post.setId(id);
         post.setUpdateDate(updateDate);
         post.setImageUrl(imageUrl);
 
         return post;
     }
+
 
 
 }

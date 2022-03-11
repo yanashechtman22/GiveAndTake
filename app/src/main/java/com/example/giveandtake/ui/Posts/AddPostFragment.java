@@ -117,7 +117,7 @@ public class AddPostFragment extends Fragment {
         String userId = userInfo.getUid();
 
         //TODO: this is mock! this line shouldn't be here
-        Post post = new Post(content,0, "beer sheva");
+        Post post = new Post(content, "beer sheva", userId);
 
         if (imageBitmap == null){
             AppModel.instance.addPost(post,()->{

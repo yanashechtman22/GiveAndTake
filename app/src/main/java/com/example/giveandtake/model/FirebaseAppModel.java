@@ -3,9 +3,13 @@ package com.example.giveandtake.model;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -76,5 +80,20 @@ public class FirebaseAppModel {
             }
 
         });
+    }
+
+    public void getNoteById(String postId, AppModel.GetPostByIdListener listener) {
+        db.collection(POSTS_COLLECTION_NAME)
+                .document(postId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    Post post = null;
+                    if (task.isSuccessful() && task.getResult()!= null){
+                        Map<String, Object> data = task.getResult().getData();
+                        post = Post.fromJson(data);
+                    }
+                    listener.onComplete(post);
+                });
+
     }
 }
