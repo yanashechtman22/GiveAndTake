@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,19 +18,18 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.giveandtake.R;
 import com.example.giveandtake.common.PostsListLoadingState;
-import com.example.giveandtake.databinding.FragmentHomeBinding;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.Post;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     ItemAdapter adapter;
     HomeViewModel homeViewModel;
     SwipeRefreshLayout swipeRefresh;
+    FloatingActionButton addPostButton;
     View view;
 
     @Override
@@ -45,6 +43,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        addPostButton = view.findViewById(R.id.add_new_post);
         swipeRefresh = view.findViewById(R.id.postsList_swipeRefresh);
         swipeRefresh.setOnRefreshListener(() -> AppModel.instance.refreshPostsList());
 
@@ -54,6 +53,8 @@ public class HomeFragment extends Fragment {
         adapter = new ItemAdapter();
         postsList.setAdapter(adapter);
         setHasOptionsMenu(true);
+
+        addPostButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomeFragmentDirections.actionNavHomeToNavAdAdd()));
 
         homeViewModel.getPosts().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(AppModel.instance.getStudentListLoadingState().getValue() == PostsListLoadingState.loading);
@@ -89,7 +90,7 @@ public class HomeFragment extends Fragment {
         @NonNull
         @Override
         public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.single_ad_item, parent, false);
+            View view = getLayoutInflater().inflate(R.layout.single_post_item, parent, false);
             ItemViewHolder itemViewHolder = new ItemViewHolder(view);
             return itemViewHolder;
         }
@@ -105,10 +106,9 @@ public class HomeFragment extends Fragment {
                         .load(postImageUrl)
                         .into(holder.postImage);
             }
-
             holder.itemView.setOnClickListener(v -> {
                 String id = post.getId();
-                Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeToAdDetailsFragment(id));
+                Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeToPostDetailsFragment(id));
             });
         }
 
