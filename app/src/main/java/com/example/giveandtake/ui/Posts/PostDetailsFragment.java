@@ -58,16 +58,6 @@ public class PostDetailsFragment extends Fragment {
              }
              setHasOptionsMenu(true);
          });
-
-
-        /*editBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(PostDetailsFragmentDirections
-                    .actionNoteDetailsFragmentToHome());
-        });
-        deleteBtn.setOnClickListener((v)->{
-            Navigation.findNavController(v).navigate(PostDetailsFragmentDirections
-                    .actionNoteDetailsFragmentToHome());
-        });*/
         return view;
     }
 

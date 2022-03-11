@@ -29,7 +29,6 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
     ItemAdapter adapter;
     HomeViewModel homeViewModel;
     SwipeRefreshLayout swipeRefresh;
@@ -52,14 +51,9 @@ public class HomeFragment extends Fragment {
         RecyclerView postsList = view.findViewById(R.id.posts_rv);
         postsList.setHasFixedSize(true);
         postsList.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        //adapter = new ItemAdapter(homeViewModel.getPosts().getValue());
         adapter = new ItemAdapter();
         postsList.setAdapter(adapter);
         setHasOptionsMenu(true);
-
-        /*Button profile = view.findViewById(R.id.home_to_profile_button);
-        profile.setOnClickListener(handleMoveToProfile());*/
 
         homeViewModel.getPosts().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(AppModel.instance.getStudentListLoadingState().getValue() == PostsListLoadingState.loading);
@@ -73,13 +67,6 @@ public class HomeFragment extends Fragment {
         });
         return view;
     }
-
-/*
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }*/
 
     private void refresh() {
         adapter.notifyDataSetChanged();
@@ -111,9 +98,9 @@ public class HomeFragment extends Fragment {
         public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
             Post post = homeViewModel.getPosts().getValue().get(position);
             holder.postContent.setText(post.getContent());
-            holder.postImage.setImageResource(R.drawable.login_background);
+            holder.postImage.setImageResource(R.drawable.image2);
             String postImageUrl = post.getImageUrl();
-            if (postImageUrl != null) {
+            if (postImageUrl != null && postImageUrl.length()>0) {
                 Picasso.get()
                         .load(postImageUrl)
                         .into(holder.postImage);
@@ -133,11 +120,4 @@ public class HomeFragment extends Fragment {
             return homeViewModel.getPosts().getValue().size() ;
         }
     }
-
-    private View.OnClickListener handleMoveToProfile() {
-        return Navigation.createNavigateOnClickListener(
-                R.id.action_nav_home_to_userProfileFragment2);
-
-    }
-
 }
