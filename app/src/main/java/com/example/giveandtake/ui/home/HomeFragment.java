@@ -58,8 +58,8 @@ public class HomeFragment extends Fragment {
         postsList.setAdapter(adapter);
         setHasOptionsMenu(true);
 
-        Button profile = view.findViewById(R.id.home_to_profile_button);
-        profile.setOnClickListener(handleMoveToProfile());
+        /*Button profile = view.findViewById(R.id.home_to_profile_button);
+        profile.setOnClickListener(handleMoveToProfile());*/
 
         homeViewModel.getPosts().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(AppModel.instance.getStudentListLoadingState().getValue() == PostsListLoadingState.loading);
