@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,31 +6,28 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--        android:id="@+id/home_to_profile_button"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="-100dp"-->
-    <!--        android:layout_marginEnd="-350dp"-->
-    <!--        android:clickable="true"-->
-    <!--        app:backgroundTint="#CC27F1"-->
-    <!--        app:layout_constraintEnd_toStartOf="@+id/studentlist_listv"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/studentlist_listv"-->
-    <!--        app:srcCompat="@android:drawable/ic_input_add" />-->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/postsList_swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/posts_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layoutManager="LinearLayoutManager"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/posts_rv"
-        android:layout_width="379dp"
-        android:layout_height="508dp"
-        android:scrollbars="vertical"
-        app:layoutManager="LinearLayoutManager">
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <Button
-        android:id="@+id/home_to_profile_button"
-        android:layout_width="305dp"
-        android:layout_height="100dp"
-        android:text="home_to_profile_button" />
-
-</LinearLayout>
+</FrameLayout>

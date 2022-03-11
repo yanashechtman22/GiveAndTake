@@ -15,25 +15,24 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.giveandtake.R;
-import com.example.giveandtake.auth.LoginFragmentDirections;
-import com.example.giveandtake.auth.RegisterFragment;
-import com.example.giveandtake.auth.RegisterFragmentDirections;
+import com.example.giveandtake.common.PostsListLoadingState;
 import com.example.giveandtake.databinding.FragmentHomeBinding;
-import com.example.giveandtake.model.AuthenticationModel;
+import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.Post;
-import com.example.giveandtake.ui.profile.UserProfileFragment;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     ItemAdapter adapter;
     HomeViewModel homeViewModel;
+    SwipeRefreshLayout swipeRefresh;
     View view;
 
     @Override
@@ -46,46 +45,59 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        swipeRefresh = view.findViewById(R.id.postsList_swipeRefresh);
+        swipeRefresh.setOnRefreshListener(() -> AppModel.instance.refreshPostsList());
+
         RecyclerView postsList = view.findViewById(R.id.posts_rv);
-        postsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ItemAdapter(homeViewModel.getPosts());
+        postsList.setHasFixedSize(true);
+        postsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //adapter = new ItemAdapter(homeViewModel.getPosts().getValue());
+        adapter = new ItemAdapter();
         postsList.setAdapter(adapter);
+        setHasOptionsMenu(true);
 
-        Button profile = view.findViewById(R.id.home_to_profile_button);
-        profile.setOnClickListener(handleMoveToProfile());
+        /*Button profile = view.findViewById(R.id.home_to_profile_button);
+        profile.setOnClickListener(handleMoveToProfile());*/
 
+        homeViewModel.getPosts().observe(getViewLifecycleOwner(), list1 -> refresh());
+        swipeRefresh.setRefreshing(AppModel.instance.getStudentListLoadingState().getValue() == PostsListLoadingState.loading);
+        AppModel.instance.getStudentListLoadingState().observe(getViewLifecycleOwner(), postsListLoadingState -> {
+            if (postsListLoadingState == PostsListLoadingState.loading){
+                swipeRefresh.setRefreshing(true);
+            }else{
+                swipeRefresh.setRefreshing(false);
+            }
+
+        });
         return view;
     }
 
-
+/*
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }*/
+
+    private void refresh() {
+        adapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView textView;
-        private ImageView imageView;
+        private TextView postContent;
+        private ImageView postImage;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.item_title);
-            imageView = itemView.findViewById(R.id.item_image);
-        }
-
-        void bind(Post post) {
-            textView.setText(post.getText());
-            imageView.setImageResource(post.getImage());
+            postContent = itemView.findViewById(R.id.item_title);
+            postImage = itemView.findViewById(R.id.item_image);
         }
     }
 
     class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
-        private ArrayList<Post> posts;
-
-        public ItemAdapter(ArrayList<Post> posts) {
-            this.posts = posts;
-        }
 
         @NonNull
         @Override
@@ -97,22 +109,32 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-            Post post = homeViewModel.getPosts().get(position);
-            holder.bind(post);
+            Post post = homeViewModel.getPosts().getValue().get(position);
+            holder.postContent.setText(post.getContent());
+            holder.postImage.setImageResource(R.drawable.login_background);
+            String postImageUrl = post.getImageUrl();
+            if (postImageUrl != null) {
+                Picasso.get()
+                        .load(postImageUrl)
+                        .into(holder.postImage);
+            }
+
+            holder.itemView.setOnClickListener(v -> {
+                String id = post.getId();
+                Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeToAdDetailsFragment(id));
+            });
         }
 
         @Override
         public int getItemCount() {
-            return posts.size();
+            if(homeViewModel.getPosts().getValue() == null){
+                return 0;
+            }
+            return homeViewModel.getPosts().getValue().size() ;
         }
-
-
     }
 
-
     private View.OnClickListener handleMoveToProfile() {
-//        Bundle bundle = new Bundle();
-//        bundle.putString("email", "amount");
         return Navigation.createNavigateOnClickListener(
                 R.id.action_nav_home_to_userProfileFragment2);
 
