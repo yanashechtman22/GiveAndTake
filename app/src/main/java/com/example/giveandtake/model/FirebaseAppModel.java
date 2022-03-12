@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -53,8 +55,8 @@ public class FirebaseAppModel {
         db.collection(POSTS_COLLECTION_NAME)
                 .document(newPost.getId())
                 .set(json)
-                .addOnSuccessListener(unused -> listener.onComplete())
-                .addOnFailureListener(e -> listener.onComplete());
+                .addOnSuccessListener(unused -> listener.onComplete(true))
+                .addOnFailureListener(e -> listener.onComplete(false));
     }
 
     public void saveImage(Bitmap imageBitmap, String imageId, AppModel.SaveImageListener listener) {
@@ -95,5 +97,13 @@ public class FirebaseAppModel {
                     listener.onComplete(post);
                 });
 
+    }
+
+    public void deleteNoteById(String postId, AppModel.DeletePostByIdListener listener) {
+        db.collection(POSTS_COLLECTION_NAME)
+                .document(postId)
+                .delete()
+                .addOnSuccessListener(unused -> listener.onComplete(true))
+                .addOnFailureListener(e -> listener.onComplete(false));
     }
 }
