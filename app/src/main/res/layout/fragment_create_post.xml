@@ -8,7 +8,7 @@
     tools:context=".ui.post.CreatePostFragment">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/createPost_locationInput"
+        android:id="@+id/creatPost_locationInput"
         android:layout_width="262dp"
         android:layout_height="43dp"
         android:hint="Name of city"

@@ -34,6 +34,7 @@ public class AddPostFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;
     private static final int REQUEST_GALLERY = 100;
     EditText contentEt;
+    EditText locationET;
     CheckBox cb;
     Button saveBtn;
     Button cancelBtn;
@@ -52,6 +53,7 @@ public class AddPostFragment extends Fragment {
         saveBtn = view.findViewById(R.id.main_save_btn);
         cancelBtn = view.findViewById(R.id.main_cancel_btn);
         avatarImv = view.findViewById(R.id.creatPost_UpImage);
+        locationET = view.findViewById(R.id.creatPost_locationInput);
         userInfo = AuthenticationModel.instance.getUserInfo();
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -115,9 +117,10 @@ public class AddPostFragment extends Fragment {
         String content = contentEt.getText().toString();
         Long lud = new Long(0);
         String userId = userInfo.getUid();
+        String location = locationET.getText().toString();
 
         //TODO: this is mock! this line shouldn't be here
-        Post post = new Post(content, "beer sheva", userId);
+        Post post = new Post(content, location, userId);
 
         if (imageBitmap == null){
             AppModel.instance.addPost(post,()->{
