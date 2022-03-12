@@ -9,8 +9,9 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,12 +25,10 @@ import androidx.navigation.Navigation;
 
 import com.example.giveandtake.MyApplication;
 import com.example.giveandtake.R;
-import com.example.giveandtake.auth.RegisterFragmentDirections;
 import com.example.giveandtake.model.Post;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.utils.InputValidator;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
@@ -48,6 +47,7 @@ public class AddPostFragment extends Fragment {
     ImageButton camBtn;
     ImageButton galleryBtn;
     ProgressBar progressBar;
+    AutoCompleteTextView autoComplete;
     View view;
     UserInfo userInfo;
 
@@ -59,7 +59,14 @@ public class AddPostFragment extends Fragment {
         saveBtn = view.findViewById(R.id.main_save_btn);
         cancelBtn = view.findViewById(R.id.main_cancel_btn);
         avatarImv = view.findViewById(R.id.baseImage_iv);
-        progressBar = view.findViewById(R.id.adPostProgressBar);
+        progressBar = view.findViewById(R.id.postDetailsProgressBar);
+        camBtn = view.findViewById(R.id.main_cam_btn);
+        galleryBtn = view.findViewById(R.id.main_gallery_btn);
+        autoComplete = view.findViewById(R.id.autoComplete_actv);
+        String [] cities = {"Beer Sheva","Netanya", "Tel Aviv", "Haifa", "Jerusalem"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item,cities);
+        autoComplete.setThreshold(2);
+        autoComplete.setAdapter(adapter);
         userInfo = AuthenticationModel.instance.getUserInfo();
 
         contentEt.addTextChangedListener(new InputValidator(contentEt) {
@@ -71,16 +78,10 @@ public class AddPostFragment extends Fragment {
         });
 
         cancelBtn.setOnClickListener(v -> navigateBack());
-
         saveBtn.setOnClickListener(v -> save());
-
-        camBtn = view.findViewById(R.id.main_cam_btn);
-        galleryBtn = view.findViewById(R.id.main_gallery_btn);
-
         camBtn.setOnClickListener(v -> {
             openCam();
         });
-
         galleryBtn.setOnClickListener(v -> {
             openGallery();
         });
@@ -137,12 +138,12 @@ public class AddPostFragment extends Fragment {
         Post post = new Post(content, "beer sheva", userId);
 
         if (imageBitmap == null){
-            AppModel.instance.addPost(post,()-> navigateBack());
+            AppModel.instance.addPost(post, (boolean success)-> navigateBack());
         } else {
             String adImageId = UUID.randomUUID().toString();
             AppModel.instance.saveImage(imageBitmap, adImageId + ".jpg", url -> {
                 post.setImageUrl(url);
-                AppModel.instance.addPost(post,()-> navigateBack());
+                AppModel.instance.addPost(post, (boolean success)-> navigateBack());
             });
         }
     }
