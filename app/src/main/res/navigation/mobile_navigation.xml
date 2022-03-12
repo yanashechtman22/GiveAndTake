@@ -14,12 +14,15 @@
             android:id="@+id/action_nav_home_to_userProfileFragment2"
             app:destination="@id/userProfileFragment2" />
         <action 
-            android:id="@+id/action_home_to_adDetailsFragment"
-            app:destination="@id/adDetailsFragment" />
+            android:id="@+id/action_home_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_adAdd"
+            app:destination="@id/nav_adAdd" />
     </fragment>
 
     <fragment
-        android:id="@+id/adDetailsFragment"
+        android:id="@+id/postDetailsFragment"
         android:name="com.example.giveandtake.ui.Posts.PostDetailsFragment"
         android:label="Note details"
         tools:layout="@layout/fragment_post_details">
@@ -27,7 +30,7 @@
             android:name="post_id"
             app:argType="string" />
          <action
-            android:id="@+id/action_adDetailsFragment_to_fragment_edit_ad"
+            android:id="@+id/action_postDetailsFragment_to_fragment_edit_post"
             app:destination="@id/nav_home" />
         <action
             android:id="@+id/action_noteDetailsFragment_to_home"
@@ -37,7 +40,11 @@
         android:id="@+id/nav_adAdd"
         android:name="com.example.giveandtake.ui.Posts.AddPostFragment"
         android:label="@string/add_new_ad"
-        tools:layout="@layout/fragment_add_post" />
+        tools:layout="@layout/fragment_add_post" >
+        <action
+            android:id="@+id/action_nav_adAdd_to_nav_home2"
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"

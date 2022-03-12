@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/drawable/ic_menu_camera.xml" value="0.356" />
+        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.356" />
+        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/activity_login.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/content_main.xml" value="0.3625" />
+        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_add_post.xml" value="0.25679347826086957" />
+        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_create_post.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_home.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_login.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_post_details.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/single_ad_item.xml" value="0.14791666666666667" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>

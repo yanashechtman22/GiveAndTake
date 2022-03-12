@@ -30,6 +30,10 @@
     <string name="name">Name</string>
     <string name="delete_post">Delete</string>
     <string name="edit_post">Edit</string>
+    <string name="save_post">Save</string>
+    <string name="cancel_add_post">Cancel</string>
+    <string name="content_header">Content:</string>
+    <string name="content_placeholder">Describe your product</string>
     <integer name="min_password_length">6</integer>
 
 </resources>
