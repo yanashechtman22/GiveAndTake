@@ -14,21 +14,16 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.example.giveandtake.MyApplication;
 import com.example.giveandtake.R;
-import com.example.giveandtake.auth.RegisterFragmentDirections;
 import com.example.giveandtake.model.Post;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
-import com.example.giveandtake.utils.InputValidator;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.UserInfo;
 
@@ -38,16 +33,14 @@ import java.util.UUID;
 public class AddPostFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;
     private static final int REQUEST_GALLERY = 100;
-    boolean contentNotEmpty = false;
-
     EditText contentEt;
+    CheckBox cb;
     Button saveBtn;
     Button cancelBtn;
     Bitmap imageBitmap;
     ImageView avatarImv;
     ImageButton camBtn;
     ImageButton galleryBtn;
-    ProgressBar progressBar;
     View view;
     UserInfo userInfo;
 
@@ -55,24 +48,18 @@ public class AddPostFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_post,container, false);
-        contentEt = view.findViewById(R.id.content_et);
+        contentEt = view.findViewById(R.id.createPost_descriptionInput);
         saveBtn = view.findViewById(R.id.main_save_btn);
         cancelBtn = view.findViewById(R.id.main_cancel_btn);
-        avatarImv = view.findViewById(R.id.baseImage_iv);
-        progressBar = view.findViewById(R.id.adPostProgressBar);
+        avatarImv = view.findViewById(R.id.creatPost_UpImage);
         userInfo = AuthenticationModel.instance.getUserInfo();
 
-        contentEt.addTextChangedListener(new InputValidator(contentEt) {
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void validate(TextView textView, String text) {
-                contentNotEmpty = text.length() > 0;
-                checkInputValidation();
+            public void onClick(View v) {
+                save();
             }
         });
-
-        cancelBtn.setOnClickListener(v -> navigateBack());
-
-        saveBtn.setOnClickListener(v -> save());
 
         camBtn = view.findViewById(R.id.main_cam_btn);
         galleryBtn = view.findViewById(R.id.main_gallery_btn);
@@ -85,9 +72,6 @@ public class AddPostFragment extends Fragment {
             openGallery();
         });
         return view;
-    }
-    private void checkInputValidation() {
-        saveBtn.setEnabled(contentNotEmpty);
     }
 
     private void openGallery() {
@@ -123,7 +107,6 @@ public class AddPostFragment extends Fragment {
 
 
     private void save() {
-        progressBar.setVisibility(View.VISIBLE);
         saveBtn.setEnabled(false);
         cancelBtn.setEnabled(false);
         camBtn.setEnabled(false);
@@ -137,18 +120,19 @@ public class AddPostFragment extends Fragment {
         Post post = new Post(content, "beer sheva", userId);
 
         if (imageBitmap == null){
-            AppModel.instance.addPost(post,()-> navigateBack());
+            AppModel.instance.addPost(post,()->{
+                Snackbar.make(view, "without image, "+ post.getContent(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            });
         } else {
             String adImageId = UUID.randomUUID().toString();
             AppModel.instance.saveImage(imageBitmap, adImageId + ".jpg", url -> {
                 post.setImageUrl(url);
-                AppModel.instance.addPost(post,()-> navigateBack());
+                AppModel.instance.addPost(post,()->{
+                    Snackbar.make(view, "with image, " + post.getContent(), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                });
             });
         }
-    }
-
-    private void navigateBack() {
-        Navigation.findNavController(view).navigate(
-                AddPostFragmentDirections.actionNavAdAddToNavHome2());
     }
 }
