@@ -12,96 +12,123 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/baseImage_iv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintDimensionRatio="16:9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content_et"
-        app:srcCompat="@drawable/login_background" />
+        <TextView
+            android:id="@+id/content_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/content_header"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/content_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
-        android:text="@string/content_header"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/content_et"
+            android:layout_width="0dp"
+            android:hint="@string/content_placeholder"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:lines="2"
+            android:textSize="24sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/content_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/content_tv" />
 
-    <EditText
-        android:id="@+id/content_et"
-        android:layout_width="0dp"
-        android:hint="@string/content_placeholder"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:lines="2"
-        android:textSize="24sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/content_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/content_tv" />
+        <TextView
+            android:id="@+id/autoComplete_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="80dp"
+            android:text="City:"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content_et"
 
-    <Button
-        android:id="@+id/main_cancel_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="103dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="105dp"
-        android:text="@string/cancel_add_post"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/main_save_btn"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/baseImage_iv" />
+            />
 
-    <Button
-        android:id="@+id/main_save_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/save_post"
-        android:enabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/main_cancel_btn"
-        app:layout_constraintTop_toTopOf="@+id/main_cancel_btn" />
+        <AutoCompleteTextView
+            android:id="@+id/autoComplete_actv"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toEndOf="@+id/content_tv"
+            app:layout_constraintBaseline_toBaselineOf="@+id/autoComplete_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
 
-    <ImageButton
-        android:id="@+id/main_cam_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_camera"
-        android:backgroundTint="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/baseImage_iv"
-        app:layout_constraintEnd_toEndOf="@+id/baseImage_iv" />
+        </AutoCompleteTextView>
 
-    <ImageButton
-        android:id="@+id/main_gallery_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_gallery"
-        android:backgroundTint="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/baseImage_iv"
-        app:layout_constraintStart_toStartOf="@+id/baseImage_iv" />
+        <ImageView
+            android:id="@+id/baseImage_iv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/autoComplete_actv"
+            app:srcCompat="@drawable/login_background" />
+
+        <Button
+            android:id="@+id/main_cancel_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="103dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="105dp"
+            android:text="@string/cancel_add_post"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/main_save_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/baseImage_iv" />
+
+        <Button
+            android:id="@+id/main_save_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/save_post"
+            android:enabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/main_cancel_btn"
+            app:layout_constraintTop_toTopOf="@+id/main_cancel_btn" />
+
+        <ImageButton
+            android:id="@+id/main_cam_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_camera"
+            android:backgroundTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/baseImage_iv"
+            app:layout_constraintEnd_toEndOf="@+id/baseImage_iv" />
+
+        <ImageButton
+            android:id="@+id/main_gallery_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_gallery"
+            android:backgroundTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/baseImage_iv"
+            app:layout_constraintStart_toStartOf="@+id/baseImage_iv" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
-        android:id="@+id/adPostProgressBar"
+        android:id="@+id/postDetailsProgressBar"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerInParent="true"

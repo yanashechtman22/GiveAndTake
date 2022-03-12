@@ -2,7 +2,6 @@ package com.example.giveandtake.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -28,8 +27,7 @@ public class AppModel {
     FirebaseAppModel firebaseAppModel = new FirebaseAppModel();
 
     public interface AddAdListener{
-        void onComplete();
-        //void onFailure();
+        void onComplete(boolean success);
     }
 
     public interface SaveImageListener{
@@ -42,6 +40,10 @@ public class AppModel {
 
     public interface GetPostByIdListener {
         void onComplete(Post post);
+    }
+
+    public interface DeletePostByIdListener {
+        void onComplete(boolean success);
     }
 
     public LiveData<PostsListLoadingState> getStudentListLoadingState() {
@@ -58,10 +60,8 @@ public class AppModel {
 
     public void refreshPostsList() {
         postsListLoadingState.setValue(PostsListLoadingState.loading);
-
         // get last local update date
         Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostsLastUpdateDate", 0);
-
         // firebase get all updates since lastLocalUpdateDate
         firebaseAppModel.getAllPosts(lastUpdateDate, list -> {
             // add all records to the local db
@@ -90,16 +90,43 @@ public class AppModel {
     }
 
     public void addPost(Post newPost, AddAdListener listener){
-        firebaseAppModel.addNewPost(newPost, ()-> listener.onComplete());
+        postsListLoadingState.setValue(PostsListLoadingState.loading);
+        firebaseAppModel.addNewPost(newPost, success -> {
+            if(success){
+                executor.execute(() -> {
+                    AppLocalDB.db.postDao().insert(newPost);
+                    //return all data to caller
+                    List<Post> localPostsList = AppLocalDB.db.postDao().getAll();
+                    postsList.postValue(localPostsList);
+                    postsListLoadingState.postValue(PostsListLoadingState.loaded);
+                });
+            }
+            listener.onComplete(true);
+        });
     }
 
     public void saveImage(Bitmap imageBitmap, String imageId, SaveImageListener listener) {
         firebaseAppModel.saveImage(imageBitmap,imageId,listener);
     }
 
-    public Post getPostById(String noteId, GetPostByIdListener listener) {
-        firebaseAppModel.getNoteById(noteId,listener);
-        return null;
+    public void getPostById(String postId, GetPostByIdListener listener) {
+        firebaseAppModel.getNoteById(postId,listener);
+    }
+
+    public void deletePostById(String postId, DeletePostByIdListener listener) {
+        postsListLoadingState.setValue(PostsListLoadingState.loading);
+        firebaseAppModel.deleteNoteById(postId, success -> {
+            if(success){
+                executor.execute(() -> {
+                    AppLocalDB.db.postDao().deleteById(postId);
+                    //return all data to caller
+                    List<Post> localPostsList = AppLocalDB.db.postDao().getAll();
+                    postsList.postValue(localPostsList);
+                    postsListLoadingState.postValue(PostsListLoadingState.loaded);
+                });
+            }
+            listener.onComplete(success);
+        });
     }
 
 
