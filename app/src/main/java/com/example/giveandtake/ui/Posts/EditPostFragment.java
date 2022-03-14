@@ -34,16 +34,20 @@ import java.util.UUID;
 import android.widget.TextView;
 import android.widget.AutoCompleteTextView;
 import com.example.giveandtake.utils.InputValidator;
+import com.squareup.picasso.Picasso;
+
 import android.widget.ArrayAdapter;
 import java.util.Arrays;
 
-public class AddPostFragment extends Fragment {
+import android.os.Bundle;
+
+public class EditPostFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;
     private static final int REQUEST_GALLERY = 100;
-    boolean contentNotEmpty = false;
-    boolean locationNotEmpty = false;
-    boolean imageNotEmpty = false;
-    boolean phoneNoteEmpty=false;
+    boolean contentNotEmpty = true;
+    boolean locationNotEmpty = true;
+    boolean imageNotEmpty = true;
+    boolean phoneNoteEmpty=true;
 //    boolean avatarImvNotEmpty = false;
 
     EditText contentEt;
@@ -59,10 +63,11 @@ public class AddPostFragment extends Fragment {
     View view;
     UserInfo userInfo;
     ProgressBar progressBar;
+    String postId;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView( LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_post, container, false);
         contentEt = view.findViewById(R.id.createPost_descriptionInput);
         saveBtn = view.findViewById(R.id.main_save_btn);
@@ -80,7 +85,18 @@ public class AddPostFragment extends Fragment {
         autoComplete.setAdapter(adapter);
         userInfo = AuthenticationModel.instance.getUserInfo();
 
-        saveBtn.setEnabled(false);
+        saveBtn.setEnabled(true);
+
+        postId = EditPostFragmentArgs.fromBundle(getArguments()).getPostId();
+        AppModel.instance.getPostById(postId, post -> {
+            contentEt.setText(post.getContent());
+            autoComplete.setText(post.getLocation());
+            phoneEt.setText(post.getPhone());
+            if (post.getImageUrl() != null && post.getImageUrl().length() > 0) {
+                Picasso.get().load(post.getImageUrl()).into(avatarImv);
+            }
+            setHasOptionsMenu(true);
+        });
 
         contentEt.addTextChangedListener(new InputValidator(contentEt) {
             @Override
@@ -156,34 +172,30 @@ public class AddPostFragment extends Fragment {
 
 
     private void save() {
-        //progressBar.setVisibility(View.VISIBLE);
         saveBtn.setEnabled(false);
         cancelBtn.setEnabled(false);
         camBtn.setEnabled(false);
         galleryBtn.setEnabled(false);
 
-        String content = contentEt.getText().toString();
-        String phone = phoneEt.getText().toString();
-        Long lud = new Long(0);
-        String userId = userInfo.getUid();
-        String location = autoComplete.getText().toString();
+        AppModel.instance.getPostById(postId, post -> {
+            post.setContent(contentEt.getText().toString());
+            post.setPhone(phoneEt.getText().toString());
+            post.setLocation(autoComplete.getText().toString());
 
-        //TODO: this is mock! this line shouldn't be here
-        Post post = new Post(content, phone, location, userId);
-
-        if (imageBitmap == null){
-            AppModel.instance.addPost(post, (boolean success)-> navigateBack());
-        } else {
+//        if (imageBitmap == null){
+//            AppModel.instance.addPost(post, (boolean success)-> navigateBack());
+//        } else {
             String adImageId = UUID.randomUUID().toString();
             AppModel.instance.saveImage(imageBitmap, adImageId + ".jpg", url -> {
                 post.setImageUrl(url);
                 AppModel.instance.addPost(post, (boolean success)-> navigateBack());
             });
-        }
+//        }
+        });
     }
 
     private void navigateBack() {
         Navigation.findNavController(view).navigate(
-                AddPostFragmentDirections.actionNavAdAddToNavHome2());
+                EditPostFragmentDirections.actionEditPostFragmentToNavHome());
     }
 }

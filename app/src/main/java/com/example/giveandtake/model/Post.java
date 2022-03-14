@@ -18,14 +18,16 @@ public class Post implements Serializable {
     @PrimaryKey
     @NonNull
     private String id = "1234";
+    private String phone = "";
     private String content = "";
     private String imageUrl = "";
     private String location = "";
     private String userId = "";
     private Long updateDate = new Long(0);
 
-    public Post(String content, String location, String userId) {
+    public Post(String content, String phone, String location, String userId) {
         this.content = content;
+        this.phone=phone;
         this.location = location;
         this.userId = userId;
     }
@@ -54,6 +56,14 @@ public class Post implements Serializable {
         this.id = id;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String id) {
+        this.phone = phone;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -80,6 +90,7 @@ public class Post implements Serializable {
     public Map<String, Object> toJson(){
         Map<String,Object> outputJson = new HashMap<>();
         outputJson.put("id", id);
+        outputJson.put("phone", phone);
         outputJson.put("content", content);
         outputJson.put("imageUrl", imageUrl);
         outputJson.put("location", location);
@@ -90,6 +101,7 @@ public class Post implements Serializable {
 
     public static Post fromJson(Map<String, Object> postData) {
         String id = (String) postData.get("id");
+        String phone = (String) postData.get("phone");
         String content = (String) postData.get("content");
         String location = (String) postData.get("location");
         String imageUrl = (String)postData.get("imageUrl");
@@ -97,7 +109,7 @@ public class Post implements Serializable {
         String userId = (String) postData.get("userId");
         Long updateDate = ts.getSeconds();
 
-        Post post = new Post(content,location,userId);
+        Post post = new Post(content,phone,location,userId);
         post.setId(id);
         post.setUpdateDate(updateDate);
         post.setImageUrl(imageUrl);

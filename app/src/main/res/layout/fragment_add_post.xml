@@ -7,15 +7,27 @@
     tools:context=".ui.Posts.AddPostFragment">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/creatPost_locationInput"
-        android:layout_width="262dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="24dp"
+        android:id="@+id/createPost_phoneInput"
+        android:layout_width="228dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_regular"
-        android:hint="Name of city"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/createPost_locationText"
+        android:hint="Numbers Only"
+        app:layout_constraintStart_toEndOf="@+id/createPost_phoneText"
+        app:layout_constraintTop_toBottomOf="@+id/autoComplete_actv" />
+
+    <TextView
+        android:id="@+id/createPost_phoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Phon Number"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <TextView
@@ -53,7 +65,7 @@
         android:layout_width="368dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="25dp"
         android:fontFamily="@font/roboto_regular"
         android:hint="Describe your item..."
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/roboto_regular"
         android:text="Location"
         android:textSize="18sp"
@@ -107,7 +119,7 @@
         android:layout_width="0dp"
         android:layout_height="178dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="50dp"
         android:src="@drawable/et_custom"
@@ -135,23 +147,38 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="92dp"
         android:layout_marginEnd="200dp"
         android:text="Cancel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/creatPost_locationInput" />
+        app:layout_constraintTop_toBottomOf="@+id/autoComplete_actv" />
 
     <Button
         android:id="@+id/main_save_btn"
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginStart="200dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="92dp"
         android:layout_marginEnd="50dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.619"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/creatPost_locationInput" />
+        app:layout_constraintTop_toBottomOf="@+id/autoComplete_actv" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoComplete_actv"
+        android:layout_width="267dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:hint="City Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/createPost_locationText"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

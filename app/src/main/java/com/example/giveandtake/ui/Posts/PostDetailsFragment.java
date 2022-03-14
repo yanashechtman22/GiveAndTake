@@ -21,6 +21,7 @@ import com.example.giveandtake.R;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.model.Post;
+import com.example.giveandtake.ui.home.HomeFragmentDirections;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
@@ -54,6 +55,7 @@ public class PostDetailsFragment extends Fragment {
          AppModel.instance.getPostById(postId, post -> {
              isUserPost = post.getUserId().equals(userInfo.getUid());
              contentTv.setText(post.getContent());
+             phoneNumberTv.setText(post.getPhone());
              locationTv.setText(post.getLocation());
              progressBar.setVisibility(View.INVISIBLE);
              if (post.getImageUrl() != null && post.getImageUrl().length() > 0) {
@@ -75,9 +77,15 @@ public class PostDetailsFragment extends Fragment {
             case R.id.app_bar_delete:
                 handleDeletePost();
                 return super.onOptionsItemSelected(item);
+            case R.id.app_bar_edit:
+                Navigation.findNavController(view).
+                        navigate(PostDetailsFragmentDirections.
+                                actionPostDetailsFragmentToEditPostFragment(postId));
             default: return super.onOptionsItemSelected(item);
         }
     }
+
+
 
     @Override
     public void onPrepareOptionsMenu(Menu menu)
@@ -108,4 +116,5 @@ public class PostDetailsFragment extends Fragment {
             }
         });
     }
+
 }

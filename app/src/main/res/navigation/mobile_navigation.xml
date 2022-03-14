@@ -9,11 +9,11 @@
         android:id="@+id/nav_home"
         android:name="com.example.giveandtake.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_home_to_userProfileFragment2"
             app:destination="@id/userProfileFragment2" />
-        <action 
+        <action
             android:id="@+id/action_home_to_postDetailsFragment"
             app:destination="@id/postDetailsFragment" />
         <action
@@ -29,7 +29,7 @@
         <argument
             android:name="post_id"
             app:argType="string" />
-         <action
+        <action
             android:id="@+id/action_postDetailsFragment_to_fragment_edit_post"
             app:destination="@id/nav_home" />
         <action
@@ -37,14 +37,16 @@
             app:destination="@id/nav_home"
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_home"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_postDetailsFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_adAdd"
         android:name="com.example.giveandtake.ui.Posts.AddPostFragment"
         android:label="@string/add_new_ad"
-        tools:layout="@layout/fragment_add_post" >
+        tools:layout="@layout/fragment_add_post">
         <action
             android:id="@+id/action_nav_adAdd_to_nav_home2"
             app:destination="@id/nav_home" />
@@ -60,4 +62,16 @@
         android:name="com.example.giveandtake.ui.profile.UserProfileFragment"
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.example.giveandtake.ui.Posts.EditPostFragment"
+        android:label="fragment_edit_post"
+        tools:layout="@layout/fragment_edit_post">
+        <argument
+            android:name="post_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_editPostFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>
