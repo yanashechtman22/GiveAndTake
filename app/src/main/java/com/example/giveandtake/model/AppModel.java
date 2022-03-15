@@ -29,7 +29,9 @@ public class AppModel {
     public interface AddAdListener{
         void onComplete(boolean success);
     }
-
+    public interface EditAdListener{
+        void onComplete(boolean success);
+    }
     public interface SaveImageListener{
         void onComplete(String imageUri);
     }
@@ -80,7 +82,6 @@ public class AppModel {
                         .edit()
                         .putLong("PostsLastUpdateDate", lud)
                         .commit();
-
                 //return all data to caller
                 List<Post> localPostsList = AppLocalDB.db.postDao().getAll();
                 postsList.postValue(localPostsList);
@@ -104,6 +105,22 @@ public class AppModel {
             listener.onComplete(true);
         });
     }
+
+    public void editPost(Post post,EditAdListener listener){
+        firebaseAppModel.updatePost(post, success -> {
+            if(success){
+                executor.execute(() -> {
+                    AppLocalDB.db.postDao().update(post);
+                    List<Post> localPostsList = AppLocalDB.db.postDao().getAll();
+                    postsList.postValue(localPostsList);
+                    postsListLoadingState.postValue(PostsListLoadingState.loaded);
+                });
+            }
+            listener.onComplete(true);
+        });
+        AppLocalDB.db.postDao().update(post);
+    }
+
 
     public void saveImage(Bitmap imageBitmap, String imageId, SaveImageListener listener) {
         firebaseAppModel.saveImage(imageBitmap,imageId,listener);

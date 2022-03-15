@@ -21,7 +21,6 @@ import com.example.giveandtake.R;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.model.Post;
-import com.example.giveandtake.ui.home.HomeFragmentDirections;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
@@ -50,7 +49,7 @@ public class PostDetailsFragment extends Fragment {
         phoneNumberTv = view.findViewById(R.id.idTVPhone);
         locationTv = view.findViewById(R.id.idTVLocation);
         imageView = view.findViewById(R.id.idIVPostImage);
-        progressBar = view.findViewById(R.id.postDetailsProgressBar);
+        progressBar = view.findViewById(R.id.postDetailsProgressBar2);
 
          AppModel.instance.getPostById(postId, post -> {
              isUserPost = post.getUserId().equals(userInfo.getUid());

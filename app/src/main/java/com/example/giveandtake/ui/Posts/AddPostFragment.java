@@ -26,7 +26,6 @@ import com.example.giveandtake.R;
 import com.example.giveandtake.model.Post;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
@@ -68,7 +67,7 @@ public class AddPostFragment extends Fragment {
         saveBtn = view.findViewById(R.id.main_save_btn);
         cancelBtn = view.findViewById(R.id.main_cancel_btn);
         avatarImv = view.findViewById(R.id.creatPost_UpImage);
-        progressBar = view.findViewById(R.id.postDetailsProgressBar);
+        progressBar = view.findViewById(R.id.progressBar);
         camBtn = view.findViewById(R.id.main_cam_btn);
         galleryBtn = view.findViewById(R.id.main_gallery_btn);
         phoneEt = view.findViewById(R.id.createPost_phoneInput);
@@ -156,7 +155,7 @@ public class AddPostFragment extends Fragment {
 
 
     private void save() {
-        //progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         saveBtn.setEnabled(false);
         cancelBtn.setEnabled(false);
         camBtn.setEnabled(false);

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/postDetailsProgressBar2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Posts.AddPostFragment">
@@ -147,7 +148,7 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="95dp"
         android:layout_marginEnd="200dp"
         android:text="Cancel"
         app:layout_constraintEnd_toEndOf="parent"
@@ -160,7 +161,7 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginStart="200dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="95dp"
         android:layout_marginEnd="50dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
@@ -180,5 +181,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/createPost_locationText"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="65dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,17 +16,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.giveandtake.MyApplication;
 import com.example.giveandtake.R;
-import com.example.giveandtake.model.Post;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
@@ -39,8 +36,6 @@ import com.squareup.picasso.Picasso;
 import android.widget.ArrayAdapter;
 import java.util.Arrays;
 
-import android.os.Bundle;
-
 public class EditPostFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;
     private static final int REQUEST_GALLERY = 100;
@@ -48,7 +43,6 @@ public class EditPostFragment extends Fragment {
     boolean locationNotEmpty = true;
     boolean imageNotEmpty = true;
     boolean phoneNoteEmpty=true;
-//    boolean avatarImvNotEmpty = false;
 
     EditText contentEt;
     EditText phoneEt;
@@ -73,7 +67,7 @@ public class EditPostFragment extends Fragment {
         saveBtn = view.findViewById(R.id.main_save_btn);
         cancelBtn = view.findViewById(R.id.main_cancel_btn);
         avatarImv = view.findViewById(R.id.creatPost_UpImage);
-        progressBar = view.findViewById(R.id.postDetailsProgressBar);
+        progressBar = view.findViewById(R.id.progressBar);
         camBtn = view.findViewById(R.id.main_cam_btn);
         galleryBtn = view.findViewById(R.id.main_gallery_btn);
         phoneEt = view.findViewById(R.id.createPost_phoneInput);
@@ -172,6 +166,7 @@ public class EditPostFragment extends Fragment {
 
 
     private void save() {
+        progressBar.setVisibility(View.VISIBLE);
         saveBtn.setEnabled(false);
         cancelBtn.setEnabled(false);
         camBtn.setEnabled(false);
@@ -182,14 +177,26 @@ public class EditPostFragment extends Fragment {
             post.setPhone(phoneEt.getText().toString());
             post.setLocation(autoComplete.getText().toString());
 
+
+            if (imageBitmap == null){
+                AppModel.instance.editPost(post, (boolean success)-> navigateBack());
+            } else {
+                String postImageId = UUID.randomUUID().toString();
+                AppModel.instance.saveImage(imageBitmap, postImageId + ".jpg", url -> {
+                    post.setImageUrl(url);
+                    navigateBack();
+                });
+            }
+
 //        if (imageBitmap == null){
 //            AppModel.instance.addPost(post, (boolean success)-> navigateBack());
 //        } else {
-            String adImageId = UUID.randomUUID().toString();
-            AppModel.instance.saveImage(imageBitmap, adImageId + ".jpg", url -> {
-                post.setImageUrl(url);
-                AppModel.instance.addPost(post, (boolean success)-> navigateBack());
-            });
+//            String adImageId = UUID.randomUUID().toString();
+//            AppModel.instance.saveImage(imageBitmap, adImageId + ".jpg", url -> {
+//                post.setImageUrl(url);
+//                navigateBack();
+//                //AppModel.instance.addPost(post, (boolean success)-> navigateBack());
+//            });
 //        }
         });
     }
