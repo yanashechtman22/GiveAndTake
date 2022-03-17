@@ -59,6 +59,15 @@ public class FirebaseAppModel {
                 .addOnFailureListener(e -> listener.onComplete(false));
     }
 
+    public void updatePost(Post post, AppModel.EditAdListener listener) {
+        Map<String, Object> json = post.toJson();
+        db.collection(POSTS_COLLECTION_NAME)
+                .document(post.getId())
+                .update(json)
+                .addOnSuccessListener(unused -> listener.onComplete(true))
+                .addOnFailureListener(e -> listener.onComplete(false));
+    }
+
     public void saveImage(Bitmap imageBitmap, String imageId, AppModel.SaveImageListener listener) {
         StorageReference storageRef = storage.getReference();
         StorageReference adsImgRef = storageRef.child("posts_images/" + imageId);
