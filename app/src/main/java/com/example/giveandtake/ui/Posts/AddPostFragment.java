@@ -163,7 +163,6 @@ public class AddPostFragment extends Fragment {
 
         String content = contentEt.getText().toString();
         String phone = phoneEt.getText().toString();
-        Long lud = new Long(0);
         String userId = userInfo.getUid();
         String location = autoComplete.getText().toString();
 

@@ -12,8 +12,12 @@ import java.util.List;
 @Dao
 public interface PostDao {
 
-    @Query("select * from Post")
+    @Query("select * from Post WHERE isDeleted == 0")
     List<Post> getAll();
+
+    @Query("select * from Post WHERE content LIKE '%' || :query || '%' AND isDeleted == 0")
+    List<Post> getByQuery(String query);
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Post... students);

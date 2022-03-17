@@ -23,7 +23,7 @@ public class AppModel {
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
     MutableLiveData<PostsListLoadingState> postsListLoadingState = new MutableLiveData<>();
-    MutableLiveData<List<Post>> postsList = new MutableLiveData<List<Post>>();
+    MutableLiveData<List<Post>> postsList = new MutableLiveData<>();
     FirebaseAppModel firebaseAppModel = new FirebaseAppModel();
 
     public interface AddAdListener{
@@ -50,6 +50,10 @@ public class AppModel {
 
     public LiveData<PostsListLoadingState> getStudentListLoadingState() {
         return postsListLoadingState;
+    }
+
+    public List<Post> getByQuery(String query){
+        return AppLocalDB.db.postDao().getByQuery(query);
     }
 
     public LiveData<List<Post>> getAll() {
@@ -79,6 +83,7 @@ public class AppModel {
                         .putLong("PostsLastUpdateDate", lud)
                         .commit();
                 List<Post> localPostsList = AppLocalDB.db.postDao().getAll();
+
                 postsList.postValue(localPostsList);
                 postsListLoadingState.postValue(PostsListLoadingState.loaded);
             });
