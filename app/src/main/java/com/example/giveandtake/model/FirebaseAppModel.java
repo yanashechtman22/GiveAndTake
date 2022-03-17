@@ -31,6 +31,7 @@ public class FirebaseAppModel {
 
     public void getAllPosts(Long lastUpdateDate, AppModel.GetPostsListener listener) {
         db.collection(POSTS_COLLECTION_NAME)
+                .whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
                 .get()
                 .addOnCompleteListener(task -> {
                      List<Post> list = new LinkedList<>();
@@ -93,7 +94,7 @@ public class FirebaseAppModel {
         });
     }
 
-    public void getNoteById(String postId, AppModel.GetPostByIdListener listener) {
+    public void getPostById(String postId, AppModel.GetPostByIdListener listener) {
         db.collection(POSTS_COLLECTION_NAME)
                 .document(postId)
                 .get()
@@ -108,10 +109,10 @@ public class FirebaseAppModel {
 
     }
 
-    public void deleteNoteById(String postId, AppModel.DeletePostByIdListener listener) {
+    public void deletePostById(String postId, AppModel.DeletePostByIdListener listener) {
         db.collection(POSTS_COLLECTION_NAME)
                 .document(postId)
-                .delete()
+                .update("isDeleted",true)
                 .addOnSuccessListener(unused -> listener.onComplete(true))
                 .addOnFailureListener(e -> listener.onComplete(false));
     }

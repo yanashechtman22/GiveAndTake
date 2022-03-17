@@ -184,7 +184,8 @@ public class EditPostFragment extends Fragment {
                 String postImageId = UUID.randomUUID().toString();
                 AppModel.instance.saveImage(imageBitmap, postImageId + ".jpg", url -> {
                     post.setImageUrl(url);
-                    navigateBack();
+                    AppModel.instance.editPost(post, success -> navigateBack());
+                    //navigateBack();
                 });
             }
 

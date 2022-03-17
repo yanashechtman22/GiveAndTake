@@ -1,7 +1,5 @@
 package com.example.giveandtake.model;
 
-import android.net.Uri;
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -24,6 +22,7 @@ public class Post implements Serializable {
     private String location = "";
     private String userId = "";
     private Long updateDate = new Long(0);
+    private boolean isDeleted = false;
 
     public Post(String content, String phone, String location, String userId) {
         this.content = content;
@@ -82,8 +81,12 @@ public class Post implements Serializable {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public Map<String, Object> toJson(){
@@ -94,6 +97,7 @@ public class Post implements Serializable {
         outputJson.put("imageUrl", imageUrl);
         outputJson.put("location", location);
         outputJson.put("userId", userId);
+        outputJson.put("isDeleted", isDeleted);
         outputJson.put("updateDate", FieldValue.serverTimestamp());
         return outputJson;
     }
@@ -107,15 +111,16 @@ public class Post implements Serializable {
         Timestamp ts = (Timestamp)postData.get("updateDate");
         String userId = (String) postData.get("userId");
         Long updateDate = ts.getSeconds();
+        boolean isDeleted = (boolean) postData.get("isDeleted");
 
         Post post = new Post(content,phone,location,userId);
         post.setId(id);
+        post.setDeleted(isDeleted);
         post.setUpdateDate(updateDate);
         post.setImageUrl(imageUrl);
 
         return post;
     }
-
 
 
 }

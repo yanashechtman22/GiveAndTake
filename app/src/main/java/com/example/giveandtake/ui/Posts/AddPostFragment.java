@@ -167,8 +167,8 @@ public class AddPostFragment extends Fragment {
         String userId = userInfo.getUid();
         String location = autoComplete.getText().toString();
 
-        //TODO: this is mock! this line shouldn't be here
         Post post = new Post(content, phone, location, userId);
+        post.setDeleted(false);
 
         if (imageBitmap == null){
             AppModel.instance.addPost(post, (boolean success)-> navigateBack());

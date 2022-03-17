@@ -28,6 +28,6 @@ public interface PostDao {
     void delete(Post post);
 
     @Update
-    void update(Post note);
+    void update(Post post);
 
 }

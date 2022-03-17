@@ -62,11 +62,8 @@ public class AppModel {
 
     public void refreshPostsList() {
         postsListLoadingState.setValue(PostsListLoadingState.loading);
-        // get last local update date
         Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostsLastUpdateDate", 0);
-        // firebase get all updates since lastLocalUpdateDate
         firebaseAppModel.getAllPosts(lastUpdateDate, list -> {
-            // add all records to the local db
             executor.execute(() -> {
                 Long lud = new Long(0);
                 Log.d("TAG", "fb returned " + list.size());
@@ -76,13 +73,11 @@ public class AppModel {
                         lud = post.getUpdateDate();
                     }
                 }
-                // update last local update date
                 MyApplication.getContext()
                         .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                         .edit()
                         .putLong("PostsLastUpdateDate", lud)
                         .commit();
-                //return all data to caller
                 List<Post> localPostsList = AppLocalDB.db.postDao().getAll();
                 postsList.postValue(localPostsList);
                 postsListLoadingState.postValue(PostsListLoadingState.loaded);
@@ -127,12 +122,12 @@ public class AppModel {
     }
 
     public void getPostById(String postId, GetPostByIdListener listener) {
-        firebaseAppModel.getNoteById(postId,listener);
+        firebaseAppModel.getPostById(postId,listener);
     }
 
     public void deletePostById(String postId, DeletePostByIdListener listener) {
         postsListLoadingState.setValue(PostsListLoadingState.loading);
-        firebaseAppModel.deleteNoteById(postId, success -> {
+        firebaseAppModel.deletePostById(postId, success -> {
             if(success){
                 executor.execute(() -> {
                     AppLocalDB.db.postDao().deleteById(postId);

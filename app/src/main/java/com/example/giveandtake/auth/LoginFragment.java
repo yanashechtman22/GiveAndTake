@@ -102,6 +102,7 @@ public class LoginFragment extends Fragment {
 
         @Override
         public void onFailure(String message) {
+            progressBar.setVisibility(View.INVISIBLE);
             Snackbar.make(view, message, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }

@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/postDetailsFragment"
         android:name="com.example.giveandtake.ui.Posts.PostDetailsFragment"
-        android:label="Note details"
+        android:label="Post details"
         tools:layout="@layout/fragment_post_details">
         <argument
             android:name="post_id"

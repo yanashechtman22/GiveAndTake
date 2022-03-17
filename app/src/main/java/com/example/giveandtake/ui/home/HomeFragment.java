@@ -1,6 +1,7 @@
 package com.example.giveandtake.ui.home;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -95,6 +97,7 @@ public class HomeFragment extends Fragment {
             return itemViewHolder;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
             Post post = homeViewModel.getPosts().getValue().get(position);
