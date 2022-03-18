@@ -24,6 +24,7 @@ import com.example.giveandtake.MyApplication;
 import com.example.giveandtake.R;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
+import com.example.giveandtake.utils.IsraeliCities;
 import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
@@ -73,7 +74,7 @@ public class EditPostFragment extends Fragment {
         phoneEt = view.findViewById(R.id.createPost_phoneInput);
 
         autoComplete = view.findViewById(R.id.autoComplete_actv);
-        String[] cities = {"Beer Sheva","Netanya", "Tel Aviv", "Haifa", "Jerusalem"};
+        String[] cities = IsraeliCities.CITIES;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item,cities);
         autoComplete.setThreshold(2);
         autoComplete.setAdapter(adapter);
