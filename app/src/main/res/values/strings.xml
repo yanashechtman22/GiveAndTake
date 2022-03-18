@@ -39,6 +39,7 @@
     <string name="item_image">Item Image</string>
     <string name="location">Location</string>
     <string name="location_placeholder">City Name</string>
+    <string name="menu_map">Map</string>
     <integer name="min_password_length">6</integer>
 
 </resources>
