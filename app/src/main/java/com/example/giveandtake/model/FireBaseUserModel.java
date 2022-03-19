@@ -17,6 +17,7 @@ public class FireBaseUserModel {
 
     public User getUserByEmail(String email) {
         //todo take the user email
+
         return new User("linoy", "e@gmail.com", "00", "fdfdfsdsd", new ArrayList<Post>());
     }
 }

@@ -99,6 +99,21 @@ public class FirebaseAppModel {
 
     }
 
+    public void getNoteByUserId(String userId, AppModel.GetPostByIdListener listener) {
+        db.collection(POSTS_COLLECTION_NAME)
+                .document(userId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    Post post = null;
+                    if (task.isSuccessful() && task.getResult()!= null){
+                        Map<String, Object> data = task.getResult().getData();
+                        post = Post.fromJson(data);
+                    }
+                    listener.onComplete(post);
+                });
+
+    }
+
     public void deleteNoteById(String postId, AppModel.DeletePostByIdListener listener) {
         db.collection(POSTS_COLLECTION_NAME)
                 .document(postId)

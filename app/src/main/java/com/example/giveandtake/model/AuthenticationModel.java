@@ -10,6 +10,7 @@ public class AuthenticationModel {
 
     public interface AuthListener {
         void onComplete(FirebaseUser user);
+
         void onFailure(String message);
     }
 
@@ -22,7 +23,7 @@ public class AuthenticationModel {
     }
 
     public void loginUser(String email, String password, AuthListener listener) {
-        firebaseAuthenticationModel.loginUser(email,password, listener);
+        firebaseAuthenticationModel.loginUser(email, password, listener);
     }
 
     public boolean isSignedIn() {

@@ -26,11 +26,11 @@ public class AppModel {
     MutableLiveData<List<Post>> postsList = new MutableLiveData<List<Post>>();
     FirebaseAppModel firebaseAppModel = new FirebaseAppModel();
 
-    public interface AddAdListener{
+    public interface AddAdListener {
         void onComplete(boolean success);
     }
 
-    public interface SaveImageListener{
+    public interface SaveImageListener {
         void onComplete(String imageUri);
     }
 
@@ -89,10 +89,10 @@ public class AppModel {
         });
     }
 
-    public void addPost(Post newPost, AddAdListener listener){
+    public void addPost(Post newPost, AddAdListener listener) {
         postsListLoadingState.setValue(PostsListLoadingState.loading);
         firebaseAppModel.addNewPost(newPost, success -> {
-            if(success){
+            if (success) {
                 executor.execute(() -> {
                     AppLocalDB.db.postDao().insert(newPost);
                     //return all data to caller
@@ -106,17 +106,22 @@ public class AppModel {
     }
 
     public void saveImage(Bitmap imageBitmap, String imageId, SaveImageListener listener) {
-        firebaseAppModel.saveImage(imageBitmap,imageId,listener);
+        firebaseAppModel.saveImage(imageBitmap, imageId, listener);
     }
 
     public void getPostById(String postId, GetPostByIdListener listener) {
-        firebaseAppModel.getNoteById(postId,listener);
+        firebaseAppModel.getNoteById(postId, listener);
+    }
+
+    public List<Post> getPostByUserId(String userId) {
+        List<Post> localPostsList = AppLocalDB.db.postDao().getPostsByUserId(userId);
+        return localPostsList;
     }
 
     public void deletePostById(String postId, DeletePostByIdListener listener) {
         postsListLoadingState.setValue(PostsListLoadingState.loading);
         firebaseAppModel.deleteNoteById(postId, success -> {
-            if(success){
+            if (success) {
                 executor.execute(() -> {
                     AppLocalDB.db.postDao().deleteById(postId);
                     //return all data to caller
@@ -128,7 +133,6 @@ public class AppModel {
             listener.onComplete(success);
         });
     }
-
 
 
 }

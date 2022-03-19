@@ -11,9 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GiveAndTake">
         <activity
-            android:name=".ui.profile.UserProfileActivity"
-            android:exported="false" />
-        <activity
             android:name=".auth.LoginActivity"
             android:exported="false" />
         <activity

@@ -15,6 +15,9 @@ public interface PostDao {
     @Query("select * from Post")
     List<Post> getAll();
 
+    @Query("select * from Post where userId = :userId")
+    List<Post> getPostsByUserId(String userId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Post... students);
 

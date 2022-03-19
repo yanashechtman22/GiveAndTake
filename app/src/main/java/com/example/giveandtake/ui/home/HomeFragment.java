@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
+    public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
         @NonNull
         @Override
