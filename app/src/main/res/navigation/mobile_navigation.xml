@@ -9,7 +9,10 @@
         android:id="@+id/nav_home"
         android:name="com.example.giveandtake.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_userProfileFragment2"
+            app:destination="@id/userProfileFragment2" />
         <action
             android:id="@+id/action_home_to_postDetailsFragment"
             app:destination="@id/postDetailsFragment" />
@@ -21,12 +24,12 @@
     <fragment
         android:id="@+id/postDetailsFragment"
         android:name="com.example.giveandtake.ui.Posts.PostDetailsFragment"
-        android:label="Note details"
+        android:label="Post details"
         tools:layout="@layout/fragment_post_details">
         <argument
             android:name="post_id"
             app:argType="string" />
-         <action
+        <action
             android:id="@+id/action_postDetailsFragment_to_fragment_edit_post"
             app:destination="@id/nav_home" />
         <action
@@ -34,21 +37,53 @@
             app:destination="@id/nav_home"
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_home"
-            app:popUpToInclusive="true"
-            />
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_postDetailsFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_adAdd"
         android:name="com.example.giveandtake.ui.Posts.AddPostFragment"
         android:label="@string/add_new_ad"
-        tools:layout="@layout/fragment_add_post" >
+        tools:layout="@layout/fragment_add_post">
         <action
             android:id="@+id/action_nav_adAdd_to_nav_home2"
             app:destination="@id/nav_home" />
     </fragment>
 
     <fragment
+        android:id="@+id/nav_map"
+        android:name="com.example.giveandtake.ui.map.MapFragment"
+        android:label="@string/menu_map"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_nav_map_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_slideshow"
+        android:name="com.example.giveandtake.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/userProfileFragment2"
+        android:name="com.example.giveandtake.ui.profile.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.example.giveandtake.ui.Posts.EditPostFragment"
+        android:label="fragment_edit_post"
+        tools:layout="@layout/fragment_edit_post">
+        <argument
+            android:name="post_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_editPostFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
         android:name="com.example.giveandtake.ui.profile.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />

@@ -31,6 +31,7 @@ public class FirebaseAppModel {
 
     public void getAllPosts(Long lastUpdateDate, AppModel.GetPostsListener listener) {
         db.collection(POSTS_COLLECTION_NAME)
+                .whereGreaterThanOrEqualTo("updateDate",new Timestamp(lastUpdateDate,0))
                 .get()
                 .addOnCompleteListener(task -> {
                      List<Post> list = new LinkedList<>();
@@ -55,6 +56,15 @@ public class FirebaseAppModel {
         db.collection(POSTS_COLLECTION_NAME)
                 .document(newPost.getId())
                 .set(json)
+                .addOnSuccessListener(unused -> listener.onComplete(true))
+                .addOnFailureListener(e -> listener.onComplete(false));
+    }
+
+    public void updatePost(Post post, AppModel.EditAdListener listener) {
+        Map<String, Object> json = post.toJson();
+        db.collection(POSTS_COLLECTION_NAME)
+                .document(post.getId())
+                .update(json)
                 .addOnSuccessListener(unused -> listener.onComplete(true))
                 .addOnFailureListener(e -> listener.onComplete(false));
     }
@@ -84,7 +94,7 @@ public class FirebaseAppModel {
         });
     }
 
-    public void getNoteById(String postId, AppModel.GetPostByIdListener listener) {
+    public void getPostById(String postId, AppModel.GetPostByIdListener listener) {
         db.collection(POSTS_COLLECTION_NAME)
                 .document(postId)
                 .get()
@@ -97,6 +107,14 @@ public class FirebaseAppModel {
                     listener.onComplete(post);
                 });
 
+    }
+
+    public void deletePostById(String postId, AppModel.DeletePostByIdListener listener) {
+        db.collection(POSTS_COLLECTION_NAME)
+                .document(postId)
+                .update("isDeleted",true)
+                .addOnSuccessListener(unused -> listener.onComplete(true))
+                .addOnFailureListener(e -> listener.onComplete(false));
     }
 
     public void getNoteByUserId(String userId, AppModel.GetPostByIdListener listener) {
@@ -112,13 +130,5 @@ public class FirebaseAppModel {
                     listener.onComplete(post);
                 });
 
-    }
-
-    public void deleteNoteById(String postId, AppModel.DeletePostByIdListener listener) {
-        db.collection(POSTS_COLLECTION_NAME)
-                .document(postId)
-                .delete()
-                .addOnSuccessListener(unused -> listener.onComplete(true))
-                .addOnFailureListener(e -> listener.onComplete(false));
     }
 }

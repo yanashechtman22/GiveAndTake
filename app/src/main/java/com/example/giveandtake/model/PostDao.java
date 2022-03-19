@@ -12,8 +12,11 @@ import java.util.List;
 @Dao
 public interface PostDao {
 
-    @Query("select * from Post")
+    @Query("select * from Post WHERE isDeleted == 0")
     List<Post> getAll();
+
+    @Query("select * from Post WHERE content LIKE '%' || :query || '%' AND isDeleted == 0")
+    List<Post> getByQuery(String query);
 
     @Query("select * from Post where userId = :userId")
     List<Post> getPostsByUserId(String userId);
@@ -31,6 +34,6 @@ public interface PostDao {
     void delete(Post post);
 
     @Update
-    void update(Post note);
+    void update(Post post);
 
 }

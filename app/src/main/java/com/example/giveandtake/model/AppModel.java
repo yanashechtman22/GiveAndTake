@@ -23,10 +23,13 @@ public class AppModel {
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
     MutableLiveData<PostsListLoadingState> postsListLoadingState = new MutableLiveData<>();
-    MutableLiveData<List<Post>> postsList = new MutableLiveData<List<Post>>();
+    MutableLiveData<List<Post>> postsList = new MutableLiveData<>();
     FirebaseAppModel firebaseAppModel = new FirebaseAppModel();
 
     public interface AddAdListener {
+        void onComplete(boolean success);
+    }
+    public interface EditAdListener{
         void onComplete(boolean success);
     }
 
@@ -50,6 +53,10 @@ public class AppModel {
         return postsListLoadingState;
     }
 
+    public List<Post> getByQuery(String query){
+        return AppLocalDB.db.postDao().getByQuery(query);
+    }
+
     public LiveData<List<Post>> getAll() {
         if (postsList.getValue() == null) {
             refreshPostsList();
@@ -60,11 +67,8 @@ public class AppModel {
 
     public void refreshPostsList() {
         postsListLoadingState.setValue(PostsListLoadingState.loading);
-        // get last local update date
         Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostsLastUpdateDate", 0);
-        // firebase get all updates since lastLocalUpdateDate
         firebaseAppModel.getAllPosts(lastUpdateDate, list -> {
-            // add all records to the local db
             executor.execute(() -> {
                 Long lud = new Long(0);
                 Log.d("TAG", "fb returned " + list.size());
@@ -74,15 +78,13 @@ public class AppModel {
                         lud = post.getUpdateDate();
                     }
                 }
-                // update last local update date
                 MyApplication.getContext()
                         .getSharedPreferences("TAG", Context.MODE_PRIVATE)
                         .edit()
                         .putLong("PostsLastUpdateDate", lud)
                         .commit();
-
-                //return all data to caller
                 List<Post> localPostsList = AppLocalDB.db.postDao().getAll();
+
                 postsList.postValue(localPostsList);
                 postsListLoadingState.postValue(PostsListLoadingState.loaded);
             });
@@ -105,12 +107,28 @@ public class AppModel {
         });
     }
 
+    public void editPost(Post post,EditAdListener listener){
+        firebaseAppModel.updatePost(post, success -> {
+            if(success){
+                executor.execute(() -> {
+                    AppLocalDB.db.postDao().update(post);
+                    List<Post> localPostsList = AppLocalDB.db.postDao().getAll();
+                    postsList.postValue(localPostsList);
+                    postsListLoadingState.postValue(PostsListLoadingState.loaded);
+                });
+            }
+            listener.onComplete(true);
+        });
+        AppLocalDB.db.postDao().update(post);
+    }
+
+
     public void saveImage(Bitmap imageBitmap, String imageId, SaveImageListener listener) {
         firebaseAppModel.saveImage(imageBitmap, imageId, listener);
     }
 
     public void getPostById(String postId, GetPostByIdListener listener) {
-        firebaseAppModel.getNoteById(postId, listener);
+        firebaseAppModel.getPostById(postId,listener);
     }
 
     public List<Post> getPostByUserId(String userId) {
@@ -120,8 +138,8 @@ public class AppModel {
 
     public void deletePostById(String postId, DeletePostByIdListener listener) {
         postsListLoadingState.setValue(PostsListLoadingState.loading);
-        firebaseAppModel.deleteNoteById(postId, success -> {
-            if (success) {
+        firebaseAppModel.deletePostById(postId, success -> {
+            if(success){
                 executor.execute(() -> {
                     AppLocalDB.db.postDao().deleteById(postId);
                     //return all data to caller

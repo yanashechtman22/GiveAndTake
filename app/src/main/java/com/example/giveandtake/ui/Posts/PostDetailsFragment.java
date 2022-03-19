@@ -49,11 +49,12 @@ public class PostDetailsFragment extends Fragment {
         phoneNumberTv = view.findViewById(R.id.idTVPhone);
         locationTv = view.findViewById(R.id.idTVLocation);
         imageView = view.findViewById(R.id.idIVPostImage);
-        progressBar = view.findViewById(R.id.postDetailsProgressBar);
+        progressBar = view.findViewById(R.id.postDetailsProgressBar2);
 
          AppModel.instance.getPostById(postId, post -> {
              isUserPost = post.getUserId().equals(userInfo.getUid());
              contentTv.setText(post.getContent());
+             phoneNumberTv.setText(post.getPhone());
              locationTv.setText(post.getLocation());
              progressBar.setVisibility(View.INVISIBLE);
              if (post.getImageUrl() != null && post.getImageUrl().length() > 0) {
@@ -75,9 +76,15 @@ public class PostDetailsFragment extends Fragment {
             case R.id.app_bar_delete:
                 handleDeletePost();
                 return super.onOptionsItemSelected(item);
+            case R.id.app_bar_edit:
+                Navigation.findNavController(view).
+                        navigate(PostDetailsFragmentDirections.
+                                actionPostDetailsFragmentToEditPostFragment(postId));
             default: return super.onOptionsItemSelected(item);
         }
     }
+
+
 
     @Override
     public void onPrepareOptionsMenu(Menu menu)
@@ -108,4 +115,5 @@ public class PostDetailsFragment extends Fragment {
             }
         });
     }
+
 }

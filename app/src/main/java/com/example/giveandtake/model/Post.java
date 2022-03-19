@@ -1,7 +1,5 @@
 package com.example.giveandtake.model;
 
-import android.net.Uri;
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -18,14 +16,17 @@ public class Post implements Serializable {
     @PrimaryKey
     @NonNull
     private String id = "1234";
+    private String phone = "";
     private String content = "";
     private String imageUrl = "";
     private String location = "";
     private String userId = "";
     private Long updateDate = new Long(0);
+    private boolean isDeleted = false;
 
-    public Post(String content, String location, String userId) {
+    public Post(String content, String phone, String location, String userId) {
         this.content = content;
+        this.phone=phone;
         this.location = location;
         this.userId = userId;
     }
@@ -54,6 +55,13 @@ public class Post implements Serializable {
         this.id = id;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -73,38 +81,46 @@ public class Post implements Serializable {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public Map<String, Object> toJson(){
         Map<String,Object> outputJson = new HashMap<>();
         outputJson.put("id", id);
+        outputJson.put("phone", phone);
         outputJson.put("content", content);
         outputJson.put("imageUrl", imageUrl);
         outputJson.put("location", location);
         outputJson.put("userId", userId);
+        outputJson.put("isDeleted", isDeleted);
         outputJson.put("updateDate", FieldValue.serverTimestamp());
         return outputJson;
     }
 
     public static Post fromJson(Map<String, Object> postData) {
         String id = (String) postData.get("id");
+        String phone = (String) postData.get("phone");
         String content = (String) postData.get("content");
         String location = (String) postData.get("location");
         String imageUrl = (String)postData.get("imageUrl");
         Timestamp ts = (Timestamp)postData.get("updateDate");
         String userId = (String) postData.get("userId");
         Long updateDate = ts.getSeconds();
+        boolean isDeleted = (boolean) postData.get("isDeleted");
 
-        Post post = new Post(content,location,userId);
+        Post post = new Post(content,phone,location,userId);
         post.setId(id);
+        post.setDeleted(isDeleted);
         post.setUpdateDate(updateDate);
         post.setImageUrl(imageUrl);
 
         return post;
     }
-
 
 
 }

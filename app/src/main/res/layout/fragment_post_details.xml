@@ -7,7 +7,7 @@
     tools:context=".ui.Posts.PostDetailsFragment">
 
     <ProgressBar
-        android:id="@+id/postDetailsProgressBar"
+        android:id="@+id/postDetailsProgressBar2"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:indeterminateTint="@color/colorPrimary"
