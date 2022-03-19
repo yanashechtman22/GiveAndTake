@@ -10,19 +10,19 @@
     tools:context=".ui.profile.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="510dp"
         android:layout_height="match_parent">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/postsList_swipeRefresh"
-            android:layout_width="393dp"
-            android:layout_height="392dp"
+            android:layout_width="451dp"
+            android:layout_height="420dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.516"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.894">
+            app:layout_constraintVertical_bias="0.872">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/posts_rv"
@@ -51,8 +51,8 @@
             android:id="@+id/profile_user_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="292dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="364dp"
+            android:layout_marginTop="20dp"
             android:text="@string/user_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -61,8 +61,8 @@
             android:id="@+id/profile_user_phone_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="300dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginStart="364dp"
+            android:layout_marginTop="112dp"
             android:text="@string/user_phone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -71,11 +71,12 @@
         <EditText
             android:id="@+id/profile_user_phone_input"
             android:layout_width="230dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="60dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="108dp"
             android:layout_marginTop="84dp"
             android:ems="10"
-            android:inputType="phone"
+            android:enabled="false"
+            android:inputType="none"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,8 +84,8 @@
             android:id="@+id/profile_user_email_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="300dp"
-            android:layout_marginTop="68dp"
+            android:layout_marginStart="364dp"
+            android:layout_marginTop="64dp"
             android:text="@string/user_email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -93,22 +94,24 @@
             android:id="@+id/profile_user_email_input"
             android:layout_width="229dp"
             android:layout_height="46dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="40dp"
             android:ems="10"
-            android:inputType="textEmailAddress"
+            android:enabled="false"
+            android:inputType="none"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <EditText
             android:id="@+id/profile_user_name_input"
-            android:layout_width="234dp"
-            android:layout_height="41dp"
-            android:layout_marginStart="56dp"
+            android:layout_width="230dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="108dp"
             android:layout_marginTop="4dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:enabled="false"
+            android:inputType="none"
             android:text="@string/name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
