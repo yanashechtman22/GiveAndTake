@@ -13,10 +13,10 @@ public class FirebaseAuthenticationModel {
     private FirebaseAuth mAuth;
 
     public FirebaseAuthenticationModel() {
-            mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
     }
 
-    public boolean isSignedIn(){
+    public boolean isSignedIn() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         return currentUser != null;
     }
@@ -26,7 +26,7 @@ public class FirebaseAuthenticationModel {
         return user;
     }
 
-    public void registerNewUser(String displayName, String email, String password, AuthenticationModel.AuthListener listener){
+    public void registerNewUser(String displayName, String email, String password, AuthenticationModel.AuthListener listener) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -58,5 +58,9 @@ public class FirebaseAuthenticationModel {
                     }
                 });
 
+    }
+
+    public void signOutUser() {
+        mAuth.signOut();
     }
 }

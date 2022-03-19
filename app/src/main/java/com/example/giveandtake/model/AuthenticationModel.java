@@ -30,5 +30,8 @@ public class AuthenticationModel {
         return firebaseAuthenticationModel.isSignedIn();
     }
 
+    public void logOut() {
+        firebaseAuthenticationModel.signOutUser();
+    }
 
 }

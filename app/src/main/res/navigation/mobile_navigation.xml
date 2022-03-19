@@ -3,16 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_home"
+    tools:ignore="ExtraText">
 
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.giveandtake.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_nav_home_to_userProfileFragment2"
-            app:destination="@id/userProfileFragment2" />
         <action
             android:id="@+id/action_home_to_postDetailsFragment"
             app:destination="@id/postDetailsFragment" />
@@ -42,6 +40,7 @@
             android:id="@+id/action_postDetailsFragment_to_editPostFragment"
             app:destination="@id/editPostFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_adAdd"
         android:name="com.example.giveandtake.ui.Posts.AddPostFragment"
@@ -56,22 +55,25 @@
         android:id="@+id/nav_map"
         android:name="com.example.giveandtake.ui.map.MapFragment"
         android:label="@string/menu_map"
-        tools:layout="@layout/fragment_map" >
+        tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_nav_map_to_postDetailsFragment"
             app:destination="@id/postDetailsFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.giveandtake.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-    <fragment
-        android:id="@+id/userProfileFragment2"
-        android:name="com.example.giveandtake.ui.profile.UserProfileFragment"
-        android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        android:id="@+id/user_profile_page"
+        android:name="com.example.giveandtake.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_user_profile_page_to_loginFragment2"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_user_profile_page_to_nav_adAdd"
+            app:destination="@id/nav_adAdd" />
+    </fragment>
+
     <fragment
         android:id="@+id/editPostFragment"
         android:name="com.example.giveandtake.ui.Posts.EditPostFragment"
@@ -84,7 +86,9 @@
             android:id="@+id/action_editPostFragment_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
-        android:name="com.example.giveandtake.ui.profile.ProfileFragment"
-        android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.giveandtake.auth.LoginFragment"
+        android:label="Login" />
 </navigation>

@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,9 @@ import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.model.FireBaseUserModel;
 import com.example.giveandtake.model.Post;
 import com.example.giveandtake.model.User;
+import com.example.giveandtake.ui.Posts.EditPostFragmentDirections;
+import com.example.giveandtake.ui.home.HomeFragmentDirections;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
 
@@ -31,8 +35,8 @@ public class ProfileFragment extends Fragment {
     EditText phone;
     TextView email;
     TextView name;
-    Button registerBtn;
-    CardView validationCard;
+    Button logout;
+    FloatingActionButton addNewPost;
     ProgressBar progressBar;
     View view;
     FireBaseUserModel fireBaseUserModel = new FireBaseUserModel();
@@ -63,14 +67,35 @@ public class ProfileFragment extends Fragment {
         initializeUserData(userInfo);
         initializePostList();
 
+        logout.setOnClickListener(v -> {
+            logOutActions();
+        });
+
+        addNewPost.setOnClickListener(v -> {
+            addNewPostActions();
+        });
+
 
         return view;
+    }
+
+    private void logOutActions() {
+        AuthenticationModel.instance.logOut();
+        Navigation.findNavController(view).navigate(
+                ProfileFragmentDirections.actionUserProfilePageToLoginFragment2());
+    }
+
+    private void addNewPostActions() {
+        Navigation.findNavController(view).navigate(
+                ProfileFragmentDirections.actionUserProfilePageToNavAdAdd());
     }
 
     private void initializeUserData(UserInfo user) {
         email = view.findViewById(R.id.profile_user_email_input);
         name = view.findViewById(R.id.profile_user_name_input);
         phone = view.findViewById(R.id.profile_user_phone_input);
+        logout = view.findViewById(R.id.profile_user_logout_button);
+        addNewPost = view.findViewById(R.id.profile_user_add_new_post);
 
         name.setText(user.getDisplayName());
         email.setText(user.getEmail());
