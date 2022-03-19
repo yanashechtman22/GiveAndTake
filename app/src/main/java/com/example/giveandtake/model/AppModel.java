@@ -136,6 +136,10 @@ public class AppModel {
         return localPostsList;
     }
 
+    public void deletePostByUserId(String postId) {
+         AppLocalDB.db.postDao().deleteById(postId);
+    }
+
     public void deletePostById(String postId, DeletePostByIdListener listener) {
         postsListLoadingState.setValue(PostsListLoadingState.loading);
         firebaseAppModel.deletePostById(postId, success -> {

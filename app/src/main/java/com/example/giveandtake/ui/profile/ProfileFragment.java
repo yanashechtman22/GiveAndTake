@@ -18,8 +18,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.giveandtake.R;
+import com.example.giveandtake.common.PostsListLoadingState;
+import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.model.FireBaseUserModel;
 import com.example.giveandtake.model.Post;
@@ -31,7 +34,7 @@ import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
-
+    SwipeRefreshLayout swipeRefresh;
     EditText phone;
     TextView email;
     TextView name;
@@ -61,11 +64,22 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         userInfo = AuthenticationModel.instance.getUserInfo();
 
         initializeUserData(userInfo);
         initializePostList();
+
+//        profileViewModel.getPosts(userInfo.).observe(getViewLifecycleOwner(), list1 -> refresh());
+        AppModel.instance.getStudentListLoadingState().observe(getViewLifecycleOwner(), postsListLoadingState -> {
+            if (postsListLoadingState == PostsListLoadingState.loading) {
+                swipeRefresh.setRefreshing(true);
+            } else {
+                swipeRefresh.setRefreshing(false);
+            }
+
+        });
 
         logout.setOnClickListener(v -> {
             logOutActions();
@@ -77,6 +91,11 @@ public class ProfileFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void refresh() {
+        adapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
 
     private void logOutActions() {
@@ -110,6 +129,8 @@ public class ProfileFragment extends Fragment {
         postsList.setAdapter(adapter);
         setHasOptionsMenu(true);
 
+        swipeRefresh = view.findViewById(R.id.postsList_swipeRefresh);
+        swipeRefresh.setOnRefreshListener(() -> AppModel.instance.refreshPostsList());
 
         profileViewModel.getPosts(userInfo.getUid());
         //.observe(getViewLifecycleOwner(), list1 -> refresh());
@@ -136,10 +157,21 @@ public class ProfileFragment extends Fragment {
                         .load(postImageUrl)
                         .into(holder.postImage);
             }
-//            holder.itemView.setOnClickListener(v -> {
-//                String id = post.getId();
-//                Navigation.findNavController(v).navigate(HomeFragmentDirections.actionHomeToPostDetailsFragment(id));
-//            });
+            holder.editButton.setOnClickListener(v -> {
+                String id = post.getId();
+                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToEditPostFragment(id));
+            });
+
+            holder.deleteButton.setOnClickListener(v -> {
+                String postId = post.getId();
+                profileViewModel.deletePost(postId);
+                refresh();
+            });
+        }
+
+        private void refresh() {
+            adapter.notifyDataSetChanged();
+            swipeRefresh.setRefreshing(false);
         }
 
         @Override

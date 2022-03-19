@@ -72,6 +72,12 @@
         <action
             android:id="@+id/action_user_profile_page_to_nav_adAdd"
             app:destination="@id/nav_adAdd" />
+        <action
+            android:id="@+id/action_user_profile_page_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
+        <argument
+            android:name="postId"
+            app:argType="string" />
     </fragment>
 
     <fragment
