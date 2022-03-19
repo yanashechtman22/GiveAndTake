@@ -63,15 +63,15 @@ public class EditPostFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView( LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_add_post, container, false);
-        contentEt = view.findViewById(R.id.createPost_descriptionInput);
+        view = inflater.inflate(R.layout.fragment_edit_post, container, false);
+        contentEt = view.findViewById(R.id.editPost_descriptionInput);
         saveBtn = view.findViewById(R.id.main_save_btn);
         cancelBtn = view.findViewById(R.id.main_cancel_btn);
-        avatarImv = view.findViewById(R.id.creatPost_UpImage);
+        avatarImv = view.findViewById(R.id.editPost_UpImage);
         progressBar = view.findViewById(R.id.progressBar);
         camBtn = view.findViewById(R.id.main_cam_btn);
         galleryBtn = view.findViewById(R.id.main_gallery_btn);
-        phoneEt = view.findViewById(R.id.createPost_phoneInput);
+        phoneEt = view.findViewById(R.id.editPost_phoneInput);
 
         autoComplete = view.findViewById(R.id.autoComplete_actv);
         String[] cities = IsraeliCities.CITIES;
