@@ -15,14 +15,14 @@
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/postsList_swipeRefresh"
-            android:layout_width="451dp"
-            android:layout_height="420dp"
+            android:layout_width="389dp"
+            android:layout_height="292dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.272"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.872">
+            app:layout_constraintVertical_bias="0.38">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/posts_rv"
@@ -51,32 +51,9 @@
             android:id="@+id/profile_user_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="364dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="304dp"
+            android:layout_marginTop="16dp"
             android:text="@string/user_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/profile_user_phone_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="364dp"
-            android:layout_marginTop="112dp"
-            android:text="@string/user_phone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
-
-        <EditText
-            android:id="@+id/profile_user_phone_input"
-            android:layout_width="230dp"
-            android:layout_height="49dp"
-            android:layout_marginStart="108dp"
-            android:layout_marginTop="84dp"
-            android:ems="10"
-            android:enabled="false"
-            android:inputType="none"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,8 +61,8 @@
             android:id="@+id/profile_user_email_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="364dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginStart="304dp"
+            android:layout_marginTop="60dp"
             android:text="@string/user_email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -94,8 +71,8 @@
             android:id="@+id/profile_user_email_input"
             android:layout_width="229dp"
             android:layout_height="46dp"
-            android:layout_marginStart="108dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="36dp"
             android:ems="10"
             android:enabled="false"
             android:inputType="none"
@@ -107,7 +84,7 @@
             android:id="@+id/profile_user_name_input"
             android:layout_width="230dp"
             android:layout_height="38dp"
-            android:layout_marginStart="108dp"
+            android:layout_marginStart="48dp"
             android:layout_marginTop="4dp"
             android:ems="10"
             android:enabled="false"
@@ -121,20 +98,20 @@
             android:id="@+id/profile_user_logout_button"
             android:layout_width="69dp"
             android:layout_height="54dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="504dp"
             android:backgroundTint="@color/color_delete"
             android:text="@string/log_out"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="10dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/profile_user_add_new_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginStart="316dp"
+            android:layout_marginTop="504dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_input_add" />

@@ -65,7 +65,7 @@
         android:id="@+id/user_profile_page"
         android:name="com.example.giveandtake.ui.profile.ProfileFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_user_profile_page_to_loginFragment2"
             app:destination="@id/loginFragment" />
@@ -78,6 +78,12 @@
         <argument
             android:name="postId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_user_profile_page_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+        <action
+            android:id="@+id/action_user_profile_page_to_userNotFoundFragment"
+            app:destination="@id/userNotFoundFragment" />
     </fragment>
 
     <fragment
@@ -97,4 +103,11 @@
         android:id="@+id/loginFragment"
         android:name="com.example.giveandtake.auth.LoginFragment"
         android:label="Login" />
+
+    <fragment
+        android:id="@+id/userNotFoundFragment"
+        android:name="com.example.giveandtake.ui.error.UserNotFoundFragment"
+        android:label="fragment_user_not_found"
+        tools:layout="@layout/fragment_user_not_found" />
+
 </navigation>

@@ -9,8 +9,6 @@ import java.util.List;
 
 public class ProfileViewModel extends ViewModel {
 
-    private List<Post> posts;
-
     public ProfileViewModel() {
     }
 

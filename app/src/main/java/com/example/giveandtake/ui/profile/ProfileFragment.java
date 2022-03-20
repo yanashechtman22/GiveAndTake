@@ -1,18 +1,16 @@
 package com.example.giveandtake.ui.profile;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -24,10 +22,7 @@ import com.example.giveandtake.R;
 import com.example.giveandtake.common.PostsListLoadingState;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
-import com.example.giveandtake.model.FireBaseUserModel;
 import com.example.giveandtake.model.Post;
-import com.example.giveandtake.model.User;
-import com.example.giveandtake.ui.Posts.EditPostFragmentDirections;
 import com.example.giveandtake.ui.home.HomeFragmentDirections;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.UserInfo;
@@ -35,24 +30,14 @@ import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
-    EditText phone;
     TextView email;
     TextView name;
     Button logout;
     FloatingActionButton addNewPost;
-    ProgressBar progressBar;
     View view;
-    FireBaseUserModel fireBaseUserModel = new FireBaseUserModel();
     ItemAdapter adapter;
     ProfileViewModel profileViewModel;
     UserInfo userInfo;
-
-    private final int MIN_PASS_LENGTH = 6;
-    boolean nameNotEmpty = false;
-    boolean emailValid = false;
-    boolean passwordValid = false;
-    User user = null;
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -64,38 +49,20 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         userInfo = AuthenticationModel.instance.getUserInfo();
 
         initializeUserData(userInfo);
         initializePostList();
 
-//        profileViewModel.getPosts(userInfo.).observe(getViewLifecycleOwner(), list1 -> refresh());
-        AppModel.instance.getStudentListLoadingState().observe(getViewLifecycleOwner(), postsListLoadingState -> {
-            if (postsListLoadingState == PostsListLoadingState.loading) {
-                swipeRefresh.setRefreshing(true);
-            } else {
-                swipeRefresh.setRefreshing(false);
-            }
+        AppModel.instance.getPostListLoadingState().observe(getViewLifecycleOwner(),
+                postsListLoadingState -> swipeRefresh.setRefreshing(postsListLoadingState == PostsListLoadingState.loading));
 
-        });
+        logout.setOnClickListener(v -> logOutActions());
 
-        logout.setOnClickListener(v -> {
-            logOutActions();
-        });
-
-        addNewPost.setOnClickListener(v -> {
-            addNewPostActions();
-        });
-
+        addNewPost.setOnClickListener(v -> addNewPostActions());
 
         return view;
-    }
-
-    private void refresh() {
-        adapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
     }
 
     private void logOutActions() {
@@ -112,13 +79,21 @@ public class ProfileFragment extends Fragment {
     private void initializeUserData(UserInfo user) {
         email = view.findViewById(R.id.profile_user_email_input);
         name = view.findViewById(R.id.profile_user_name_input);
-        phone = view.findViewById(R.id.profile_user_phone_input);
         logout = view.findViewById(R.id.profile_user_logout_button);
         addNewPost = view.findViewById(R.id.profile_user_add_new_post);
 
+        if (user == null) {
+            navigateToUserNotFound();
+        }
+
         name.setText(user.getDisplayName());
         email.setText(user.getEmail());
-        phone.setText(user.getPhoneNumber());
+    }
+
+    private void navigateToUserNotFound() {
+        //todo add navigation to user not found - bug
+//        Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(
+//                ProfileFragmentDirections.actionUserProfilePageToPostDetailsFragment("1111"));
     }
 
     private void initializePostList() {
@@ -130,10 +105,9 @@ public class ProfileFragment extends Fragment {
         setHasOptionsMenu(true);
 
         swipeRefresh = view.findViewById(R.id.postsList_swipeRefresh);
-        swipeRefresh.setOnRefreshListener(() -> AppModel.instance.refreshPostsList());
+        swipeRefresh.setOnRefreshListener(AppModel.instance::refreshPostsList);
 
         profileViewModel.getPosts(userInfo.getUid());
-        //.observe(getViewLifecycleOwner(), list1 -> refresh());
     }
 
     public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
@@ -142,13 +116,14 @@ public class ProfileFragment extends Fragment {
         @Override
         public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.single_post_item_user_profile, parent, false);
-            ItemViewHolder itemViewHolder = new ItemViewHolder(view);
-            return itemViewHolder;
+            return new ItemViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
             Post post = profileViewModel.getPosts(userInfo.getUid()).get(position);
+            String postId = post.getId();
+
             holder.postContent.setText(post.getContent());
             holder.postImage.setImageResource(R.drawable.image2);
             String postImageUrl = post.getImageUrl();
@@ -158,17 +133,24 @@ public class ProfileFragment extends Fragment {
                         .into(holder.postImage);
             }
             holder.editButton.setOnClickListener(v -> {
-                String id = post.getId();
-                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToEditPostFragment(id));
+                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToEditPostFragment(postId));
             });
 
             holder.deleteButton.setOnClickListener(v -> {
-                String postId = post.getId();
                 profileViewModel.deletePost(postId);
                 refresh();
             });
+
+            holder.postContent.setOnClickListener(v -> {
+                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToPostDetailsFragment(postId));
+            });
+
+            holder.postImage.setOnClickListener(v -> {
+                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToPostDetailsFragment(postId));
+            });
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         private void refresh() {
             adapter.notifyDataSetChanged();
             swipeRefresh.setRefreshing(false);
@@ -183,11 +165,11 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView postContent;
-        private ImageView postImage;
-        private ImageView editButton;
-        private ImageView deleteButton;
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
+        private final TextView postContent;
+        private final ImageView postImage;
+        private final ImageView editButton;
+        private final ImageView deleteButton;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);

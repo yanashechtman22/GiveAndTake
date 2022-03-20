@@ -49,7 +49,7 @@ public class AppModel {
         void onComplete(boolean success);
     }
 
-    public LiveData<PostsListLoadingState> getStudentListLoadingState() {
+    public LiveData<PostsListLoadingState> getPostListLoadingState() {
         return postsListLoadingState;
     }
 
