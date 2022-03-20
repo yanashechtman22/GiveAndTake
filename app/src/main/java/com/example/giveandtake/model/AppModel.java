@@ -26,10 +26,7 @@ public class AppModel {
     MutableLiveData<List<Post>> postsList = new MutableLiveData<>();
     FirebaseAppModel firebaseAppModel = new FirebaseAppModel();
 
-    public interface AddAdListener {
-        void onComplete(boolean success);
-    }
-    public interface EditAdListener{
+    public interface CrudPostListener {
         void onComplete(boolean success);
     }
 
@@ -43,10 +40,6 @@ public class AppModel {
 
     public interface GetPostByIdListener {
         void onComplete(Post post);
-    }
-
-    public interface DeletePostByIdListener {
-        void onComplete(boolean success);
     }
 
     public LiveData<PostsListLoadingState> getPostListLoadingState() {
@@ -91,7 +84,7 @@ public class AppModel {
         });
     }
 
-    public void addPost(Post newPost, AddAdListener listener) {
+    public void addPost(Post newPost, CrudPostListener listener) {
         postsListLoadingState.setValue(PostsListLoadingState.loading);
         firebaseAppModel.addNewPost(newPost, success -> {
             if (success) {
@@ -107,7 +100,7 @@ public class AppModel {
         });
     }
 
-    public void editPost(Post post,EditAdListener listener){
+    public void editPost(Post post,CrudPostListener listener){
         firebaseAppModel.updatePost(post, success -> {
             if(success){
                 executor.execute(() -> {
@@ -140,7 +133,7 @@ public class AppModel {
          AppLocalDB.db.postDao().deleteById(postId);
     }
 
-    public void deletePostById(String postId, DeletePostByIdListener listener) {
+    public void deletePostById(String postId, CrudPostListener listener) {
         postsListLoadingState.setValue(PostsListLoadingState.loading);
         firebaseAppModel.deletePostById(postId, success -> {
             if(success){

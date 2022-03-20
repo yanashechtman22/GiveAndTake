@@ -23,7 +23,6 @@ import com.example.giveandtake.common.PostsListLoadingState;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.model.Post;
-import com.example.giveandtake.ui.home.HomeFragmentDirections;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;

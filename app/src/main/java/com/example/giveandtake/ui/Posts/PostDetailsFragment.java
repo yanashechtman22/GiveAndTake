@@ -24,7 +24,6 @@ import com.example.giveandtake.model.Post;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
-//import com.squareup.picasso.Picasso;
 
 
 public class PostDetailsFragment extends Fragment {
@@ -70,6 +69,7 @@ public class PostDetailsFragment extends Fragment {
         inflater.inflate(R.menu.details_menu,menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
@@ -83,8 +83,6 @@ public class PostDetailsFragment extends Fragment {
             default: return super.onOptionsItemSelected(item);
         }
     }
-
-
 
     @Override
     public void onPrepareOptionsMenu(Menu menu)
