@@ -23,7 +23,6 @@ import com.example.giveandtake.common.PostsListLoadingState;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.model.Post;
-import com.example.giveandtake.ui.home.HomeFragmentDirections;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
@@ -82,18 +81,8 @@ public class ProfileFragment extends Fragment {
         logout = view.findViewById(R.id.profile_user_logout_button);
         addNewPost = view.findViewById(R.id.profile_user_add_new_post);
 
-        if (user == null) {
-            navigateToUserNotFound();
-        }
-
         name.setText(user.getDisplayName());
         email.setText(user.getEmail());
-    }
-
-    private void navigateToUserNotFound() {
-        //todo add navigation to user not found - bug
-//        Navigation.findNavController(this, R.id.nav_host_fragment_content_main).navigate(
-//                ProfileFragmentDirections.actionUserProfilePageToPostDetailsFragment("1111"));
     }
 
     private void initializePostList() {
@@ -132,22 +121,16 @@ public class ProfileFragment extends Fragment {
                         .load(postImageUrl)
                         .into(holder.postImage);
             }
-            holder.editButton.setOnClickListener(v -> {
-                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToEditPostFragment(postId));
-            });
+            holder.editButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToEditPostFragment(postId)));
 
             holder.deleteButton.setOnClickListener(v -> {
                 profileViewModel.deletePost(postId);
                 refresh();
             });
 
-            holder.postContent.setOnClickListener(v -> {
-                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToPostDetailsFragment(postId));
-            });
+            holder.postContent.setOnClickListener(v -> Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToPostDetailsFragment(postId)));
 
-            holder.postImage.setOnClickListener(v -> {
-                Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToPostDetailsFragment(postId));
-            });
+            holder.postImage.setOnClickListener(v -> Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToPostDetailsFragment(postId)));
         }
 
         @SuppressLint("NotifyDataSetChanged")
