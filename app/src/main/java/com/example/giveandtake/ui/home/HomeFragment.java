@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,15 +25,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.giveandtake.R;
 import com.example.giveandtake.common.PostsListLoadingState;
-import com.example.giveandtake.model.AppLocalDB;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HomeFragment extends Fragment {
 
@@ -70,8 +66,8 @@ public class HomeFragment extends Fragment {
         addPostButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(HomeFragmentDirections.actionNavHomeToNavAdAdd()));
 
         homeViewModel.getPosts().observe(getViewLifecycleOwner(), list1 -> refresh());
-        swipeRefresh.setRefreshing(AppModel.instance.getStudentListLoadingState().getValue() == PostsListLoadingState.loading);
-        AppModel.instance.getStudentListLoadingState().observe(getViewLifecycleOwner(), postsListLoadingState -> {
+        swipeRefresh.setRefreshing(AppModel.instance.getPostListLoadingState().getValue() == PostsListLoadingState.loading);
+        AppModel.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), postsListLoadingState -> {
             if (postsListLoadingState == PostsListLoadingState.loading){
                 swipeRefresh.setRefreshing(true);
             }else{
@@ -129,7 +125,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
+    public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
         @NonNull
         @Override

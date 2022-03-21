@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_home"
+    tools:ignore="ExtraText">
 
     <fragment
         android:id="@+id/nav_home"
@@ -11,14 +12,11 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_nav_home_to_userProfileFragment2"
-            app:destination="@id/userProfileFragment2" />
-        <action
             android:id="@+id/action_home_to_postDetailsFragment"
             app:destination="@id/postDetailsFragment" />
         <action
             android:id="@+id/action_nav_home_to_nav_adAdd"
-            app:destination="@id/nav_adAdd" />
+            app:destination="@id/nav_postAdd" />
     </fragment>
 
     <fragment
@@ -45,13 +43,14 @@
             android:id="@+id/action_postDetailsFragment_to_nav_map"
             app:destination="@id/nav_map" />
     </fragment>
+
     <fragment
-        android:id="@+id/nav_adAdd"
+        android:id="@+id/nav_postAdd"
         android:name="com.example.giveandtake.ui.Posts.AddPostFragment"
-        android:label="@string/add_new_ad"
+        android:label="@string/add_new_post"
         tools:layout="@layout/fragment_add_post">
         <action
-            android:id="@+id/action_nav_adAdd_to_nav_home2"
+            android:id="@+id/action_nav_addPost_to_nav_home2"
             app:destination="@id/nav_home" />
     </fragment>
 
@@ -59,22 +58,37 @@
         android:id="@+id/nav_map"
         android:name="com.example.giveandtake.ui.map.MapFragment"
         android:label="@string/menu_map"
-        tools:layout="@layout/fragment_map" >
+        tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_nav_map_to_postDetailsFragment"
             app:destination="@id/postDetailsFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.giveandtake.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-    <fragment
-        android:id="@+id/userProfileFragment2"
-        android:name="com.example.giveandtake.ui.profile.UserProfileFragment"
-        android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        android:id="@+id/user_profile_page"
+        android:name="com.example.giveandtake.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_user_profile_page_to_loginFragment2"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_user_profile_page_to_nav_adAdd"
+            app:destination="@id/nav_postAdd" />
+        <action
+            android:id="@+id/action_user_profile_page_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
+        <argument
+            android:name="postId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_user_profile_page_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+        <action
+            android:id="@+id/action_user_profile_page_to_userNotFoundFragment"
+            app:destination="@id/userNotFoundFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/editPostFragment"
         android:name="com.example.giveandtake.ui.Posts.EditPostFragment"
@@ -87,4 +101,16 @@
             android:id="@+id/action_editPostFragment_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.giveandtake.auth.LoginFragment"
+        android:label="Login" />
+
+    <fragment
+        android:id="@+id/userNotFoundFragment"
+        android:name="com.example.giveandtake.ui.error.UserNotFoundFragment"
+        android:label="fragment_user_not_found"
+        tools:layout="@layout/fragment_user_not_found" />
+
 </navigation>

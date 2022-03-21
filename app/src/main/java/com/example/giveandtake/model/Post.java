@@ -111,7 +111,7 @@ public class Post implements Serializable {
         Timestamp ts = (Timestamp)postData.get("updateDate");
         String userId = (String) postData.get("userId");
         Long updateDate = ts.getSeconds();
-        boolean isDeleted = (boolean) postData.get("isDeleted");
+        Boolean isDeleted = (Boolean) postData.get("isDeleted");
 
         Post post = new Post(content,phone,location,userId);
         post.setId(id);
