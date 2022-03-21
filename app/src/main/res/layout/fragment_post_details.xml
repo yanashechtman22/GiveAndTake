@@ -86,14 +86,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/idIvLocationIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="8dp"
+                android:clickable="false"
                 android:padding="4dp"
                 android:src="@drawable/ic_location"
-                android:clickable="false"
                 app:tint="@color/colorPrimary" />
             <TextView
                 android:id="@+id/idTVLocation"

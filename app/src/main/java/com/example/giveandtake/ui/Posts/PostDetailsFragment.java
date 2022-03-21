@@ -24,7 +24,6 @@ import com.example.giveandtake.model.Post;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
-//import com.squareup.picasso.Picasso;
 
 
 public class PostDetailsFragment extends Fragment {
@@ -34,6 +33,7 @@ public class PostDetailsFragment extends Fragment {
     Post post;
     String postId;
     ImageView imageView;
+    ImageView iconImage;
     ProgressBar progressBar;
     boolean isUserPost;
     View view;
@@ -49,7 +49,14 @@ public class PostDetailsFragment extends Fragment {
         phoneNumberTv = view.findViewById(R.id.idTVPhone);
         locationTv = view.findViewById(R.id.idTVLocation);
         imageView = view.findViewById(R.id.idIVPostImage);
+        iconImage= view.findViewById(R.id.idIvLocationIcon);
         progressBar = view.findViewById(R.id.postDetailsProgressBar2);
+
+
+        iconImage.setOnClickListener(v ->
+                Navigation.findNavController(view).navigate(
+                PostDetailsFragmentDirections.actionPostDetailsFragmentToNavMap()) );
+
 
          AppModel.instance.getPostById(postId, post -> {
              isUserPost = post.getUserId().equals(userInfo.getUid());

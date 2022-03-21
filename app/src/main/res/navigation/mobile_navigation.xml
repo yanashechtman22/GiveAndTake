@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_postDetailsFragment_to_editPostFragment"
             app:destination="@id/editPostFragment" />
+        <action
+            android:id="@+id/action_postDetailsFragment_to_nav_map"
+            app:destination="@id/nav_map" />
     </fragment>
     <fragment
         android:id="@+id/nav_adAdd"
