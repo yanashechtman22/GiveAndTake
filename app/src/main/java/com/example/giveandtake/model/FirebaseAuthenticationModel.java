@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import android.net.Uri;
 
 public class FirebaseAuthenticationModel {
     private FirebaseAuth mAuth;
@@ -58,6 +59,26 @@ public class FirebaseAuthenticationModel {
                     }
                 });
 
+    }
+
+    public static void updateUserProfile(String displayName, Uri photoUri,
+                                         AppModel.UpdateProfileListener listener) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(displayName)
+                .setPhotoUri(photoUri)
+                .build();
+
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            listener.onComplete();
+                        }
+                    }
+                });
     }
 
     public void signOutUser() {

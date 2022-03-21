@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,6 +24,10 @@ import com.example.giveandtake.utils.EmailValidator;
 import com.example.giveandtake.utils.InputValidator;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
+import android.content.Intent;
+import androidx.annotation.Nullable;
+import android.graphics.Bitmap;
+import com.example.giveandtake.model.User;
 
 public class RegisterFragment extends Fragment {
     EditText displayName;
@@ -31,6 +37,10 @@ public class RegisterFragment extends Fragment {
     CardView validationCard;
     ProgressBar progressBar;
     View view;
+    ImageButton galleryBtn;
+    ImageButton cameraBtn;
+    ImageView userImageImv;
+    Bitmap imageBitmap;
 
     //TODO: extract number to constants
     private final int MIN_PASS_LENGTH = 6;
@@ -48,6 +58,10 @@ public class RegisterFragment extends Fragment {
         registerBtn = view.findViewById(R.id.btn_register);
         validationCard = view.findViewById(R.id.card1);
         progressBar = view.findViewById(R.id.simpleProgressBar);
+
+        galleryBtn = view.findViewById(R.id.register_gallery_button);
+        cameraBtn = view.findViewById(R.id.register_camera_button);
+        userImageImv = view.findViewById(R.id.register_image_imv);
 
         displayName.addTextChangedListener(new InputValidator(displayName) {
             @Override
@@ -87,6 +101,13 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        imageBitmap = onResult(requestCode, resultCode, data, userImageImv);
+    }
+
     private boolean validateEmail(String emailAddress) {
         return EmailValidator.validateEmail(emailAddress);
     }
@@ -102,6 +123,22 @@ public class RegisterFragment extends Fragment {
         String passwordText = password.getText().toString();
         RegisterAuthListener registerListener = new RegisterAuthListener();
         AuthenticationModel.instance.registerNewUser(displayNameText, emailText, passwordText, registerListener);
+        AuthenticationModel.instance.registerNewUser(email, password, (user, ex) -> {
+        if (user != null) {
+            String uid = user.getUid();
+            User userToAdd = new User(uid, displayName, email);
+            if (imageBitmap != null) {
+                AuthenticationModel.instance.uploadImage(imageBitmap, uid + ".jpg", getString(R.string.storage_users), url -> {
+                    userToAdd.setImg(url);
+                    AuthenticationModel.instance.registerNewUser(userToAdd, this::toFeedActivity);
+                });
+            } else {
+                AuthenticationModel.instance.registerNewUser(userToAdd, this::toFeedActivity);
+            }
+        } else {
+            progressBar.setVisibiity(View.INVISIBLE);
+        }
+    });
     }
 
     public class RegisterAuthListener implements AuthenticationModel.AuthListener {
