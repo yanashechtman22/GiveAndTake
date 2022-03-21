@@ -16,7 +16,7 @@
             app:destination="@id/postDetailsFragment" />
         <action
             android:id="@+id/action_nav_home_to_nav_adAdd"
-            app:destination="@id/nav_adAdd" />
+            app:destination="@id/nav_postAdd" />
     </fragment>
 
     <fragment
@@ -42,12 +42,12 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_adAdd"
+        android:id="@+id/nav_postAdd"
         android:name="com.example.giveandtake.ui.Posts.AddPostFragment"
-        android:label="@string/add_new_ad"
+        android:label="@string/add_new_post"
         tools:layout="@layout/fragment_add_post">
         <action
-            android:id="@+id/action_nav_adAdd_to_nav_home2"
+            android:id="@+id/action_nav_addPost_to_nav_home2"
             app:destination="@id/nav_home" />
     </fragment>
 
@@ -71,7 +71,7 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_user_profile_page_to_nav_adAdd"
-            app:destination="@id/nav_adAdd" />
+            app:destination="@id/nav_postAdd" />
         <action
             android:id="@+id/action_user_profile_page_to_editPostFragment"
             app:destination="@id/editPostFragment" />

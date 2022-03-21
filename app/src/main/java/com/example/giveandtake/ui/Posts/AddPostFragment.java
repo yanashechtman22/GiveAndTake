@@ -183,6 +183,6 @@ public class AddPostFragment extends Fragment {
 
     private void navigateBack() {
         Navigation.findNavController(view).navigate(
-                AddPostFragmentDirections.actionNavAdAddToNavHome2());
+                AddPostFragmentDirections.actionNavAddPostToNavHome2());
     }
 }

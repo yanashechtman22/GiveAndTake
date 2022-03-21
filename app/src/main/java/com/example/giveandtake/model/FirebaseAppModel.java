@@ -3,15 +3,9 @@ package com.example.giveandtake.model;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
-import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -49,7 +43,7 @@ public class FirebaseAppModel {
                 });
     }
 
-    public void addNewPost(Post newPost, AppModel.AddAdListener listener) {
+    public void addNewPost(Post newPost, AppModel.CrudPostListener listener) {
         String id = db.collection(POSTS_COLLECTION_NAME).document().getId();
         newPost.setId(id);
         Map<String, Object> json = newPost.toJson();
@@ -60,7 +54,7 @@ public class FirebaseAppModel {
                 .addOnFailureListener(e -> listener.onComplete(false));
     }
 
-    public void updatePost(Post post, AppModel.EditAdListener listener) {
+    public void updatePost(Post post, AppModel.CrudPostListener listener) {
         Map<String, Object> json = post.toJson();
         db.collection(POSTS_COLLECTION_NAME)
                 .document(post.getId())
@@ -109,7 +103,7 @@ public class FirebaseAppModel {
 
     }
 
-    public void deletePostById(String postId, AppModel.DeletePostByIdListener listener) {
+    public void deletePostById(String postId, AppModel.CrudPostListener listener) {
         db.collection(POSTS_COLLECTION_NAME)
                 .document(postId)
                 .update("isDeleted",true)
