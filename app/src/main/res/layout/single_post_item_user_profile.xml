@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/item_image_user_profile"
-        android:layout_width="34dp"
-        android:layout_height="36dp"
+        android:layout_width="43dp"
+        android:layout_height="37dp"
         android:layout_margin="3dp"
         android:importantForAccessibility="no"
         android:scaleType="centerCrop"
@@ -29,16 +29,16 @@
 
     <ImageView
         android:id="@+id/item_edit_user_profile"
-        android:layout_width="28dp"
-        android:layout_height="match_parent"
+        android:layout_width="17dp"
+        android:layout_height="20dp"
         app:srcCompat="@drawable/ic_edit_button"
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="2dp" />
 
     <ImageView
         android:id="@+id/item_delete_user_profile"
-        android:layout_width="34dp"
-        android:layout_height="match_parent"
+        android:layout_width="18dp"
+        android:layout_height="20dp"
         app:srcCompat="@drawable/ic_delete_button"
         tools:layout_editor_absoluteX="6dp"
         tools:layout_editor_absoluteY="2dp" />

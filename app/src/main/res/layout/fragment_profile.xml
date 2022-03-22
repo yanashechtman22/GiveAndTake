@@ -11,18 +11,23 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="510dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/postsList_swipeRefresh"
-            android:layout_width="389dp"
-            android:layout_height="292dp"
+            android:layout_width="367dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.272"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.38">
+            app:layout_constraintVertical_bias="1.0">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/posts_rv"
@@ -49,101 +54,90 @@
 
         <ImageView
             android:id="@+id/profile_user_picture_profile"
-            android:layout_width="56dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="328dp"
+            android:layout_width="74dp"
+            android:layout_height="83dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/profile_user_edit_name_profile"
-            android:layout_width="28dp"
+            android:layout_width="25dp"
             android:layout_height="22dp"
-            android:layout_marginStart="260dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="268dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_edit_button" />
 
-        <TextView
-            android:id="@+id/profile_user_name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/user_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/profile_user_email_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="56dp"
-            android:text="@string/user_email"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/profile_user_email_input"
-            android:layout_width="171dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="40dp"
-            android:ems="10"
-            android:enabled="false"
-            android:inputType="none"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck,TextFields" />
-
         <EditText
             android:id="@+id/profile_user_name_input"
-            android:layout_width="124dp"
-            android:layout_height="41dp"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="4dp"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="128dp"
+            android:layout_marginTop="12dp"
             android:ems="10"
             android:enabled="false"
             android:inputType="none"
             android:text="@string/name"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/profile_user_logout_button"
-            android:layout_width="69dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="504dp"
-            android:backgroundTint="@color/color_delete"
-            android:text="@string/log_out"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/profile_user_add_new_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginStart="316dp"
-            android:layout_marginTop="504dp"
+            android:layout_marginStart="220dp"
+            android:layout_marginTop="500dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_input_add" />
 
         <ImageView
             android:id="@+id/profile_user_edit_photo_profile"
-            android:layout_width="28dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="356dp"
-            android:layout_marginTop="56dp"
+            android:layout_width="26dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="84dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_edit_button" />
+
+        <TextView
+            android:id="@+id/profile_user_email_input"
+            android:layout_width="172dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="128dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_user_name_input" />
+
+        <ImageButton
+            android:id="@+id/profile_user_logout_button"
+            android:layout_width="31dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="100dp"
+            android:maxHeight="100dp"
+            android:padding="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/logout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
