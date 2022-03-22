@@ -3,6 +3,7 @@ package com.example.giveandtake.ui.profile;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.giveandtake.R;
+import com.example.giveandtake.auth.LoginActivity;
 import com.example.giveandtake.common.PostsListLoadingState;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
@@ -103,8 +105,8 @@ public class ProfileFragment extends Fragment {
 
     private void logOutActions() {
         AuthenticationModel.instance.logOut();
-        Navigation.findNavController(view).navigate(
-                ProfileFragmentDirections.actionUserProfilePageToLoginFragment2());
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
     }
 
     private void addNewPostActions() {
