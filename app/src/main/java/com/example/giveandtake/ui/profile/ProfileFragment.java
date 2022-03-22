@@ -2,17 +2,18 @@ package com.example.giveandtake.ui.profile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -44,6 +45,7 @@ public class ProfileFragment extends Fragment {
     ImageView picture;
     ImageView editNameButton;
     ImageView editPhotoButton;
+    String postId;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -153,7 +155,7 @@ public class ProfileFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
             Post post = profileViewModel.getPosts(userInfo.getUid()).get(position);
-            String postId = post.getId();
+            postId = post.getId();
 
             holder.postContent.setText(post.getContent());
             holder.postImage.setImageResource(R.drawable.image2);
@@ -166,8 +168,8 @@ public class ProfileFragment extends Fragment {
             holder.editButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToEditPostFragment(postId)));
 
             holder.deleteButton.setOnClickListener(v -> {
-                profileViewModel.deletePost(postId);
-                refresh();
+                postId = post.getId();
+                handleDeletePost();
             });
 
             holder.postContent.setOnClickListener(v -> Navigation.findNavController(v).navigate(ProfileFragmentDirections.actionUserProfilePageToPostDetailsFragment(postId)));
@@ -187,6 +189,20 @@ public class ProfileFragment extends Fragment {
                 return 0;
             }
             return profileViewModel.getPosts(userInfo.getUid()).size();
+        }
+
+        private void handleDeletePost() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage("Are you sure you want to delete this post?")
+                    .setPositiveButton("Delete", this::deletePostFromDb)
+                    .setNegativeButton("Cancel", (dialog, id) -> {
+                    });
+            builder.create().show();
+        }
+
+        private void deletePostFromDb(DialogInterface dialog, int id) {
+            profileViewModel.deletePost(postId);
+            refresh();
         }
     }
 
