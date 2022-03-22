@@ -4,8 +4,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.TextView;
 
-import java.util.regex.Pattern;
-
 public abstract class InputValidator implements TextWatcher {
     private final TextView textView;
 
@@ -27,4 +25,3 @@ public abstract class InputValidator implements TextWatcher {
     @Override
     final public void onTextChanged(CharSequence s, int start, int before, int count) { /* Don't care */ }
 }
-

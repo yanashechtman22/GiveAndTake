@@ -28,12 +28,15 @@ import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
 import java.util.UUID;
+
 import android.widget.TextView;
 import android.widget.AutoCompleteTextView;
+
 import com.example.giveandtake.utils.InputValidator;
 import com.squareup.picasso.Picasso;
 
 import android.widget.ArrayAdapter;
+
 import java.util.Arrays;
 
 public class EditPostFragment extends Fragment {
@@ -42,7 +45,7 @@ public class EditPostFragment extends Fragment {
     boolean contentNotEmpty = true;
     boolean locationNotEmpty = true;
     boolean imageNotEmpty = true;
-    boolean phoneNoteEmpty=true;
+    boolean phoneNoteEmpty = true;
 
     EditText contentEt;
     EditText phoneEt;
@@ -60,7 +63,7 @@ public class EditPostFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView( LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_edit_post, container, false);
         contentEt = view.findViewById(R.id.editPost_descriptionInput);
         saveBtn = view.findViewById(R.id.main_save_btn);
@@ -73,7 +76,7 @@ public class EditPostFragment extends Fragment {
 
         autoComplete = view.findViewById(R.id.autoComplete_actv);
         String[] cities = IsraeliCities.CITIES;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item,cities);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item, cities);
         autoComplete.setThreshold(2);
         autoComplete.setAdapter(adapter);
         userInfo = AuthenticationModel.instance.getUserInfo();
@@ -102,7 +105,7 @@ public class EditPostFragment extends Fragment {
         phoneEt.addTextChangedListener(new InputValidator(phoneEt) {
             @Override
             public void validate(TextView textView, String text) {
-                phoneNoteEmpty = text.length() > 0 && text.matches("[0-9]+") ;
+                phoneNoteEmpty = text.length() > 0 && text.matches("[0-9]+");
                 checkInputValidation();
             }
         });
@@ -118,20 +121,22 @@ public class EditPostFragment extends Fragment {
         cancelBtn.setOnClickListener(v -> navigateBack());
         saveBtn.setOnClickListener(v -> save());
         camBtn.setOnClickListener(v -> {
-            imageNotEmpty=true;
+            imageNotEmpty = true;
             openCam();
             checkInputValidation();
         });
         galleryBtn.setOnClickListener(v -> {
-            imageNotEmpty=true;
+            imageNotEmpty = true;
             openGallery();
             checkInputValidation();
         });
         return view;
     }
+
     private void checkInputValidation() {
-        saveBtn.setEnabled(contentNotEmpty&&locationNotEmpty&&imageNotEmpty&&phoneNoteEmpty);
+        saveBtn.setEnabled(contentNotEmpty && locationNotEmpty && imageNotEmpty && phoneNoteEmpty);
     }
+
     private void openGallery() {
         Intent i = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -176,27 +181,15 @@ public class EditPostFragment extends Fragment {
             post.setLocation(autoComplete.getText().toString());
 
 
-            if (imageBitmap == null){
-                AppModel.instance.editPost(post, (boolean success)-> navigateBack());
+            if (imageBitmap == null) {
+                AppModel.instance.editPost(post, (boolean success) -> navigateBack());
             } else {
                 String postImageId = UUID.randomUUID().toString();
                 AppModel.instance.saveImage(imageBitmap, postImageId + ".jpg", url -> {
                     post.setImageUrl(url);
                     AppModel.instance.editPost(post, success -> navigateBack());
-                    //navigateBack();
                 });
             }
-
-//        if (imageBitmap == null){
-//            AppModel.instance.addPost(post, (boolean success)-> navigateBack());
-//        } else {
-//            String adImageId = UUID.randomUUID().toString();
-//            AppModel.instance.saveImage(imageBitmap, adImageId + ".jpg", url -> {
-//                post.setImageUrl(url);
-//                navigateBack();
-//                //AppModel.instance.addPost(post, (boolean success)-> navigateBack());
-//            });
-//        }
         });
     }
 

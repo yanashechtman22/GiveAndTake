@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,10 +30,14 @@ import com.google.firebase.auth.UserInfo;
 
 import java.io.IOException;
 import java.util.UUID;
+
 import android.widget.TextView;
 import android.widget.AutoCompleteTextView;
+
 import com.example.giveandtake.utils.InputValidator;
+
 import android.widget.ArrayAdapter;
+
 import java.util.Arrays;
 
 public class AddPostFragment extends Fragment {
@@ -43,12 +46,10 @@ public class AddPostFragment extends Fragment {
     boolean contentNotEmpty = false;
     boolean locationNotEmpty = false;
     boolean imageNotEmpty = false;
-    boolean phoneNoteEmpty=false;
-//    boolean avatarImvNotEmpty = false;
+    boolean phoneNoteEmpty = false;
 
     EditText contentEt;
     EditText phoneEt;
-    CheckBox cb;
     Button saveBtn;
     Button cancelBtn;
     Bitmap imageBitmap;
@@ -75,7 +76,7 @@ public class AddPostFragment extends Fragment {
 
         autoComplete = view.findViewById(R.id.autoComplete_actv);
         String[] cities = IsraeliCities.CITIES;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item,cities);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item, cities);
         autoComplete.setThreshold(2);
         autoComplete.setAdapter(adapter);
         userInfo = AuthenticationModel.instance.getUserInfo();
@@ -93,7 +94,7 @@ public class AddPostFragment extends Fragment {
         phoneEt.addTextChangedListener(new InputValidator(phoneEt) {
             @Override
             public void validate(TextView textView, String text) {
-                phoneNoteEmpty = text.length() > 0 && text.matches("[0-9]+") ;
+                phoneNoteEmpty = text.length() > 0 && text.matches("[0-9]+");
                 checkInputValidation();
             }
         });
@@ -109,20 +110,22 @@ public class AddPostFragment extends Fragment {
         cancelBtn.setOnClickListener(v -> navigateBack());
         saveBtn.setOnClickListener(v -> save());
         camBtn.setOnClickListener(v -> {
-            imageNotEmpty=true;
+            imageNotEmpty = true;
             openCam();
             checkInputValidation();
         });
         galleryBtn.setOnClickListener(v -> {
-            imageNotEmpty=true;
+            imageNotEmpty = true;
             openGallery();
             checkInputValidation();
         });
         return view;
     }
+
     private void checkInputValidation() {
-        saveBtn.setEnabled(contentNotEmpty&&locationNotEmpty&&imageNotEmpty&&phoneNoteEmpty);
+        saveBtn.setEnabled(contentNotEmpty && locationNotEmpty && imageNotEmpty && phoneNoteEmpty);
     }
+
     private void openGallery() {
         Intent i = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -170,13 +173,13 @@ public class AddPostFragment extends Fragment {
         Post post = new Post(content, phone, location, userId);
         post.setDeleted(false);
 
-        if (imageBitmap == null){
-            AppModel.instance.addPost(post, (boolean success)-> navigateBack());
+        if (imageBitmap == null) {
+            AppModel.instance.addPost(post, (boolean success) -> navigateBack());
         } else {
             String adImageId = UUID.randomUUID().toString();
             AppModel.instance.saveImage(imageBitmap, adImageId + ".jpg", url -> {
                 post.setImageUrl(url);
-                AppModel.instance.addPost(post, (boolean success)-> navigateBack());
+                AppModel.instance.addPost(post, (boolean success) -> navigateBack());
             });
         }
     }

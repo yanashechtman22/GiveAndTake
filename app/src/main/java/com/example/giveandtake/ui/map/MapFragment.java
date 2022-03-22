@@ -35,7 +35,7 @@ public class MapFragment extends Fragment {
     private View view;
 
 
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
+    private final OnMapReadyCallback callback = new OnMapReadyCallback() {
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
