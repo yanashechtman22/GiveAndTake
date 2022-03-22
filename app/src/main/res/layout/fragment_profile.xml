@@ -103,16 +103,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_input_add" />
 
-        <ImageView
-            android:id="@+id/profile_user_edit_photo_profile"
-            android:layout_width="26dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="76dp"
-            android:layout_marginTop="84dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_edit_button" />
-
         <TextView
             android:id="@+id/profile_user_email_input"
             android:layout_width="172dp"
@@ -137,6 +127,25 @@
             android:scaleType="fitXY"
             android:src="@drawable/logout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/profile_user_edit_photo_profile_cam"
+            android:layout_width="29dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/ic_menu_camera"
+            app:layout_constraintStart_toEndOf="@+id/profile_user_edit_photo_profile_gallery"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/profile_user_edit_photo_profile_gallery"
+            android:layout_width="30dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="90dp"
+            android:src="@drawable/ic_menu_gallery"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 

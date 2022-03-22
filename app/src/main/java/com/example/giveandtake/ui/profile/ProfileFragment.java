@@ -47,6 +47,7 @@ public class ProfileFragment extends Fragment {
     ImageView picture;
     ImageView editNameButton;
     ImageView editPhotoButton;
+    ImageView editPhotoButton1;
     String postId;
 
     @Override
@@ -122,7 +123,8 @@ public class ProfileFragment extends Fragment {
         picture = view.findViewById(R.id.profile_user_picture_profile);
         picture = view.findViewById(R.id.profile_user_picture_profile);
         editNameButton = view.findViewById(R.id.profile_user_edit_name_profile);
-        editPhotoButton = view.findViewById(R.id.profile_user_edit_photo_profile);
+        editPhotoButton = view.findViewById(R.id.profile_user_edit_photo_profile_gallery);
+        editPhotoButton1 = view.findViewById(R.id.profile_user_edit_photo_profile_cam);
 
         //todo change the image
         picture.setImageResource(R.drawable.image2);
