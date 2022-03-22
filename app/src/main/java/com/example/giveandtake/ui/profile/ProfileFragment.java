@@ -3,6 +3,7 @@ package com.example.giveandtake.ui.profile;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,9 @@ import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.model.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
@@ -37,6 +40,9 @@ public class ProfileFragment extends Fragment {
     ItemAdapter adapter;
     ProfileViewModel profileViewModel;
     UserInfo userInfo;
+    ImageView picture;
+    ImageView editNameButton;
+    ImageView editPhotoButton;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -61,7 +67,35 @@ public class ProfileFragment extends Fragment {
 
         addNewPost.setOnClickListener(v -> addNewPostActions());
 
+        editNameButton.setOnClickListener(v -> changeNameButton());
+
         return view;
+    }
+
+    private void changeNameButton() {
+        if (name.getInputType() == InputType.TYPE_NULL) {
+            name.setInputType(InputType.TYPE_CLASS_TEXT);
+            name.setEnabled(true);
+            editNameButton.setImageResource(R.drawable.ic_save_button);
+        } else {
+            name.setInputType(InputType.TYPE_NULL);
+            name.setEnabled(false);
+            editNameButton.setImageResource(R.drawable.ic_edit_button);
+            updateUserNameOnDb();
+        }
+    }
+
+    private void updateUserNameOnDb() {
+        userInfo = AuthenticationModel.instance.getUserInfo();
+        FirebaseUser fireBaseUser = AuthenticationModel.instance.getFireBaseUser();
+
+        UserProfileChangeRequest.Builder builder = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name.getText().toString());
+
+        final UserProfileChangeRequest changeRequest = builder.build();
+        fireBaseUser.updateProfile(changeRequest);
+        userInfo = AuthenticationModel.instance.getUserInfo();
+
     }
 
     private void logOutActions() {
@@ -80,8 +114,15 @@ public class ProfileFragment extends Fragment {
         name = view.findViewById(R.id.profile_user_name_input);
         logout = view.findViewById(R.id.profile_user_logout_button);
         addNewPost = view.findViewById(R.id.profile_user_add_new_post);
+        picture = view.findViewById(R.id.profile_user_picture_profile);
+        picture = view.findViewById(R.id.profile_user_picture_profile);
+        editNameButton = view.findViewById(R.id.profile_user_edit_name_profile);
+        editPhotoButton = view.findViewById(R.id.profile_user_edit_photo_profile);
 
+        //todo change the image
+        picture.setImageResource(R.drawable.image2);
         name.setText(user.getDisplayName());
+        name.setInputType(InputType.TYPE_NULL);
         email.setText(user.getEmail());
     }
 

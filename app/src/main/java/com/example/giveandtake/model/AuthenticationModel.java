@@ -18,6 +18,10 @@ public class AuthenticationModel {
         return firebaseAuthenticationModel.getUserInfo();
     }
 
+    public FirebaseUser getFireBaseUser() {
+        return firebaseAuthenticationModel.getFireBaseUser();
+    }
+
     public void registerNewUser(String displayName, String email, String password, AuthListener listener) {
         firebaseAuthenticationModel.registerNewUser(displayName, email, password, listener);
     }

@@ -26,6 +26,11 @@ public class FirebaseAuthenticationModel {
         return user;
     }
 
+    public FirebaseUser getFireBaseUser() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        return user;
+    }
+
     public void registerNewUser(String displayName, String email, String password, AuthenticationModel.AuthListener listener) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
