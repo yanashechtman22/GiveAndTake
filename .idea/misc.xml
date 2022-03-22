@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/nadav/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/activity_intro.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/nadav/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/activity_login.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/nadav/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/activity_main.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/nadav/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/app_bar_main.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/nadav/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/content_main.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/nadav/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_add_post.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/nadav/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_user_not_found.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/nadav/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/nav_header_main.xml" value="0.18541666666666667" />
         <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_add_post.xml" value="0.3333333333333333" />
         <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_create_post.xml" value="0.1" />
         <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_edit_post.xml" value="0.22" />
