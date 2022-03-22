@@ -61,27 +61,25 @@ public class AppModel {
     public void refreshPostsList() {
         postsListLoadingState.setValue(PostsListLoadingState.loading);
         Long lastUpdateDate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE).getLong("PostsLastUpdateDate", 0);
-        firebaseAppModel.getAllPosts(lastUpdateDate, list -> {
-            executor.execute(() -> {
-                Long lud = new Long(0);
-                Log.d("TAG", "fb returned " + list.size());
-                for (Post post : list) {
-                    AppLocalDB.db.postDao().insertAll(post);
-                    if (lud < post.getUpdateDate()) {
-                        lud = post.getUpdateDate();
-                    }
+        firebaseAppModel.getAllPosts(lastUpdateDate, list -> executor.execute(() -> {
+            Long lud = 0L;
+            Log.d("TAG", "fb returned " + list.size());
+            for (Post post : list) {
+                AppLocalDB.db.postDao().insertAll(post);
+                if (lud < post.getUpdateDate()) {
+                    lud = post.getUpdateDate();
                 }
-                MyApplication.getContext()
-                        .getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                        .edit()
-                        .putLong("PostsLastUpdateDate", lud)
-                        .commit();
-                List<Post> localPostsList = AppLocalDB.db.postDao().getAll();
+            }
+            MyApplication.getContext()
+                    .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                    .edit()
+                    .putLong("PostsLastUpdateDate", lud)
+                    .commit();
+            List<Post> localPostsList = AppLocalDB.db.postDao().getAll();
 
-                postsList.postValue(localPostsList);
-                postsListLoadingState.postValue(PostsListLoadingState.loaded);
-            });
-        });
+            postsList.postValue(localPostsList);
+            postsListLoadingState.postValue(PostsListLoadingState.loaded);
+        }));
     }
 
     public void addPost(Post newPost, CrudPostListener listener) {
@@ -125,8 +123,7 @@ public class AppModel {
     }
 
     public List<Post> getPostByUserId(String userId) {
-        List<Post> localPostsList = AppLocalDB.db.postDao().getPostsByUserId(userId);
-        return localPostsList;
+        return AppLocalDB.db.postDao().getPostsByUserId(userId);
     }
 
     public void deletePostByUserId(String postId) {

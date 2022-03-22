@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -47,7 +46,6 @@ public class EditPostFragment extends Fragment {
 
     EditText contentEt;
     EditText phoneEt;
-    CheckBox cb;
     Button saveBtn;
     Button cancelBtn;
     Bitmap imageBitmap;
@@ -164,7 +162,6 @@ public class EditPostFragment extends Fragment {
 
         }
     }
-
 
     private void save() {
         progressBar.setVisibility(View.VISIBLE);

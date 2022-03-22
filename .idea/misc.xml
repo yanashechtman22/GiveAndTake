@@ -14,6 +14,7 @@
         <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_login.xml" value="0.14791666666666667" />
         <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_post_details.xml" value="0.14791666666666667" />
         <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/single_ad_item.xml" value="0.14791666666666667" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_delete_button.xml" value="0.246875" />
         <entry key="app/src/main/res/drawable-anydpi/ic_edit_button.xml" value="0.1109375" />
         <entry key="app/src/main/res/drawable-anydpi/ic_save_button.xml" value="0.1109375" />
         <entry key="app/src/main/res/drawable/btn_custom.xml" value="0.11614583333333334" />
@@ -42,11 +43,13 @@
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.22239583333333332" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.22239583333333332" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.16927083333333334" />
+        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.2552083333333333" />
         <entry key="app/src/main/res/layout/fragment_post_details.xml" value="0.16927083333333334" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2309024655288231" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.22239583333333332" />
         <entry key="app/src/main/res/layout/fragment_user_not_found.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.24583333333333332" />
+        <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/layout/single_post_item.xml" value="0.18802083333333333" />
         <entry key="app/src/main/res/layout/single_post_item_user_profile.xml" value="0.375" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.23072916666666668" />

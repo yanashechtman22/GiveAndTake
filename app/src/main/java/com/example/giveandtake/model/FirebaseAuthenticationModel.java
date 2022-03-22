@@ -10,7 +10,7 @@ import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class FirebaseAuthenticationModel {
-    private FirebaseAuth mAuth;
+    private final FirebaseAuth mAuth;
 
     public FirebaseAuthenticationModel() {
         mAuth = FirebaseAuth.getInstance();
@@ -22,13 +22,11 @@ public class FirebaseAuthenticationModel {
     }
 
     public UserInfo getUserInfo() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        return user;
+        return FirebaseAuth.getInstance().getCurrentUser();
     }
 
     public FirebaseUser getFireBaseUser() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        return user;
+        return FirebaseAuth.getInstance().getCurrentUser();
     }
 
     public void registerNewUser(String displayName, String email, String password, AuthenticationModel.AuthListener listener) {

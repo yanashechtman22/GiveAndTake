@@ -43,9 +43,7 @@ public class LoginFragment extends Fragment {
         loginBtn = view.findViewById(R.id.btn_login);
         progressBar = view.findViewById(R.id.loginProgressBar);
 
-        loginBtn.setOnClickListener(v-> {
-            handleLogin();
-        });
+        loginBtn.setOnClickListener(v-> handleLogin());
 
         email.addTextChangedListener(new InputValidator(email) {
             @Override

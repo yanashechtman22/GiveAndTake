@@ -32,7 +32,6 @@ public class RegisterFragment extends Fragment {
     ProgressBar progressBar;
     View view;
 
-    //TODO: extract number to constants
     private final int MIN_PASS_LENGTH = 6;
     boolean nameNotEmpty = false;
     boolean emailValid = false;
@@ -73,7 +72,6 @@ public class RegisterFragment extends Fragment {
                     validationCard.setCardBackgroundColor(Color.parseColor(getString(R.color.colorAccent)));
                     passwordValid = true;
                 } else {
-                    //TODO: move string to strings file
                     validationCard.setCardBackgroundColor(Color.parseColor("#dcdcdc"));
                     passwordValid = false;
                 }
@@ -81,9 +79,7 @@ public class RegisterFragment extends Fragment {
             }
         });
 
-        registerBtn.setOnClickListener(view1 -> {
-            handleRegisterNewUser();
-        });
+        registerBtn.setOnClickListener(view1 -> handleRegisterNewUser());
         return view;
     }
 
@@ -123,5 +119,4 @@ public class RegisterFragment extends Fragment {
                     .setAction("Action", null).show();
         }
     }
-
 }
