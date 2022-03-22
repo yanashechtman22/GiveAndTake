@@ -2,6 +2,7 @@ package com.example.giveandtake.model;
 
 import static android.content.ContentValues.TAG;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,14 +30,15 @@ public class FirebaseAuthenticationModel {
         return FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    public void registerNewUser(String displayName, String email, String password, AuthenticationModel.AuthListener listener) {
+    public void registerNewUser(String displayName, String email, String password, Uri imageUrl, AuthenticationModel.AuthListener listener) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
                         UserProfileChangeRequest.Builder builder = new UserProfileChangeRequest.Builder();
-                        builder.setDisplayName(displayName);
+                        builder.setDisplayName(displayName)
+                                .setPhotoUri(imageUrl);
                         user.updateProfile(builder.build());
                         listener.onComplete(user);
                     } else {
