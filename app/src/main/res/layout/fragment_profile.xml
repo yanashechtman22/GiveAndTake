@@ -65,18 +65,18 @@
             android:id="@+id/profile_user_edit_name_profile"
             android:layout_width="25dp"
             android:layout_height="22dp"
-            android:layout_marginStart="268dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginStart="308dp"
+            android:layout_marginTop="36dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_edit_button" />
 
         <EditText
             android:id="@+id/profile_user_name_input"
-            android:layout_width="140dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="128dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="202dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="104dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:enabled="false"
             android:inputType="none"
@@ -107,7 +107,7 @@
             android:id="@+id/profile_user_email_input"
             android:layout_width="172dp"
             android:layout_height="37dp"
-            android:layout_marginStart="128dp"
+            android:layout_marginStart="104dp"
             android:text="TextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_user_name_input" />
