@@ -1,5 +1,7 @@
 package com.example.giveandtake.model;
 
+import android.net.Uri;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 
@@ -22,8 +24,8 @@ public class AuthenticationModel {
         return firebaseAuthenticationModel.getFireBaseUser();
     }
 
-    public void registerNewUser(String displayName, String email, String password, AuthListener listener) {
-        firebaseAuthenticationModel.registerNewUser(displayName, email, password, listener);
+    public void registerNewUser(String displayName, String email, String password, Uri imageUrl, AuthListener listener) {
+        firebaseAuthenticationModel.registerNewUser(displayName, email, password, imageUrl, listener);
     }
 
     public void loginUser(String email, String password, AuthListener listener) {

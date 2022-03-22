@@ -3,6 +3,7 @@ package com.example.giveandtake.ui.profile;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -118,12 +119,14 @@ public class ProfileFragment extends Fragment {
         logout = view.findViewById(R.id.profile_user_logout_button);
         addNewPost = view.findViewById(R.id.profile_user_add_new_post);
         picture = view.findViewById(R.id.profile_user_picture_profile);
-        picture = view.findViewById(R.id.profile_user_picture_profile);
         editNameButton = view.findViewById(R.id.profile_user_edit_name_profile);
         editPhotoButton = view.findViewById(R.id.profile_user_edit_photo_profile);
 
-        //todo change the image
-        picture.setImageResource(R.drawable.image2);
+        Uri imageUri = user.getPhotoUrl();
+        if (imageUri != null) {
+            Picasso.get().load(imageUri).into(picture);
+        } else {
+            Picasso.get().load(R.drawable.image2).into(picture);        }
         name.setText(user.getDisplayName());
         name.setInputType(InputType.TYPE_NULL);
         email.setText(user.getEmail());
