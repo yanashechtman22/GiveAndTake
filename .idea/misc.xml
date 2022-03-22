@@ -3,58 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/drawable/ic_menu_camera.xml" value="0.356" />
-        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.356" />
-        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/activity_login.xml" value="0.14791666666666667" />
-        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/activity_main.xml" value="0.3625" />
-        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/content_main.xml" value="0.3625" />
-        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_add_post.xml" value="0.25679347826086957" />
-        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_create_post.xml" value="0.14791666666666667" />
-        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_home.xml" value="0.14791666666666667" />
-        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_login.xml" value="0.14791666666666667" />
-        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/fragment_post_details.xml" value="0.14791666666666667" />
-        <entry key="..\:/Users/nadavbara/AndroidStudioProjects/GiveAndTake/app/src/main/res/layout/single_ad_item.xml" value="0.14791666666666667" />
-        <entry key="app/src/main/res/drawable-anydpi/ic_delete_button.xml" value="0.246875" />
-        <entry key="app/src/main/res/drawable-anydpi/ic_edit_button.xml" value="0.1109375" />
-        <entry key="app/src/main/res/drawable-anydpi/ic_save_button.xml" value="0.1109375" />
-        <entry key="app/src/main/res/drawable/btn_custom.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/et_custom.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/ic_address.xml" value="0.11041666666666666" />
-        <entry key="app/src/main/res/drawable/ic_arrow_left.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/ic_arrow_right.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/ic_call.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/ic_check.xml" value="0.11041666666666666" />
-        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/ic_edit.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/ic_location.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/ic_menu_camera.xml" value="0.125" />
-        <entry key="app/src/main/res/drawable/ic_menu_gallery.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/ic_search_black_24dp.xml" value="0.11614583333333334" />
-        <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.24583333333333332" />
-        <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.22239583333333332" />
-        <entry key="app/src/main/res/layout/content_main.xml" value="0.15052083333333333" />
-        <entry key="app/src/main/res/layout/fragment_add_post.xml" value="0.22239583333333332" />
-        <entry key="app/src/main/res/layout/fragment_create_post.xml" value="0.18802083333333333" />
-        <entry key="app/src/main/res/layout/fragment_edit_post.xml" value="0.17864583333333334" />
-        <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.22239583333333332" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.22239583333333332" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.16927083333333334" />
-        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.2552083333333333" />
-        <entry key="app/src/main/res/layout/fragment_post_details.xml" value="0.16927083333333334" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2309024655288231" />
-        <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.22239583333333332" />
-        <entry key="app/src/main/res/layout/fragment_user_not_found.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/fragment_user_profile.xml" value="0.24583333333333332" />
-        <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.23072916666666668" />
-        <entry key="app/src/main/res/layout/single_post_item.xml" value="0.18802083333333333" />
-        <entry key="app/src/main/res/layout/single_post_item_user_profile.xml" value="0.375" />
-        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.23072916666666668" />
-        <entry key="app/src/main/res/menu/details_menu.xml" value="0.1875" />
-        <entry key="app/src/main/res/menu/main.xml" value="0.1875" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_add_post.xml" value="0.3333333333333333" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_create_post.xml" value="0.1" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_edit_post.xml" value="0.22" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_login.xml" value="0.15489130434782608" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_map.xml" value="0.1" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_post_details.xml" value="0.22" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_profile.xml" value="0.17889492753623187" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_register.xml" value="0.16666666666666666" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/fragment_slideshow.xml" value="0.1503623188405797" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/nav_header_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/single_ad_item.xml" value="0.1" />
+        <entry key="..\:/code/mobile/app/src/main/res/layout/single_post_item_user_profile.xml" value="0.3333333333333333" />
+        <entry key="..\:/code/mobile/app/src/main/res/menu/activity_main_drawer.xml" value="0.1" />
       </map>
     </option>
   </component>
