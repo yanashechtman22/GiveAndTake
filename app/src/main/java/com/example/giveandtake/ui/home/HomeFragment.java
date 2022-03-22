@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
 
         addPostButton = view.findViewById(R.id.add_new_post);
         swipeRefresh = view.findViewById(R.id.postsList_swipeRefresh);
-        swipeRefresh.setOnRefreshListener(() -> AppModel.instance.refreshPostsList());
+        swipeRefresh.setOnRefreshListener(AppModel.instance::refreshPostsList);
 
         RecyclerView postsList = view.findViewById(R.id.posts_rv);
         postsList.setHasFixedSize(true);
@@ -67,14 +67,7 @@ public class HomeFragment extends Fragment {
 
         homeViewModel.getPosts().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(AppModel.instance.getPostListLoadingState().getValue() == PostsListLoadingState.loading);
-        AppModel.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), postsListLoadingState -> {
-            if (postsListLoadingState == PostsListLoadingState.loading){
-                swipeRefresh.setRefreshing(true);
-            }else{
-                swipeRefresh.setRefreshing(false);
-            }
-
-        });
+        AppModel.instance.getPostListLoadingState().observe(getViewLifecycleOwner(), postsListLoadingState -> swipeRefresh.setRefreshing(postsListLoadingState == PostsListLoadingState.loading));
         return view;
     }
 
@@ -84,8 +77,8 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        inflater.inflate(R.menu.main,menu);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search_posts).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
@@ -104,19 +97,16 @@ public class HomeFragment extends Fragment {
                 return true;
             }
         });
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId() == R.id.search_posts) {
-            return true;
-        }
-        return false;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return item.getItemId() == R.id.search_posts;
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView postContent;
-        private ImageView postImage;
+    static class ItemViewHolder extends RecyclerView.ViewHolder {
+        private final TextView postContent;
+        private final ImageView postImage;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -131,8 +121,7 @@ public class HomeFragment extends Fragment {
         @Override
         public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.single_post_item, parent, false);
-            ItemViewHolder itemViewHolder = new ItemViewHolder(view);
-            return itemViewHolder;
+            return new ItemViewHolder(view);
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
@@ -142,7 +131,7 @@ public class HomeFragment extends Fragment {
             holder.postContent.setText(post.getContent());
             holder.postImage.setImageResource(R.drawable.image2);
             String postImageUrl = post.getImageUrl();
-            if (postImageUrl != null && postImageUrl.length()>0) {
+            if (postImageUrl != null && postImageUrl.length() > 0) {
                 Picasso.get()
                         .load(postImageUrl)
                         .into(holder.postImage);
@@ -156,17 +145,17 @@ public class HomeFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public int getItemCount() {
-            if(homeViewModel.getPosts().getValue() == null){
+            if (homeViewModel.getPosts().getValue() == null) {
                 return 0;
             }
-            return homeViewModel.getPosts().getValue().size() ;
+            return homeViewModel.getPosts().getValue().size();
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         public void filter(String query) {
-            if(query.isEmpty()){
+            if (query.isEmpty()) {
                 AppModel.instance.refreshPostsList();
-            }else{
+            } else {
                 List<Post> newPosts = AppModel.instance.getByQuery(query);
                 homeViewModel.setPosts(newPosts);
             }

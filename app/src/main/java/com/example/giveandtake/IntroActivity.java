@@ -23,13 +23,9 @@ public class IntroActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (AuthenticationModel.instance.isSignedIn()){
-                AppModel.instance.mainThread.post(() -> {
-                    toFeedActivity();
-                });
+                AppModel.instance.mainThread.post(this::toFeedActivity);
             }else{
-                AppModel.instance.mainThread.post(() -> {
-                    toLoginActivity();
-                });
+                AppModel.instance.mainThread.post(this::toLoginActivity);
             }
         });
     }

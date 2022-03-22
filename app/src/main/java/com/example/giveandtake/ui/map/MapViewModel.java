@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MapViewModel extends ViewModel {
 
-    private List<Post> posts;
+    private final List<Post> posts;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public MapViewModel() {

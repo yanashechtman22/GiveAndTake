@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.example.giveandtake.R;
 import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
-import com.example.giveandtake.model.Post;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
@@ -30,7 +29,6 @@ public class PostDetailsFragment extends Fragment {
     TextView contentTv;
     TextView phoneNumberTv;
     TextView locationTv;
-    Post post;
     String postId;
     ImageView imageView;
     ProgressBar progressBar;
