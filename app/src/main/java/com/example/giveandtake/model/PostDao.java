@@ -18,7 +18,7 @@ public interface PostDao {
     @Query("select * from Post WHERE content LIKE '%' || :query || '%' AND isDeleted == 0")
     List<Post> getByQuery(String query);
 
-    @Query("select * from Post where userId = :userId")
+    @Query("select * from Post where userId = :userId AND isDeleted == 0")
     List<Post> getPostsByUserId(String userId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
