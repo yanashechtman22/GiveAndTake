@@ -1,6 +1,7 @@
 package com.example.giveandtake.model;
 
 import static android.content.ContentValues.TAG;
+import static android.os.SystemClock.sleep;
 
 import android.net.Uri;
 import android.util.Log;
@@ -39,6 +40,24 @@ public class FirebaseAuthenticationModel {
                         UserProfileChangeRequest.Builder builder = new UserProfileChangeRequest.Builder();
                         builder.setDisplayName(displayName)
                                 .setPhotoUri(imageUrl);
+                        user.updateProfile(builder.build());
+                        listener.onComplete(user);
+                    } else {
+                        Exception ex = task.getException();
+                        Log.w(TAG, "createUserWithEmail:failure", ex);
+                        listener.onFailure(ex.getMessage());
+                    }
+                });
+    }
+
+    public void registerNewUser(String displayName, String email, String password, AuthenticationModel.AuthListener listener) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "createUserWithEmail:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        UserProfileChangeRequest.Builder builder = new UserProfileChangeRequest.Builder();
+                        builder.setDisplayName(displayName);
                         user.updateProfile(builder.build());
                         listener.onComplete(user);
                     } else {

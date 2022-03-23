@@ -28,6 +28,10 @@ public class AuthenticationModel {
         firebaseAuthenticationModel.registerNewUser(displayName, email, password, imageUrl, listener);
     }
 
+    public void registerNewUser(String displayName, String email, String password, AuthListener listener) {
+        firebaseAuthenticationModel.registerNewUser(displayName, email, password, listener);
+    }
+
     public void loginUser(String email, String password, AuthListener listener) {
         firebaseAuthenticationModel.loginUser(email, password, listener);
     }

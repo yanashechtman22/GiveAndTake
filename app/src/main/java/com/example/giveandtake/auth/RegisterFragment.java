@@ -1,6 +1,8 @@
 package com.example.giveandtake.auth;
 
 
+import static android.os.SystemClock.sleep;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -171,16 +173,22 @@ public class RegisterFragment extends Fragment {
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
         RegisterAuthListener registerListener = new RegisterAuthListener();
-        AppModel.instance.saveImage(imageBitmap, emailText + ".jpg", imageUriString -> {
-            Uri imageUri = Uri.parse(imageUriString);
-            AuthenticationModel.instance.registerNewUser(displayNameText, emailText, passwordText, imageUri, registerListener);
-        });
+        if (imageBitmap != null) {
+            AppModel.instance.saveImage(imageBitmap, emailText + ".jpg", imageUriString -> {
+                Uri imageUri = Uri.parse(imageUriString);
+                AuthenticationModel.instance.registerNewUser(displayNameText, emailText, passwordText, imageUri, registerListener);
+            });
+        } else {
+            AuthenticationModel.instance.registerNewUser(displayNameText, emailText, passwordText, registerListener);
+
+        }
     }
 
     public class RegisterAuthListener implements AuthenticationModel.AuthListener {
 
         @Override
         public void onComplete(FirebaseUser user) {
+            sleep(3000);
             String successMessage = String.format("User %s added successfully", user.getDisplayName());
             Snackbar.make(view, successMessage, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
