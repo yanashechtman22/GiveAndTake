@@ -35,6 +35,7 @@ import com.example.giveandtake.model.AppModel;
 import com.example.giveandtake.model.AuthenticationModel;
 import com.example.giveandtake.model.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -278,8 +279,14 @@ public class ProfileFragment extends Fragment {
         }
 
         private void deletePostFromDb(DialogInterface dialog, int id) {
-            profileViewModel.deletePost(postId);
-            refresh();
+            AppModel.instance.deletePostById(postId, (success) -> {
+                if (success) {
+                    refresh();
+                } else {
+                    Snackbar.make(view, "unable to delete post", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
         }
     }
 
