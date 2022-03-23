@@ -1,11 +1,14 @@
 package com.example.giveandtake.ui.profile;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.giveandtake.MyApplication;
 import com.example.giveandtake.R;
 import com.example.giveandtake.auth.LoginActivity;
 import com.example.giveandtake.common.PostsListLoadingState;
@@ -34,6 +39,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.util.UUID;
 
 public class ProfileFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
@@ -47,9 +55,13 @@ public class ProfileFragment extends Fragment {
     UserInfo userInfo;
     ImageView picture;
     ImageView editNameButton;
-    ImageView editPhotoButton;
-    ImageView editPhotoButton1;
+    ImageView galleryBtn;
+    ImageView cameraBtn;
     String postId;
+    Bitmap imageBitmap;
+    boolean imageNotEmpty = false;
+    private static final int REQUEST_CAMERA = 1;
+    private static final int REQUEST_GALLERY = 100;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -76,8 +88,64 @@ public class ProfileFragment extends Fragment {
 
         editNameButton.setOnClickListener(v -> changeNameButton());
 
+        cameraBtn.setOnClickListener(v -> {
+            imageNotEmpty = true;
+            openCam();
+        });
+        galleryBtn.setOnClickListener(v -> {
+            imageNotEmpty = true;
+            openGallery();
+        });
+
         return view;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
+            assert data != null;
+            Bundle extras = data.getExtras();
+            imageBitmap = (Bitmap) extras.get("data");
+            picture.setImageBitmap(imageBitmap);
+        } else if (requestCode == REQUEST_GALLERY && resultCode == Activity.RESULT_OK) {
+            assert data != null;
+            Uri imageUrl = data.getData();
+            try {
+                imageBitmap = MediaStore.Images.Media.getBitmap(MyApplication.getContext()
+                        .getContentResolver(), imageUrl);
+                picture.setImageBitmap(imageBitmap);
+                updatePhotoOnFireBase();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    private void updatePhotoOnFireBase() {
+        FirebaseUser user = AuthenticationModel.instance.getFireBaseUser();
+
+        String adImageId = UUID.randomUUID().toString();
+        AppModel.instance.saveImage(imageBitmap, adImageId + ".jpg", url -> {
+            UserProfileChangeRequest.Builder builder = new UserProfileChangeRequest.Builder();
+            builder.setPhotoUri(Uri.parse(url));
+            user.updateProfile(builder.build());
+        });
+    }
+
+
+    private void openGallery() {
+        Intent i = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, REQUEST_GALLERY);
+    }
+
+    private void openCam() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMERA);
+    }
+
 
     private void changeNameButton() {
         if (name.getInputType() == InputType.TYPE_NULL) {
@@ -123,16 +191,18 @@ public class ProfileFragment extends Fragment {
         addNewPost = view.findViewById(R.id.profile_user_add_new_post);
         picture = view.findViewById(R.id.profile_user_picture_profile);
         editNameButton = view.findViewById(R.id.profile_user_edit_name_profile);
-        editPhotoButton = view.findViewById(R.id.profile_user_edit_photo_profile_gallery);
-        editPhotoButton1 = view.findViewById(R.id.profile_user_edit_photo_profile_cam);
+        galleryBtn = view.findViewById(R.id.profile_user_edit_photo_profile_gallery);
+        cameraBtn = view.findViewById(R.id.profile_user_edit_photo_profile_cam);
 
         Uri imageUri = user.getPhotoUrl();
         if (imageUri != null) {
             Picasso.get().load(imageUri).into(picture);
         } else {
-            Picasso.get().load(R.drawable.image2).into(picture);        }
+            Picasso.get().load(R.drawable.image2).into(picture);
+        }
         name.setText(user.getDisplayName());
         name.setInputType(InputType.TYPE_NULL);
+        name.setEnabled(false);
         email.setText(user.getEmail());
     }
 

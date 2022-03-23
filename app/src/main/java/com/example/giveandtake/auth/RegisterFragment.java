@@ -3,14 +3,11 @@ package com.example.giveandtake.auth;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +21,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -36,9 +32,7 @@ import com.example.giveandtake.utils.EmailValidator;
 import com.example.giveandtake.utils.InputValidator;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
-import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.io.IOException;
 
 public class RegisterFragment extends Fragment {
@@ -48,7 +42,8 @@ public class RegisterFragment extends Fragment {
     EditText email;
     EditText password;
     Button registerBtn;
-    CardView validationCard;
+    CardView validationCardPassword;
+    CardView validationCardEmail;
     ProgressBar progressBar;
     View view;
     ImageButton galleryBtn;
@@ -71,7 +66,8 @@ public class RegisterFragment extends Fragment {
         email = view.findViewById(R.id.et_email);
         password = view.findViewById(R.id.et_password);
         registerBtn = view.findViewById(R.id.btn_register);
-        validationCard = view.findViewById(R.id.card1);
+        validationCardPassword = view.findViewById(R.id.validation_password_card);
+        validationCardEmail = view.findViewById(R.id.validation_email_card);
         progressBar = view.findViewById(R.id.simpleProgressBar);
         galleryBtn = view.findViewById(R.id.register_gallery_button);
         cameraBtn = view.findViewById(R.id.register_camera_button);
@@ -79,12 +75,12 @@ public class RegisterFragment extends Fragment {
 
 
         cameraBtn.setOnClickListener(v -> {
-            imageNotEmpty=true;
+            imageNotEmpty = true;
             openCam();
             checkInputValidation();
         });
         galleryBtn.setOnClickListener(v -> {
-            imageNotEmpty=true;
+            imageNotEmpty = true;
             openGallery();
             checkInputValidation();
         });
@@ -98,9 +94,15 @@ public class RegisterFragment extends Fragment {
         });
 
         email.addTextChangedListener(new InputValidator(email) {
+            @SuppressLint("ResourceType")
             @Override
             public void validate(TextView textView, String text) {
                 emailValid = validateEmail(text);
+                if (emailValid) {
+                    validationCardEmail.setCardBackgroundColor(Color.parseColor(getString(R.color.colorAccent)));
+                } else {
+                    validationCardEmail.setCardBackgroundColor(Color.parseColor("#dcdcdc"));
+                }
                 checkInputValidation();
             }
         });
@@ -110,10 +112,10 @@ public class RegisterFragment extends Fragment {
             @Override
             public void validate(TextView textView, String text) {
                 if (text.length() >= MIN_PASS_LENGTH) {
-                    validationCard.setCardBackgroundColor(Color.parseColor(getString(R.color.colorAccent)));
+                    validationCardPassword.setCardBackgroundColor(Color.parseColor(getString(R.color.colorAccent)));
                     passwordValid = true;
                 } else {
-                    validationCard.setCardBackgroundColor(Color.parseColor("#dcdcdc"));
+                    validationCardPassword.setCardBackgroundColor(Color.parseColor("#dcdcdc"));
                     passwordValid = false;
                 }
                 checkInputValidation();
@@ -134,6 +136,7 @@ public class RegisterFragment extends Fragment {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -168,7 +171,7 @@ public class RegisterFragment extends Fragment {
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
         RegisterAuthListener registerListener = new RegisterAuthListener();
-        AppModel.instance.saveImage(imageBitmap,emailText + ".jpg",imageUriString -> {
+        AppModel.instance.saveImage(imageBitmap, emailText + ".jpg", imageUriString -> {
             Uri imageUri = Uri.parse(imageUriString);
             AuthenticationModel.instance.registerNewUser(displayNameText, emailText, passwordText, imageUri, registerListener);
         });

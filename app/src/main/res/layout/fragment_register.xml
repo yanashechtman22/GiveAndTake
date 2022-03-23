@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".auth.LoginActivity">
+
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         tools:context=".auth.LoginActivity">
 
@@ -20,39 +17,37 @@
             android:id="@+id/tv_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register"
-            android:textAlignment="center"
-            android:textSize="50sp"
             android:layout_marginStart="25dp"
+            android:layout_marginTop="60dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/indigo_daisy"
-            android:layout_marginTop="60dp"/>
+            android:text="@string/register"
+            android:textAlignment="center"
+            android:textSize="50sp" />
 
         <TextView
             android:id="@+id/tv_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register_tag"
-            android:textSize="17sp"
-            android:fontFamily="@font/roboto_regular"
             android:layout_marginStart="25dp"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/register_tag"
+            android:textSize="17sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/register_camera_button"
                 android:layout_width="47dp"
                 android:layout_height="49dp"
                 android:layout_marginTop="0dp"
-                android:layout_toRightOf="@id/register_gallery_button"
                 android:layout_marginEnd="15dp"
-                android:src="@drawable/ic_menu_camera"
-                />
+                android:layout_toRightOf="@id/register_gallery_button"
+                android:src="@drawable/ic_menu_camera" />
 
             <ImageButton
                 android:id="@+id/register_gallery_button"
@@ -60,8 +55,7 @@
                 android:layout_height="47dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="20dp"
-                android:src="@drawable/ic_menu_gallery"
-                />
+                android:src="@drawable/ic_menu_gallery" />
 
 
             <ImageView
@@ -76,86 +70,120 @@
         </RelativeLayout>
 
 
-
         <EditText
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/your_name"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
-            android:padding="15dp"
-            android:inputType="textPersonName"
-            android:fontFamily="@font/roboto_regular"
             android:background="@drawable/et_custom"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/your_name"
+            android:inputType="textPersonName"
+            android:padding="15dp"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/e_mail"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
-            android:padding="15dp"
-            android:fontFamily="@font/roboto_regular"
-            android:inputType="textEmailAddress"
             android:background="@drawable/et_custom"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/e_mail"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
             android:textSize="15sp" />
 
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/password"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
-            android:padding="15dp"
-            android:fontFamily="@font/roboto_regular"
-            android:inputType="textPassword"
             android:background="@drawable/et_custom"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:padding="15dp"
             android:textSize="15sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Password must be "
             android:layout_marginTop="10dp"
+            android:text="Validation :"
             android:textColor="@android:color/black"
-            android:textSize="18sp"
-            />
+            android:textSize="18sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal">
+
             <androidx.cardview.widget.CardView
-                android:id="@+id/card1"
+                android:id="@+id/validation_password_card"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_gravity="center"
                 app:cardBackgroundColor="#dcdcdc"
-                app:cardCornerRadius="25dp"
-                android:layout_gravity="center">
+                app:cardCornerRadius="25dp">
+
                 <ImageView
-                    android:layout_gravity="center"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:background="@drawable/ic_check"
-                    />
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_check" />
             </androidx.cardview.widget.CardView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@android:color/black"
-                android:text="At least 6 character"
-                android:gravity="center|start"
                 android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginLeft="10dp" />
+                android:gravity="center|start"
+                android:text="@string/password_format"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/validation_email_card"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="#dcdcdc"
+                app:cardCornerRadius="25dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_check" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center|start"
+                android:text="@string/email_format"
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
         <RelativeLayout
@@ -172,19 +200,19 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/btn_custom"
+                android:enabled="false"
                 android:fontFamily="@font/roboto_regular"
                 android:text="@string/register"
-                android:enabled="false"
                 android:textColor="@android:color/white" />
         </RelativeLayout>
     </LinearLayout>
+
     <ProgressBar
         android:id="@+id/simpleProgressBar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:visibility="invisible"
-        android:indeterminateTint="@color/colorPrimary"
         android:layout_centerInParent="true"
-        />
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/colorPrimary"
+        android:visibility="invisible" />
 </RelativeLayout>

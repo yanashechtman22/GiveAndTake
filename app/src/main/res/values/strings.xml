@@ -43,5 +43,8 @@
     <string name="user_phone">user phone</string>
     <string name="user_email">user email</string>
     <string name="log_out">Log Out</string>
+    <string name="searchPost">Search</string>
+    <string name="email_format">Email must be at this format: email@domain.com</string>
+    <string name="password_format">Password must be at least 6 character</string>
     <integer name="min_password_length">6</integer>
 </resources>

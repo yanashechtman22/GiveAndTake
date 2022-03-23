@@ -7,7 +7,7 @@
         android:id="@+id/search_posts"
         android:icon="@drawable/ic_search_black_24dp"
         android:orderInCategory="100"
-        android:title="Search"
+        android:title="@string/searchPost"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
 </menu>
