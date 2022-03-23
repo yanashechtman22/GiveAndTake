@@ -40,10 +40,12 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
+
             <ImageButton
                 android:id="@+id/register_camera_button"
                 android:layout_width="47dp"
                 android:layout_height="49dp"
+                android:layout_marginLeft="52dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="15dp"
                 android:layout_toRightOf="@id/register_gallery_button"
@@ -57,7 +59,6 @@
                 android:layout_marginEnd="20dp"
                 android:src="@drawable/ic_menu_gallery" />
 
-
             <ImageView
                 android:id="@+id/register_image_imv"
                 android:layout_width="152dp"
@@ -66,6 +67,25 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="147dp"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="190dp"
+                app:srcCompat="@drawable/et_custom" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="199dp"
+                android:layout_marginEnd="65dp"
+                app:srcCompat="@android:drawable/editbox_dropdown_light_frame" />
 
         </RelativeLayout>
 
@@ -115,6 +135,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
             android:text="Validation :"
             android:textColor="@android:color/black"
@@ -132,14 +153,16 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
                 app:cardBackgroundColor="#dcdcdc"
                 app:cardCornerRadius="25dp">
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:background="@drawable/ic_check" />
+
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -165,12 +188,14 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
                 app:cardBackgroundColor="#dcdcdc"
                 app:cardCornerRadius="25dp">
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:id="@+id/imageView3"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:background="@drawable/ic_check" />
             </androidx.cardview.widget.CardView>
@@ -204,6 +229,7 @@
                 android:fontFamily="@font/roboto_regular"
                 android:text="@string/register"
                 android:textColor="@android:color/white" />
+
         </RelativeLayout>
     </LinearLayout>
 
